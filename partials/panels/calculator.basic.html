@@ -1,0 +1,8 @@
+<!-- Default
+================================================== -->
+<ng-form class="form-horizontal">
+	<div class="control-group" ng-repeat="field in fields">
+		<label class="control-label" for="{{field.id}}" ng-bind-html-unsafe="field.name"></label>
+		<custom-input type="{{field.input.type}}"></custom-input>
+	</div>
+</ng-form>

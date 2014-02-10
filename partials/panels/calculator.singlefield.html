@@ -1,0 +1,11 @@
+<!-- Calculator
+================================================== -->
+<ng-form class="form-horizontal error" >
+	<div class="control-group" ng-repeat="field in fields">
+		<label class="control-label" for="{{field.id}}" ng-bind-html-unsafe="field.name"></label>
+		<div class="input-append">
+			<custom-input type="{{field.input.type}}"></custom-input>
+			<button class="btn" type="button" ng-click="field.value=''"><i class="icon-remove-sign"></i></button>
+		</div>
+	</div>
+</ng-form>
