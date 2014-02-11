@@ -1,8 +1,10 @@
 <!-- Default
 ================================================== -->
 <ng-form class="form-horizontal">
-	<div class="control-group" ng-repeat="field in fields">
-		<label class="control-label" for="{{field.id}}" ng-bind-html-unsafe="field.name"></label>
-		<custom-input type="{{field.input.type}}"></custom-input>
+	<div class="form-group" ng-repeat="field in fields">
+		<label class="col-sm-2 control-label" for="{{field.id}}" ng-bind-html="field.name | to_trusted"></label>
+		<div class="col-sm-10">
+			<custom-input type="{{field.input.type}}"></custom-input>
+		</div>
 	</div>
 </ng-form>

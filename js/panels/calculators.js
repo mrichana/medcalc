@@ -335,7 +335,6 @@
 				}
 			},
 			calculator: {
-				divider: true,
 				id: "calculator",
 				name: "Υπολογιστής",
 				template: "calculator.singlefield",

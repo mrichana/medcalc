@@ -97,7 +97,7 @@
 			return {
 				restrict: "E",
 				replace: true,
-				template: '<li><a scrollto ng-href="#{{panel.id}}"><i class="icon-chevron-right" ng-hide="panel.divider"></i> {{panel.name}}</a></li>'
+				template: '<a ng-href="#{{panel.id}}"><span class="glyphicon glyphicon-chevron-right"></span> {{panel.name}}</a>'
 			};
 		}])
 		.directive('result', function() {
@@ -107,7 +107,7 @@
 				scope: {
 					result: '='
 				},
-				template: '<div ng-class="{\'alert\': result.resultlevel!=null, \'alert-error\': result.resultlevel==3, \'alert-warning\': result.resultlevel==2, \'alert-info\': result.resultlevel==1, \'alert-success\': result.resultlevel==0}" class="well well-small"><h3 ng-bind-html-unsafe="result.result"></h3><h4 ng-bind-html-unsafe="result.explanation"></h4></div>'
+				template: '<div ng-class="{\'alert\': result.resultlevel!=null, \'alert-error\': result.resultlevel==3, \'alert-warning\': result.resultlevel==2, \'alert-info\': result.resultlevel==1, \'alert-success\': result.resultlevel==0}" class="well well-small"><h3 ng-bind-html="result.result | to_trusted"></h3><h4 ng-bind-html="result.explanation | to_trusted"></h4></div>'
 			};
 		})
 		.directive('calc', ['$compile', '$http', '$templateCache', function($compile, $http, $templateCache) {
@@ -128,11 +128,6 @@
 					}).
 					then(function(response) {
 						element.replaceWith($compile(element.html())(scope));
-					}).
-					then(function() {
-						$('[data-spy="scroll"]').each(function() {
-							$(this).scrollspy('refresh');
-						});
 					});
 
 					scope.id = scope.panel.id;
@@ -151,13 +146,13 @@
 		.directive('customInput', ['$compile', function($compile) {
 			var options = {
 				none: '',
-				image: '<img ng-src="{{field.url}}"></img>',
-				number: '<input class="control" type="number" step="{{field.input.step}}" min="{{field.input.min}}" max="{{field.input.max}}" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"></input><span class="help-inline">{{field.description}}</span>',
-				text: '<input class="control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"></input><span class="help-inline">{{field.description}}</span>',
-				select: '<select required ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-options="option.value as option.name for option in field.input.options"></select><span class="help-inline">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
-				check: '<button type="button" class="btn" ng-model="field.value" btn-checkbox ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}"><i class=" icon-remove-circle" ng-hide="field.value" /><i class="icon-ok-sign" ng-show="field.value" /></button><span class="help-inline">{{field.description}}</span>',
-				radio: '<div class="btn-group" data-toggle="buttons-checkbox"><button type="button" class="btn span2" ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-inline">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
-				vradio: '<div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox"><button type="button" class="btn span4" ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-inline">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>'
+				image: '<img ng-src="{{field.url}}" class="img-responsive"></img>',
+				number: '<input class="form-control" type="number" step="{{field.input.step}}" min="{{field.input.min}}" max="{{field.input.max}}" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"></input><span class="help-inline">{{field.description}}</span>',
+				text: '<input class="form-control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"></input><span class="help-inline">{{field.description}}</span>',
+				select: '<select class="form-control" required ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-options="option.value as option.name for option in field.input.options"></select><span class="help-inline">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
+				check: '<button type="button" class="btn" ng-model="field.value" btn-checkbox ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}"><span class="glyphicon glyphicon-remove-circle" ng-hide="field.value" /><span class="glyphicon glyphicon-ok-sign" ng-show="field.value" /></button><span class="help-inline">{{field.description}}</span>',
+				radio: '<div class="btn-group" data-toggle="buttons-checkbox"><button type="button" class="btn span2" ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
+				vradio: '<div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox"><button type="button" class="btn span4" ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>'
 			};
 			return {
 				restrict: "E",

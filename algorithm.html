@@ -108,8 +108,8 @@
           <calc panel='panel'></calc>
 
           <div class="well well-small">
-            <h3 ng-bind-html-unsafe="panel.result"></h3>
-            <h4 ng-bind-html-unsafe="panel.explanation"></h4>
+            <h3 ng-bind-html="panel.result | to_trusted"></h3>
+            <h4 ng-bind-html="panel.explanation| to_trusted"></h4>
           </div>
         </section>
       </div>
