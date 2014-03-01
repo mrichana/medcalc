@@ -11,6 +11,6 @@
 		'ui.bootstrap'
 		],
 	function($locationProvider) {
-		$locationProvider.html5Mode(true);
+		$locationProvider.html5Mode(false);
 	});
 })();

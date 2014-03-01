@@ -97,7 +97,7 @@
 			return {
 				restrict: "E",
 				replace: true,
-				template: '<a ng-href="#{{panel.id}}"><span class="glyphicon glyphicon-chevron-right"></span> {{panel.name}}</a>'
+				template: '<a scrollto ng-href="#{{panel.id}}"><span class="glyphicon glyphicon-chevron-right"></span> {{panel.name}}</a>'
 			};
 		}])
 		.directive('result', function() {
