@@ -7,6 +7,8 @@
 		'medicalCalculator.filters',
 		'medicalCalculator.services',
 		'medicalCalculator.directives',
+        'ngTouch',
+        'ngAnimate',
 		'ngSanitize',
 		'ui.bootstrap'
 		],

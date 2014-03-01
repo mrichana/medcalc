@@ -7,17 +7,15 @@
 	controller('calculatorCtrl', function($scope, $location, $anchorScroll, 
 										  basicCalculators, 
 										  triplexCalculators) {
-		$scope.filters = {
-			basic: basicCalculators,
-			triplex: triplexCalculators
-		};
+		$scope.filters = [
+            {name: 'Βασικά', content: basicCalculators},
+            {name: 'Triplex', content: triplexCalculators}
+        ];
 
-		$scope.setFilter = function(filter) {
-			$scope.panels = angular.copy($scope.filters[filter]);
-			$scope.activeFilter = filter;
-		};
-		$scope.setFilter('basic');
-
+        ($scope.setFilter = function(filter) {
+			$scope.panels = angular.copy($scope.filters[filter].content);
+            $scope.filters.active = filter;
+		})(0);
 	}).
 	controller('algorithmCtrl', function($scope, $location, $anchorScroll, algorithms) {
 		$scope.panels = [];

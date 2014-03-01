@@ -361,7 +361,7 @@
 						this.calc.error = false;
 						result = scope.$new(true).$eval(calculation);
 						resultlevel = null;
-						if (isNaN(result)) throw "nan";
+						//if (isNaN(result)) throw "nan";
 					} catch (err) {
 						this.calc.error = true;
 						result = "";
