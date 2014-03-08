@@ -14,6 +14,7 @@
 
         ($scope.setFilter = function(filter) {
 			$scope.panels = angular.copy($scope.filters[filter].content);
+            $scope.slideAnimationInvert=($scope.filters.active < filter);
             $scope.filters.active = filter;
 		})(0);
 	}).
