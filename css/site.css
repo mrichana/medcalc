@@ -1,3 +1,27 @@
-.animate.ng-enter { color: red; }
+.slide.ng-enter {
+    opacity: 0;
+    -webkit-animation: 1s fadeInLeftBig;
+    animation: 1s fadeInLeftBig;
+}
+.slide.ng-enter.slideRight {
+    -webkit-animation: 1s fadeInRightBig;
+    animation: 1s fadeInRightBig;
+}
 
-.animate.ng-leave {  color: green; }
+.slide.ng-enter-stagger{
+    -webkit-animation-delay:0.2s;
+    animation-delay:0.2s;
+
+    /* yes we still need to do this too */
+    -webkit-animation-duration:0;
+    animation-duration:0;
+}
+
+.fade1.ng-enter, .fade1.ng-leave {
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.fade1.ng-leave.ng-leave-active {
+    background-color: #f5f5f5;
+}
