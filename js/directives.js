@@ -12,10 +12,33 @@
 						attrs.scrollto = attrs.href;
 					}
 					var top = $(attrs.scrollto).offset().top;
-					$('body,html').animate({ scrollTop: top - 20 }, 800);
+					$('body,html').animate({ scrollTop: top - 40 }, 800);
 				});
 			};
 		}])
+        .directive('affix', function ($window) {
+            return {
+                restrict: 'A',
+                link: function ($scope, elem, attrs) {
+                    $($window).scroll(function () {
+                        var scroll = $window.scrollY;
+                        if (scroll > elem.offset().top)
+                        {
+                            var $body = $('body');
+                            this.originalOffset = elem.offset().top;
+                            this.originalPadding = parseInt($body.css('padding-top'), 10);
+                            $body.css('padding-top', this.originalPadding + (parseInt(attrs['affix-offset'], 10)||70));
+                            elem.addClass(attrs['affix']||'affixed');
+                        }
+                        if (scroll < this.originalOffset) {
+                            var $body = $('body');
+                            $body.css('padding-top', this.originalPadding);
+                            elem.removeClass(attrs['affix']||'affixed');
+                        }
+                    });
+                }
+            };
+        })
         .directive('scrollSpy', function ($window) {
             return {
                 restrict: 'A',
@@ -55,10 +78,11 @@
 
                             // catch case where a `spy` does not have an associated `id` anchor
                             if (spyElems[spy.id].offset() === undefined) {
-                                continue;
+                                spyElems[spy.id] = elem.find('#' + spy.id);
+                                //continue;
                             }
 
-                            if ((pos = spyElems[spy.id].offset().top) - $window.scrollY <= 0) {
+                            if ((pos = (spyElems[spy.id].offset().top - 40)) - $window.scrollY <= 0) {
                                 // the window has been scrolled past the top of a spy element
                                 spy.pos = pos;
 
@@ -87,10 +111,12 @@
                 restrict: "A",
                 require: "^scrollSpy",
                 link: function(scope, elem, attrs, affix) {
+                    /*
                     elem.click(function () {
                         $location.hash(attrs.spy);
                         $anchorScroll();
                     });
+                    */
 
                     affix.addSpy({
                         id: attrs.spy,
@@ -108,7 +134,7 @@
 			return {
 				restrict: "E",
 				replace: true,
-				template: '<a scrollto ng-href="#{{panel.id}}" spy="{{panel.id}}">{{panel.name}} <span class="glyphicon glyphicon-chevron-right"></span></a>'
+				template: '<a scrollto ng-href="#{{panel.id}}" spy="{{panel.id}}"><span class="glyphicon glyphicon-chevron-right"> {{panel.name}}</span></a>'
 			};
 		}])
 		.directive('result', function() {
