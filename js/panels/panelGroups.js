@@ -5,9 +5,15 @@
 
 	angular.module('medicalCalculator.panelgroups', ['medicalCalculator.panels']).
 	factory('basicCalculators', function (calculators) {
-		return calculators;
-	}).
+		    return calculators;
+	    }
+    ).
 	factory('triplexCalculators', function (triplex) {
-		return triplex;
-	});
+		    return triplex;
+	    }
+    ).
+    factory('algorithmCalculators', function (algorithms) {
+            return algorithms;
+        }
+    );
 })();

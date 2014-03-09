@@ -15,7 +15,7 @@
 	 */
 	angular.module('medicalCalculator.panels').
 	factory('algorithms', ['$http', '$templateCache', function($http, $templateCache) {
-		var panels = ["chestpain", "dissection", "nstemi"];
+		var panels = [];
 		var ret = {};
 
 		angular.forEach(panels, function(value, key){

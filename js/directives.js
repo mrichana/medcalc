@@ -4,18 +4,6 @@
 	/* Directives */
 
 	angular.module('medicalCalculator.directives', [])
-		.directive('fillparent', function($window) {
-			return function(scope, element) {
-				scope.width = element.parent().width();
-				scope.height = element.parent().height();
-				$($window).bind('resize', function() {
-					scope.$apply(function() {
-						scope.width = element.parent().width();
-						scope.height = element.parent().height();
-					});
-				});
-			};
-		})
 		.directive('scrollto', [function() {
 			return function(scope, elm, attrs) {
 				elm.bind('click', function(e) {
@@ -24,80 +12,103 @@
 						attrs.scrollto = attrs.href;
 					}
 					var top = $(attrs.scrollto).offset().top;
-					$('body,html').animate({
-						scrollTop: top
-					}, 800);
+					$('body,html').animate({ scrollTop: top - 20 }, 800);
 				});
 			};
 		}])
-		.directive('ecgView', function($parse) {
-			return function(scope, element, attrs) {
-				scope.$watch("[pixelsPerCm,width,height]", function(newValue, oldValue) {
-					var ecgCanvas = element[0];
-					var context = ecgCanvas.getContext('2d');
-	
-					context.clearRect(0, 0, newValue[1], newValue[2]);
-					context.strokeStyle = "#ff0000";
-					for (var pos = 0; pos < newValue[1]; pos += newValue[0]) {
-						for (var count = 0; count < 2; count++) {
-							if (count === 0) {
-								context.beginPath();
-								context.lineWidth = 1;
-								context.fillText(Math.round(pos / newValue[0]), pos + 2, 10, newValue[0]);
-								context.fillText(Math.round(pos / newValue[0]), pos + 2, newValue[2] - 18, newValue[0]);
-								context.moveTo(pos, 0);
-								context.lineTo(pos, newValue[2]);
-								context.stroke();
-							} else {
-								context.beginPath();
-								context.lineWidth = 0.5;
-								context.moveTo(pos + newValue[0] / 2, 0);
-								context.lineTo(pos + newValue[0] / 2, newValue[2]);
-								context.stroke();
-							}
-						}
-					}
-				}, true);
-			};
-		})
-		.directive('persist', ['storage', function($parse, localStorage) {
-			return {
-				require: 'ngModel',
-				link: function(scope, element, attrs, model) {
-					var loaded;
-					var localStorageName;
-					if (angular.isUndefined(localStorageName)) {
-						var ngController = element.attr("ng-controller") || (function(par) {
-							return (function recursive(par) { //Expects ng-controller to be defined in the DOM or untested behaevure
-								par = par.parent();
-								return (par.attr("ng-controller") || recursive(par));
-							})(element); // Avoid closest or parents jquery function as jquery may not be loaded
-						})(element);
-	
-						localStorageName = attrs.persist + (attrs.persist ? "." : "") + ngController + "." + attrs.ngModel;
-	
-					}
-					if (angular.isUndefined(loaded)) {
-						loaded = {};
-					}
-					if (!loaded[attrs.ngModel]) {
-						var storedValue = localStorage.get(localStorageName);
-						if (storedValue) {
-							scope[attrs.ngModel] = storedValue;
-							loaded[attrs.ngModel] = true;
-						}
-					}
-					scope.$watch(attrs.ngModel, function(value) {
-						localStorage.set(localStorageName, value);
-					});
-				}
-			};
-		}])
+        .directive('scrollSpy', function ($window) {
+            return {
+                restrict: 'A',
+                controller: function ($scope) {
+                    $scope.spies = [];
+                    this.addSpy = function (spyObj) {
+                        $scope.spies.push(spyObj);
+                    };
+                },
+                link: function (scope, elem, attrs) {
+                    var spyElems;
+                    spyElems = [];
+
+                    scope.$watch('spies', function (spies) {
+                        var spy, _i, _len, _results;
+                        _results = [];
+
+                        for (_i = 0, _len = spies.length; _i < _len; _i++) {
+                            spy = spies[_i];
+
+                            if (spyElems[spy.id] == null) {
+                                _results.push(spyElems[spy.id] = elem.find('#' + spy.id));
+                            }
+                        }
+                        return _results;
+                    });
+
+                    $($window).scroll(function () {
+                        var highlightSpy, pos, spy, _i, _len, _ref;
+                        highlightSpy = null;
+                        _ref = scope.spies;
+
+                        // cycle through `spy` elements to find which to highlight
+                        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                            spy = _ref[_i];
+                            spy.out();
+
+                            // catch case where a `spy` does not have an associated `id` anchor
+                            if (spyElems[spy.id].offset() === undefined) {
+                                continue;
+                            }
+
+                            if ((pos = spyElems[spy.id].offset().top) - $window.scrollY <= 0) {
+                                // the window has been scrolled past the top of a spy element
+                                spy.pos = pos;
+
+                                if (highlightSpy == null) {
+                                    highlightSpy = spy;
+                                }
+                                if (highlightSpy.pos < spy.pos) {
+                                    highlightSpy = spy;
+                                }
+                            }
+                        }
+
+                        // select the last `spy` if the scrollbar is at the bottom of the page
+                        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                            spy.pos = pos;
+                            highlightSpy = spy;
+                        }
+
+                        return highlightSpy != null ? highlightSpy["in"]() : void 0;
+                    });
+                }
+            };
+        })
+        .directive('spy', function ($location, $anchorScroll) {
+            return {
+                restrict: "A",
+                require: "^scrollSpy",
+                link: function(scope, elem, attrs, affix) {
+                    elem.click(function () {
+                        $location.hash(attrs.spy);
+                        $anchorScroll();
+                    });
+
+                    affix.addSpy({
+                        id: attrs.spy,
+                        in: function() {
+                            elem.addClass('active');
+                        },
+                        out: function() {
+                            elem.removeClass('active');
+                        }
+                    });
+                }
+            };
+        })
 		.directive('navCalc', ['$compile', function($compile) {
 			return {
 				restrict: "E",
 				replace: true,
-				template: '<a scrollto ng-href="#{{panel.id}}"><span class="glyphicon glyphicon-chevron-right"></span> {{panel.name}}</a>'
+				template: '<a scrollto ng-href="#{{panel.id}}" spy="{{panel.id}}">{{panel.name}} <span class="glyphicon glyphicon-chevron-right"></span></a>'
 			};
 		}])
 		.directive('result', function() {

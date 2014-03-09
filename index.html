@@ -40,7 +40,46 @@
 </head>
 
 <body ng-controller="calculatorCtrl">
-	<div class="container-fluid">
+<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Project name</a>
+            </div>
+            <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Nav header</li>
+                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="../navbar/">Default</a></li>
+                    <li><a href="../navbar-static-top/">Static top</a></li>
+                    <li class="active"><a href="./">Fixed top</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+
+    <div class="container-fluid" scroll-spy>
 		<div class="jumbotron" id="overview">
 			<h1>
 				Ιατρικό Βοήθημα
@@ -50,11 +89,14 @@
 			</h1>
 		</div>
 
-        <ul class="nav nav-tabs nav-justified">
-            <li ng-repeat="filter in filters" class="fade1" ng-class="{active: filters.active == $index}"><a href ng-click="setFilter($index)">{{filter.name}}</a></li>
+        <ul class="nav nav-pills">
+            <li><a href ng-click="filters.setRelative(-1)"><span class="glyphicon glyphicon-backward"></span></a></li>
+            <li ng-repeat="filter in filters" ng-class="{active: filters.active == $index}"><a href ng-click="filters.setAbsolute($index)">{{filter.name}}</a></li>
+            <li><a href ng-click="filters.setRelative(+1)"><span class="glyphicon glyphicon-forward"></span></a></li>
         </ul>
 
-		<div class="row" ng-swipe-left="setFilter(1)" ng-swipe-right="setFilter(0)">
+		<div class="row" ng-swipe-left="filters.setRelative(+1)" ng-swipe-right="filters.setRelative(-1)">
+
 			<div class="col-md-3">
 				<div class="list-group">
 					<nav-calc class='list-group-item slide' ng-class="{slideRight: slideAnimationInvert}" panel='panel' ng-repeat="panel in panels" ></nav-calc>
