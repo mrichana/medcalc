@@ -1,14 +1,14 @@
-.slide.ng-enter {
+.slide1.ng-enter {
     opacity: 0;
     -webkit-animation: 1s fadeInLeftBig;
     animation: 1s fadeInLeftBig;
 }
-.slide.ng-enter.slideRight {
+.slide1.ng-enter.slideRight {
     -webkit-animation: 1s fadeInRightBig;
     animation: 1s fadeInRightBig;
 }
 
-.slide.ng-enter-stagger{
+.slide1.ng-enter-stagger{
     -webkit-animation-delay:0.2s;
     animation-delay:0.2s;
 
@@ -17,11 +17,31 @@
     animation-duration:0;
 }
 
-.fade1.ng-enter, .fade1.ng-leave {
-    -webkit-transition: all 1s ease;
-    transition: all 1s ease;
+.slide.ng-enter {
+    opacity: 0;
+    -webkit-transition: 1s ease all;
+    transition: 1s ease all;
+
+    -webkit-transform: translateX(-2000px);
+    transform: translateX(-2000px);
 }
 
-.fade1.ng-leave.ng-leave-active {
-    background-color: #f5f5f5;
+.slide.ng-enter.slideRight {
+    -webkit-transform: translateX(2000px);
+    transform: translateX(2000px);
+}
+
+.slide.ng-enter.ng-enter-active {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+}
+
+.slide.ng-enter-stagger{
+    -webkit-transition-delay:0.2s;
+    transition-delay:0.2s;
+
+    /* yes we still need to do this too */
+    -webkit-transition-duration:0;
+    transition-duration:0;
 }
