@@ -54,7 +54,7 @@
             <li ng-repeat="filter in filters" class="fade1" ng-class="{active: filters.active == $index}"><a href ng-click="setFilter($index)">{{filter.name}}</a></li>
         </ul>
 
-		<div class="row">
+		<div class="row" ng-swipe-left="setFilter(1)" ng-swipe-right="setFilter(0)">
 			<div class="col-md-3">
 				<div class="list-group">
 					<nav-calc class='list-group-item slide' ng-class="{slideRight: slideAnimationInvert}" panel='panel' ng-repeat="panel in panels" ></nav-calc>
@@ -62,7 +62,7 @@
 			</div>
 
 			
-			<div class="col-md-9" ng-swipe-left="setFilter(1)" ng-swipe-right="setFilter(0)">
+			<div class="col-md-9">
 				<section id="{{panel.id}}" class="well well-large slide" ng-class="{slideRight: slideAnimationInvert}" ng-repeat="panel in panels">
 					<h1 class="animate">{{panel.name}}</h1>
 					<calc panel='panel'></calc>
