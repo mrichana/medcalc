@@ -40,7 +40,7 @@
 </head>
 
 <body ng-controller="calculatorCtrl">
-    <div class="container-fluid" scroll-spy>
+    <div class="container-fluid">
 		<div class="jumbotron" id="overview">
 			<h1>
 				Ιατρικό Βοήθημα
@@ -50,7 +50,7 @@
 			</h1>
 		</div>
 
-        <div affix="navbar-fixed-top" class="navbar navbar-default" role="navigation">
+        <div affix="navbar-fixed-top" affix-offset="70" class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
@@ -71,21 +71,22 @@
             </div>
         </div>
 
-		<div class="row" ng-swipe-left="filters.setRelative(+1)" ng-swipe-right="filters.setRelative(-1)">
-
-			<div class="col-md-3 navigation">
-				<div class="list-group">
+		<div class="doc row" ng-swipe-left="filters.setRelative(+1)" ng-swipe-right="filters.setRelative(-1)">
+			<div class="col-md-3">
+				<div class="navigation list-group">
 					<nav-calc class='list-group-item slide' ng-class="{slideRight: slideAnimationInvert}" panel='panel' ng-repeat="panel in panels" ></nav-calc>
 				</div>
 			</div>
 
 			
 			<div class="col-md-9">
-				<section id="{{panel.id}}" class="well well-large slide" ng-class="{slideRight: slideAnimationInvert}" ng-repeat="panel in panels">
-					<h1 class="animate">{{panel.name}}</h1>
-					<calc panel='panel'></calc>
-					<result result='panel.result'></result>
-				</section>
+                <div class="panels">
+                    <section id="{{panel.id}}" class="well well-large slide" ng-class="{slideRight: slideAnimationInvert}" ng-repeat="panel in panels">
+                        <h1 class="animate">{{panel.name}}</h1>
+                        <calc panel='panel'></calc>
+                        <result result='panel.result'></result>
+                    </section>
+                </div>
 			</div>
 		</div>
 	</div>

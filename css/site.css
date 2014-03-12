@@ -26,8 +26,16 @@
     -webkit-transition-duration:0;
     transition-duration:0;
 }
+.navbar-fixed-top {
+    opacity: 0.9;
+}
+.navbar-nav>li, .navbar-nav>li.active,
+.nav-pills>li, .nav-pills>li.active {
+     -webkit-transition: all ease 0.5s;
+     transition: all ease 0.5s;
+}
 
-.nav-pills>li>a, .nav-pills>li.active>a {
-     -webkit-transition: all ease 1s;
-     transition: all ease 1s;
- }
+.navigation .list-group-item.active {
+    -webkit-transition: 0.5s all ease-in-out;
+    transition: 0.5s all ease-in-out;
+}

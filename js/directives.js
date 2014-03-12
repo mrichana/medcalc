@@ -24,22 +24,44 @@
                         var scroll = $window.scrollY;
                         if (scroll > elem.offset().top)
                         {
-                            var $body = $('body');
                             this.originalOffset = elem.offset().top;
-                            this.originalPadding = parseInt($body.css('padding-top'), 10);
-                            $body.css('padding-top', this.originalPadding + (parseInt(attrs['affix-offset'], 10)||70));
-                            elem.addClass(attrs['affix']||'affixed');
+                            var $body = $('body');
+                            //var offset = angular.isUndefined(attrs['affixOffset'])?70:parseInt(attrs['affixOffset'], 10);
+                            var padding = parseInt($body.css('padding-top'), 10);
+                            var offset = parseInt(attrs['affixOffset'], 10);
+                            $body.css('padding-top', padding + offset);
+                            elem.addClass(attrs['affix']||'affix');
                         }
                         if (scroll < this.originalOffset) {
                             var $body = $('body');
-                            $body.css('padding-top', this.originalPadding);
-                            elem.removeClass(attrs['affix']||'affixed');
+                            var offset = parseInt(attrs['affixOffset'], 10);
+                            var padding = parseInt($body.css('padding-top'), 10);
+                            $body.css('padding-top', padding - offset);
+                            elem.removeClass(attrs['affix']||'affix');
                         }
                     });
                 }
             };
         })
-        .directive('scrollSpy', function ($window) {
+        .directive('scrollSpy', function ($window) { //works but could get a lot more optimised. Check bellow... Also should check first the previous spy element and if still selected, return. Finally if the element does not exist anymore, remove it from the spy array.
+            return {
+                restrict: 'A',
+                link: function ($scope, elem, attrs) {
+                    $($window).scroll(function () {
+                        var scroll = $window.scrollY;
+                        var element = $('#' + attrs['scrollSpy']);
+                        if (!element.length) return;
+                        if (scroll > element.offset().top && scroll < (element.offset().top + element.height()))
+                        {
+                            elem.addClass('active');
+                        } else {
+                            elem.removeClass('active');
+                        }
+                    });
+                }
+            };
+        })
+/*        .directive('scrollSpy', function ($window) {
             return {
                 restrict: 'A',
                 controller: function ($scope) {
@@ -79,6 +101,7 @@
                             // catch case where a `spy` does not have an associated `id` anchor
                             if (spyElems[spy.id].offset() === undefined) {
                                 spyElems[spy.id] = elem.find('#' + spy.id);
+                                if (spyElems[spy.id] = null)
                                 //continue;
                             }
 
@@ -111,12 +134,6 @@
                 restrict: "A",
                 require: "^scrollSpy",
                 link: function(scope, elem, attrs, affix) {
-                    /*
-                    elem.click(function () {
-                        $location.hash(attrs.spy);
-                        $anchorScroll();
-                    });
-                    */
 
                     affix.addSpy({
                         id: attrs.spy,
@@ -130,11 +147,12 @@
                 }
             };
         })
+*/
 		.directive('navCalc', ['$compile', function($compile) {
 			return {
 				restrict: "E",
 				replace: true,
-				template: '<a scrollto ng-href="#{{panel.id}}" spy="{{panel.id}}"><span class="glyphicon glyphicon-chevron-right"> {{panel.name}}</span></a>'
+				template: '<a scrollto ng-href="#{{panel.id}}" scroll-spy="{{panel.id}}"><span class="glyphicon glyphicon-chevron-right"></span> {{panel.name}}</a>'
 			};
 		}])
 		.directive('result', function() {
