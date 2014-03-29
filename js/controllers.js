@@ -4,8 +4,9 @@
     /* Controllers */
 
     angular.module('medicalCalculator.controllers', ['medicalCalculator.panelgroups']).
-        controller('calculatorCtrl', function ($scope, $location, $anchorScroll, basicCalculators, triplexCalculators, algorithmCalculators) {
+        controller('calculatorCtrl', function ($scope, $location, $anchorScroll, patients, basicCalculators, triplexCalculators, algorithmCalculators) {
             $scope.filters = [
+                {name: 'Αρχείο Ασθενών', content: patients},
                 {name: 'Βασικά', content: basicCalculators},
                 {name: 'Triplex', content: triplexCalculators},
                 {name: 'Αλγόριθμοι', content: algorithmCalculators}

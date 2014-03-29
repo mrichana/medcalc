@@ -1,18 +1,22 @@
-(function(){
-	'use strict';
-	
-	angular.module('medicalCalculator.panels', []);
+(function () {
+    'use strict';
 
-	angular.module('medicalCalculator.panelgroups', ['medicalCalculator.panels']).
-	factory('basicCalculators', function (calculators) {
-		    return calculators;
-	    }
+    angular.module('medicalCalculator.panels', []);
+
+    angular.module('medicalCalculator.panelgroups', ['medicalCalculator.panels']).
+        factory('patientFile', function (patients) {
+            return patients;
+        }
     ).
-	factory('triplexCalculators', function (triplex) {
-		    return triplex;
-	    }
+        factory('basicCalculators', function (calculators) {
+            return calculators;
+        }
     ).
-    factory('algorithmCalculators', function (algorithms) {
+        factory('triplexCalculators', function (triplex) {
+            return triplex;
+        }
+    ).
+        factory('algorithmCalculators', function (algorithms) {
             return algorithms;
         }
     );
