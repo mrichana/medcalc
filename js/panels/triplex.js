@@ -87,14 +87,7 @@
               input: {
                 type: "image"
               },
-              url: "img/panels/lavolbpm_01s.jpg"
-            },
-            {
-              id: "image",
-              input: {
-                type: "image"
-              },
-              url: "img/panels/lavolbpm_02s.jpg"
+              url: "img/panels/lav.png"
             }
           ],
           calc: function (newValue, oldValue, scope) {
@@ -169,7 +162,7 @@
               input: {
                 type: "image"
               },
-              url: "img/panels/AVVR.jpg"
+              url: "img/panels/AVVR.png"
             }
           ],
           calc: function (newValue, oldValue, scope) {
@@ -244,7 +237,7 @@
               input: {
                 type: "image"
               },
-              url: "img/panels/AVVR.jpg"
+              url: "img/panels/AVVR.png"
             }
           ],
           calc: function (newValue, oldValue, scope) {
@@ -321,7 +314,7 @@
               input: {
                 type: "image"
               },
-              url: "img/panels/AVVR.jpg"
+              url: "img/panels/AVVR.png"
             }
           ],
           calc: function (newValue, oldValue, scope) {
