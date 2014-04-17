@@ -7,6 +7,7 @@
     <orderEntry type="library" name="underscore-min.js" level="project" />
     <orderEntry type="library" name="AngularJs" level="project" />
     <orderEntry type="library" name="ngStorage.js" level="project" />
+    <orderEntry type="library" name="medcalc node_modules" level="project" />
   </component>
 </module>
 
