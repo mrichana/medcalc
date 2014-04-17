@@ -27,4 +27,9 @@
         $scope.filters.setAbsolute(newValue);
       };
     });
+
+
+  angular.module('medicalFile.controllers', []).
+    controller('fileCtrl', function ($scope, $location, $anchorScroll) {
+    });
 })();
