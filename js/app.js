@@ -30,7 +30,6 @@
       'ngTouch',
       'ngAnimate',
       'ngSanitize',
-      'ngStorage',
       'ui.bootstrap'
     ],
     function ($locationProvider) {

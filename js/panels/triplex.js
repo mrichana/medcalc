@@ -5,7 +5,7 @@
    *
    * Available calculators
    */
-  angular.module('medicalCalculator.panels').
+  angular.module('medical.panels').
     factory('triplex', function () {
       var roundNum = function (thisNum, dec) {
         thisNum = thisNum * Math.pow(10, dec);

@@ -19,7 +19,7 @@
 	<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">   
 	<link rel="shortcut icon" href="img/favicon.png">   
 
-	<script src="lib/underscore-min.js"></script>
+	<script src="lib/underscore.js"></script>
 	<script src="lib/jquery.min.js"></script>
 	<script src="lib/angular/angular.min.js"></script>
 	<script src="lib/angular/angular-sanitize.min.js"></script>
@@ -73,6 +73,9 @@
 
 			
 			<div class="col-md-9">
+                <button ng-click="patientStorage.addPatient({id:'1', lastname:'Μαυρωνά', firstname:'Νικολέττα', birthday: '1976-05-09'})">Προσθήκη...</button>
+                <button class="btn btn-default" ng-click="open()">Open me!</button>
+                <div ng-show="selected">Selection from a modal: {{ selected }}</div>
                 <div class="panels">
                     <section id="{{panel.id}}" class="well well-large slide" ng-class="{slideRight: slideAnimationInvert}" ng-repeat="panel in panels">
                         <h1 class="animate">{{panel.name}}</h1>
@@ -83,6 +86,26 @@
 			</div>
 		</div>
 	</div>
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3>I'm a modal!</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li ng-repeat="item in items">
+                    <a ng-click="selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+
 
 	<!-- Footer
     ================================================== -->

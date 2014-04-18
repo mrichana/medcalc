@@ -1,9 +1,9 @@
 (function () {
   'use strict';
 
-  angular.module('medicalCalculator.panels', []);
+  angular.module('medical.panels', []);
 
-  angular.module('medicalCalculator.panelgroups', ['medicalCalculator.panels']).
+  angular.module('medicalCalculator.panelgroups', ['medical.panels']).
     factory('basicCalculators', function (calculators) {
       return calculators;
     }

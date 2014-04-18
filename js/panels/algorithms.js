@@ -13,7 +13,7 @@
    *		info
    *		inverse
    */
-  angular.module('medicalCalculator.panels').
+  angular.module('medical.panels').
     factory('algorithms', ['$http', '$templateCache', function ($http, $templateCache) {
       var panels = [];
       var ret = {};
