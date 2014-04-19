@@ -1,3 +1,5 @@
+/*global angular: true */
+
 (function () {
   'use strict';
   /**
@@ -18,7 +20,7 @@
       var panels = [];
       var ret = {};
 
-      angular.forEach(panels, function (value, key) {
+      angular.forEach(panels, function (value) {
         ret[value] = $http.get("js/panels/base/" + value + ".json", { cache: $templateCache });
       });
       return ret;

@@ -1,3 +1,6 @@
+/*global angular: true */
+/*global _: true */
+
 (function () {
   'use strict';
   /**
@@ -24,7 +27,7 @@
       var val = function (id, array) {
         var field = fieldFromId(id, array);
         var ret = field.value;
-        if (field.input.type == "check") {
+        if (field.input.type === "check") {
           ret = ret * (field.input.multiplier || 1);
         }
         return ret;
@@ -125,18 +128,18 @@
               }
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          calc: function (newValue) {
             var pH = val("pH", newValue);
             var pO2 = val("pO2", newValue);
             var pCO2 = val("pCO2", newValue);
             var H2CO3 = val("H2CO3", newValue);
             var FiO2 = val("FiO2", newValue);
 
-            var eph = roundNum(6.1 + Math.log(H2CO3 / (pCO2 * 0.0301)) / Math.log(10), 2);
-            var eH2CO3 = roundNum(Math.pow(10, (pH - 6.1)) * 0.0301 * pCO2, 0);
-            var eco2 = roundNum(H2CO3 / (0.0301 * Math.pow(10, (pH - 6.1))), 0);
+            //var eph = roundNum(6.1 + Math.log(H2CO3 / (pCO2 * 0.0301)) / Math.log(10), 2);
+            //var eH2CO3 = roundNum(Math.pow(10, (pH - 6.1)) * 0.0301 * pCO2, 0);
+            //var eco2 = roundNum(H2CO3 / (0.0301 * Math.pow(10, (pH - 6.1))), 0);
 
-            var expectedPco2, expectedText, phHigh, phLow, hco3High, hco3Low, ehco3, agap;
+            var expectedPco2, phHigh, phLow, hco3High, hco3Low;
             var result = "",
               explanation = "",
               resultlevel;
@@ -247,11 +250,11 @@
               if ((pH >= 7.36) && (pH <= 7.44)) {
                 if ((pCO2 > 40) && (H2CO3 > 26)) {
                   result = "Μικτή αναπνευστική οξέωση - μεταβολική αλκάλωση";
-                  expectedPco2 = 0.7 * H2CO3 + 21;
+                  //expectedPco2 = 0.7 * H2CO3 + 21;
                   resultlevel = 3;
                 } else if ((pCO2 < 40) && (H2CO3 < 22)) {
                   result = "Μικτή αναπνευστική αλκάλωση - μεταβολική οξέωση";
-                  expectedPco2 = 1.5 * H2CO3 + 8;
+                  //expectedPco2 = 1.5 * H2CO3 + 8;
                   resultlevel = 3;
                 } else {
                   result = "Φυσιολογικά αέρια αίματος";
@@ -302,7 +305,7 @@
               }
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          calc: function (newValue) {
             var weight = val("weight", newValue);
             var height = val("height", newValue);
 
@@ -372,7 +375,7 @@
             var explanation = "";
             var resultlevel;
 
-            if (typeof this.calc.error == 'undefined') {
+            if (angular.isUndefined(this.calc.error)) {
               this.calc.error = false;
             }
 
@@ -481,7 +484,7 @@
               }
             }
           ],
-          calc: function (v, oldValue, scope) {
+          calc: function (v) {
             var result;
             var explanation;
             var resultlevel;
@@ -494,11 +497,11 @@
                 resultlevel = 0;
                 break;
               case 1:
-                explanation = "Αντιπηκτκή Αγωγή με Warfarin (INR 2.0-3.0) ή Dabigatran ή Ασπιρίνη";
+                explanation = "Αντιπηκτκή Αγωγή με Warfarin (INR 2.0-3.0) ή NOAC ή Ασπιρίνη";
                 resultlevel = 1;
                 break;
               default:
-                explanation = "Αντιπηκτκή Αγωγή με Warfarin (INR 2.0-3.0) ή Dabigatran";
+                explanation = "Αντιπηκτκή Αγωγή με Warfarin (INR 2.0-3.0) ή NOAC";
                 resultlevel = 2;
             }
             return {
@@ -692,7 +695,7 @@
               }
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          calc: function (newValue) {
             var result;
             var explanation;
             var resultlevel;
@@ -704,10 +707,10 @@
             }, 0);
 
             explanation = "Πιθανότητα σοβαρής αιμορραγίας κατά την νοσηλεία: " + probability[result] + "%";
-            if (probability[result] >= 30) resultlevel = 3;
-            else if (probability[result] >= 20) resultlevel = 2;
-            else if (probability[result] >= 10) resultlevel = 1;
-            else resultlevel = 0;
+            if (probability[result] >= 30) {resultlevel = 3;}
+            else if (probability[result] >= 20) {resultlevel = 2;}
+            else if (probability[result] >= 10) {resultlevel = 1;}
+            else {resultlevel = 0;}
 
             return {
               result: result,
@@ -899,7 +902,7 @@
               }
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          calc: function (newValue) {
             var result;
             var explanation;
 
@@ -940,8 +943,8 @@
             values.aorta = val("aorta", newValue);
             values.septal = val("septal", newValue);
 
-            var sup = _(values).reduce(function (memo, value, key, values) {
-              return memo += value;
+            var sup = _(values).reduce(function (memo, value) {
+              return (memo += value);
             }, -4.789594);
 
             var value = Math.exp(sup);
@@ -955,7 +958,7 @@
 
             return {
               result: result,
-              explanation: explanation
+              explanation: ''//explanation
             };
           }
         },
@@ -1392,13 +1395,13 @@
             }
 
             var chfs;
-            if (killip == 1) {
+            if (killip === 1) {
               chfs = 0;
-            } else if (killip == 2) {
+            } else if (killip === 2) {
               chfs = 15;
-            } else if (killip == 3) {
+            } else if (killip === 3) {
               chfs = 29;
-            } else if (killip == 4) {
+            } else if (killip === 4) {
               chfs = 44;
             }
 
@@ -1541,10 +1544,10 @@
             }
 
             var resultlevel;
-            if (explanation <= 2) resultlevel = 0;
-            else if (explanation <= 10) resultlevel = 1;
-            else if (explanation <= 20) resultlevel = 2;
-            else resultlevel = 3;
+            if (explanation <= 2) {resultlevel = 0;}
+            else if (explanation <= 10) {resultlevel = 1;}
+            else if (explanation <= 20) {resultlevel = 2;}
+            else {resultlevel = 3;}
 
             return {
               result: roundNum(result, 0),
@@ -1636,7 +1639,7 @@
               }
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          calc: function (newValue) {
             var result;
             var explanation;
             var resultlevel;
@@ -1720,7 +1723,7 @@
               }
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          calc: function (newValue) {
             var result = val("killip", newValue);
             var explanation;
             var resultlevel;
@@ -1786,15 +1789,15 @@
               }
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          calc: function (newValue) {
             var result = val("nyha", newValue);
             var nyha = fieldFromId("nyha", newValue);
             var explanation = fieldFromAnyValue(result, "value", nyha.input.options).description;
             var resultlevel;
-            if (result == "IV") resultlevel = 3;
-            if (result == "III") resultlevel = 2;
-            if (result == "II") resultlevel = 1;
-            if (result == "I") resultlevel = 0;
+            if (result === "IV") {resultlevel = 3;}
+            if (result === "III") {resultlevel = 2;}
+            if (result === "II") {resultlevel = 1;}
+            if (result === "I") {resultlevel = 0;}
             return {
               result: result,
               explanation: explanation,

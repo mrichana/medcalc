@@ -1,3 +1,6 @@
+/*global angular: true */
+/*global _: true */
+
 (function () {
   'use strict';
 
@@ -22,7 +25,7 @@
         patients:         $localStorage.patients,
         patientsNames:    function() {return _.map(this.patients, function(patient) {return {name: patient.name, id: patient.id};});},
         patient:          function(id) {return this.patients[id];},
-        patientsFromName: function(name) {return _filter(this.patients, {name: name});},
+        patientsFromName: function(name) {return _.filter(this.patients, {name: name});},
         addPatient:       function(patient) {this.patients[patient.id] = patient;},
         removePatient:    function(patient) {delete this.patients[patient.id && patient];}
       };

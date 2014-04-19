@@ -1,3 +1,5 @@
+/*global angular: true */
+
 (function () {
   'use strict';
 
@@ -10,11 +12,12 @@
         {name: 'Triplex', content: triplexCalculators},
         {name: 'Αλγόριθμοι', content: algorithmCalculators}
       ];
-      ($scope.filters.setAbsolute = function (filterNumber) {
+      $scope.filters.setAbsolute = function (filterNumber) {
         $scope.panels = angular.copy($scope.filters[filterNumber].content);
         $scope.slideAnimationInvert = ($scope.filters.active < filterNumber);
         $scope.filters.active = filterNumber;
-      })(0);
+      };
+      $scope.filters.setAbsolute(0);
       $scope.filters.setRelative = function (steps) {
         var newValue = $scope.filters.active + steps;
         if (newValue >= $scope.filters.length) {

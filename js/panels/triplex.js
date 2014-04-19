@@ -1,3 +1,6 @@
+/*global angular: true */
+/*global _: true */
+
 (function () {
   'use strict';
   /**
@@ -24,7 +27,7 @@
       var val = function (id, array) {
         var field = fieldFromId(id, array);
         var ret = field.value;
-        if (field.input.type == "check") {
+        if (field.input.type === "check") {
           ret = ret * (field.input.multiplier || 1);
         }
         return ret;
@@ -90,7 +93,7 @@
               url: "img/panels/lav.png"
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          calc: function (newValue) {
             var area4Ch = val("Area4Ch", newValue);
             var area2Ch = val("Area4Ch", newValue);
             var length = val("Length", newValue);
@@ -165,7 +168,7 @@
               url: "img/panels/AVVR.png"
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          calc: function (newValue) {
             var lvot = val("LVOTV", newValue);
             var av = val("AorticV", newValue);
             var result;
@@ -240,7 +243,7 @@
               url: "img/panels/AVVR.png"
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          calc: function (newValue) {
             var lvot = val("LVOT", newValue);
             var lvotv = val("LVOTVTI", newValue);
             var av = val("AorticVTI", newValue);
@@ -317,7 +320,7 @@
               url: "img/panels/AVVR.png"
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          calc: function (newValue) {
             var lvot = val("LVOT", newValue);
             var lvotv = val("LVOTVmax", newValue);
             var av = val("AorticVmax", newValue);
@@ -410,7 +413,7 @@
               }
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          calc: function (newValue) {
             var lvot = val("LVOT", newValue);
             var lvotvti = val("LVOTVTI", newValue);
             var bsa = val("bsa", newValue);

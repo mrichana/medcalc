@@ -1,3 +1,6 @@
+/*global angular: true */
+/*global _: true */
+
 (function () {
   'use strict';
 

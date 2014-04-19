@@ -1,3 +1,7 @@
+/*global angular: true */
+/*global _: true */
+/*global $: true */
+
 (function () {
   'use strict';
 
@@ -21,21 +25,21 @@
         link: function ($scope, elem, attrs) {
           $($window).scroll(function () {
             var scroll = $window.scrollY;
+            var $body, offset, padding;
             if (scroll > elem.offset().top) {
               this.originalOffset = elem.offset().top;
-              var $body = $('body');
-              //var offset = angular.isUndefined(attrs['affixOffset'])?70:parseInt(attrs['affixOffset'], 10);
-              var padding = parseInt($body.css('padding-top'), 10);
-              var offset = parseInt(attrs['affixOffset'], 10);
+              $body = $('body');
+              padding = parseInt($body.css('padding-top'), 10);
+              offset = parseInt(attrs.affixOffset, 10);
               $body.css('padding-top', padding + offset);
-              elem.addClass(attrs['affix'] || 'affix');
+              elem.addClass(attrs.affix || 'affix');
             }
             if (scroll < this.originalOffset) {
-              var $body = $('body');
-              var offset = parseInt(attrs['affixOffset'], 10);
-              var padding = parseInt($body.css('padding-top'), 10);
+              $body = $('body');
+              offset = parseInt(attrs.affixOffset, 10);
+              padding = parseInt($body.css('padding-top'), 10);
               $body.css('padding-top', padding - offset);
-              elem.removeClass(attrs['affix'] || 'affix');
+              elem.removeClass(attrs.affix || 'affix');
             }
           });
         }
@@ -47,12 +51,13 @@
         link: function ($scope, elem, attrs) {
           $($window).scroll(function () {
             var scroll = $window.scrollY;
-            var element = $('#' + attrs['scrollSpy']);
-            if (!element.length) return;
-            if (scroll > element.offset().top && scroll < (element.offset().top + element.height())) {
-              elem.addClass('active');
-            } else {
-              elem.removeClass('active');
+            var element = $('#' + attrs.scrollSpy);
+            if (element.length) {
+              if (scroll > element.offset().top && scroll < (element.offset().top + element.height())) {
+                elem.addClass('active');
+              } else {
+                elem.removeClass('active');
+              }
             }
           });
         }
@@ -61,7 +66,7 @@
 
 
   angular.module('medicalCalculator.directives', [])
-    .directive('navCalc', ['$compile', function ($compile) {
+    .directive('navCalc', [function () {
       return {
         restrict: 'E',
         replace: true,
@@ -91,7 +96,7 @@
             cache: $templateCache
           });
 
-          var promise = loader.success(function (html) {
+          loader.success(function (html) {
             element.html(html);
           }).
             then(function (response) {
@@ -104,8 +109,7 @@
 
           if (scope.panel.calc) {
             scope.$watch('fields', function (newValue, oldValue, scope) {
-              var result = scope.panel.calc(newValue, oldValue, scope);
-              scope.panel.result = result;
+              scope.panel.result = scope.panel.calc(newValue, oldValue, scope);
             }, true);
           }
         }
@@ -114,9 +118,9 @@
     .directive('customInput', ['$compile', function ($compile) {
       var options = {
         none: '',
-        image: '<img ng-src="{{field.url}}" class="img-responsive"></img>',
-        number: '<input class="form-control" type="number" step="{{field.input.step}}" min="{{field.input.min}}" max="{{field.input.max}}" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"></input><span class="help-inline">{{field.description}}</span>',
-        text: '<input class="form-control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"></input><span class="help-inline">{{field.description}}</span>',
+        image: '<img ng-src="{{field.url}}" class="img-responsive"/>',
+        number: '<input class="form-control" type="number" step="{{field.input.step}}" min="{{field.input.min}}" max="{{field.input.max}}" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"/><span class="help-inline">{{field.description}}</span>',
+        text: '<input class="form-control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value" /><span class="help-inline">{{field.description}}</span>',
         select: '<select class="form-control" required ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-options="option.value as option.name for option in field.input.options"></select><span class="help-inline">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
         check: '<button type="button" class="btn" ng-model="field.value" btn-checkbox ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}"><span class="glyphicon glyphicon-remove-circle" ng-hide="field.value" /><span class="glyphicon glyphicon-ok-sign" ng-show="field.value" /></button><span class="help-inline">{{field.description}}</span>',
         radio: '<div class="btn-group" data-toggle="buttons-checkbox"><button type="button" class="btn span2" ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
@@ -194,9 +198,9 @@
     .directive('customInput', ['$compile', function ($compile) {
       var options = {
         none: '',
-        image: '<img ng-src="{{field.url}}" class="img-responsive"></img>',
-        number: '<input class="form-control" type="number" step="{{field.input.step}}" min="{{field.input.min}}" max="{{field.input.max}}" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"></input><span class="help-inline">{{field.description}}</span>',
-        text: '<input class="form-control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"></input><span class="help-inline">{{field.description}}</span>',
+        image: '<img ng-src="{{field.url}}" class="img-responsive">{{field.text}}</img>',
+        number: '<input class="form-control" type="number" step="{{field.input.step}}" min="{{field.input.min}}" max="{{field.input.max}}" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"/><span class="help-inline">{{field.description}}</span>',
+        text: '<input class="form-control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"/><span class="help-inline">{{field.description}}</span>',
         select: '<select class="form-control" required ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-options="option.value as option.name for option in field.input.options"></select><span class="help-inline">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
         check: '<button type="button" class="btn" ng-model="field.value" btn-checkbox ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}"><span class="glyphicon glyphicon-remove-circle" ng-hide="field.value" /><span class="glyphicon glyphicon-ok-sign" ng-show="field.value" /></button><span class="help-inline">{{field.description}}</span>',
         radio: '<div class="btn-group" data-toggle="buttons-checkbox"><button type="button" class="btn span2" ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
