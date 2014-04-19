@@ -35,27 +35,22 @@
     controller('fileCtrl', function ($scope, $location, $anchorScroll, patientStorage, $modal) {
       $scope.patientStorage = patientStorage;
 
-      $scope.items = ['item1', 'item2', 'item3'];
-      $scope.open = function () {
+      $scope.newPatientModal = function () {
         var modalInstance = $modal.open({
-          templateUrl: 'myModalContent.html',
-          controller: function ($scope, $modalInstance, items) {
-            $scope.items = items;
-            $scope.selected = {
-              item: $scope.items[0]
-            };
-            $scope.ok = function () { $modalInstance.close($scope.selected.item); };
+          templateUrl: 'partials/newPatientModal.html',
+          controller: function ($scope, $modalInstance) {
+            $scope.patient = {id:'', lastname:'', firstname:'', birthday:''};
+            $scope.ok = function () { $modalInstance.close($scope.patient); };
             $scope.cancel = function () { $modalInstance.dismiss('cancel'); };
           },
           resolve: {
             items: function () {
-              return $scope.items;
+              return $scope.patientStorage;
             }
           }
         });
-
-        modalInstance.result.then(function (selectedItem) {
-          $scope.selected = selectedItem;
+        modalInstance.result.then(function (patient) {
+          $scope.patientStorage.addPatient(patient);
         });
       };
     });
