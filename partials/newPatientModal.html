@@ -3,53 +3,11 @@
 </div>
 <div class="modal-body">
     <form class="form-horizontal">
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="patientid">Α.Μ.Κ.Α.</label>
+        <div class="form-group" ng-repeat="field in fields">
+            <label class="col-sm-2 control-label" for="{{field.id}}" ng-bind-html="field.name | to_trusted"></label>
             <div class="col-sm-10">
-                <input class="form-control"
-                       type="text"
-                       ng-disabled="false"
-                       name="patientid"
-                       ng-model="patient.id"/>
-                <span class="help-inline">Ο Α.Μ.Κ.Α. του ασθενούς</span>
+                <custom-input type="{{field.input.type}}"></custom-input>
             </div>
-            <label class="col-sm-2 control-label" for="lastname">Επώνυμο.</label>
-            <div class="col-sm-10">
-                <input class="form-control"
-                       type="text"
-                       ng-disabled="false"
-                       name="lastname"
-                       ng-model="patient.lastname"/>
-                <span class="help-inline">Το επώνυμο του ασθενούς</span>
-            </div>
-            <label class="col-sm-2 control-label" for="fistname">Όνομα</label>
-            <div class="col-sm-10">
-                <input class="form-control"
-                       type="text"
-                       ng-disabled="false"
-                       name="fistname"
-                       ng-model="patient.firstname"/>
-                <span class="help-inline">Το όνομα του ασθενούς</span>
-            </div>
-            <label class="col-sm-2 control-label" for="birthday">Ημερομηνία Γέννησης</label>
-            <div class="col-sm-10">
-                <p class="input-group">
-                    <input type="text"
-                           class="form-control"
-                           datepicker-popup="yyyy-MM-dd"
-                           ng-model="patient.birthday"
-                           name="birthday"
-                           is-open="opened"
-                           ng-required="true"
-                           close-text="Close" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </p>
-                <span class="help-inline">Η ημερομηνία γέννησης του ασθενούς</span>
-
-            </div>
-
         </div>
     </form>
 </div>

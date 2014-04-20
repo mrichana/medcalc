@@ -66,7 +66,7 @@
 
 
   angular.module('medicalCalculator.directives', [])
-    .directive('navCalc', [function () {
+    .directive('navPanel', [function () {
       return {
         restrict: 'E',
         replace: true,
@@ -83,7 +83,7 @@
         template: '<div ng-class="{\'alert\': result.resultlevel!=null, \'alert-danger\': result.resultlevel==3, \'alert-warning\': result.resultlevel==2, \'alert-info\': result.resultlevel==1, \'alert-success\': result.resultlevel==0}"><h3 ng-bind-html="result.result | to_trusted"></h3><h4 ng-bind-html="result.explanation | to_trusted"></h4></div>'
       };
     })
-    .directive('calc', ['$compile', '$http', '$templateCache', function ($compile, $http, $templateCache) {
+    .directive('panel', ['$compile', '$http', '$templateCache', function ($compile, $http, $templateCache) {
       return {
         restrict: 'E',
         replace: true,
@@ -107,9 +107,9 @@
           scope.name = scope.panel.name;
           scope.fields = scope.panel.fields;
 
-          if (scope.panel.calc) {
+          if (scope.panel.update) {
             scope.$watch('fields', function (newValue, oldValue, scope) {
-              scope.panel.result = scope.panel.calc(newValue, oldValue, scope);
+              scope.panel.result = scope.panel.update(newValue, oldValue, scope);
             }, true);
           }
         }
@@ -162,7 +162,7 @@
         template: '<div ng-class="{\'alert\': result.resultlevel!=null, \'alert-danger\': result.resultlevel==3, \'alert-warning\': result.resultlevel==2, \'alert-info\': result.resultlevel==1, \'alert-success\': result.resultlevel==0}"><h3 ng-bind-html="result.result | to_trusted"></h3><h4 ng-bind-html="result.explanation | to_trusted"></h4></div>'
       };
     })
-    .directive('calc', ['$compile', '$http', '$templateCache', function ($compile, $http, $templateCache) {
+    .directive('panel', ['$compile', '$http', '$templateCache', function ($compile, $http, $templateCache) {
       return {
         restrict: 'E',
         replace: true,
@@ -186,9 +186,9 @@
           scope.name = scope.panel.name;
           scope.fields = scope.panel.fields;
 
-          if (scope.panel.calc) {
+          if (scope.panel.update) {
             scope.$watch('fields', function (newValue, oldValue, scope) {
-              var result = scope.panel.calc(newValue, oldValue, scope);
+              var result = scope.panel.update(newValue, oldValue, scope);
               scope.panel.result = result;
             }, true);
           }
@@ -197,14 +197,15 @@
     }])
     .directive('customInput', ['$compile', function ($compile) {
       var options = {
-        none: '',
-        image: '<img ng-src="{{field.url}}" class="img-responsive">{{field.text}}</img>',
+        none:   '',
+        image:  '<img ng-src="{{field.url}}" class="img-responsive">{{field.text}}</img>',
         number: '<input class="form-control" type="number" step="{{field.input.step}}" min="{{field.input.min}}" max="{{field.input.max}}" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"/><span class="help-inline">{{field.description}}</span>',
-        text: '<input class="form-control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"/><span class="help-inline">{{field.description}}</span>',
+        text:   '<input class="form-control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="field.value"/><span class="help-inline">{{field.description}}</span>',
         select: '<select class="form-control" required ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-options="option.value as option.name for option in field.input.options"></select><span class="help-inline">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
-        check: '<button type="button" class="btn" ng-model="field.value" btn-checkbox ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}"><span class="glyphicon glyphicon-remove-circle" ng-hide="field.value" /><span class="glyphicon glyphicon-ok-sign" ng-show="field.value" /></button><span class="help-inline">{{field.description}}</span>',
-        radio: '<div class="btn-group" data-toggle="buttons-checkbox"><button type="button" class="btn span2" ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
-        vradio: '<div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox"><button type="button" class="btn span4" ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>'
+        check:  '<button type="button" class="btn" ng-model="field.value" btn-checkbox ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}"><span class="glyphicon glyphicon-remove-circle" ng-hide="field.value" /><span class="glyphicon glyphicon-ok-sign" ng-show="field.value" /></button><span class="help-inline">{{field.description}}</span>',
+        radio:  '<div class="btn-group" data-toggle="buttons-checkbox"><button type="button" class="btn span2" ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
+        vradio: '<div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox"><button type="button" class="btn span4" ng-model="field.value" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
+        date:   '<p class="input-group"><input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="field.value" name="field.id" is-open="opened" ng-required="true" close-text="Close" /><span class="input-group-btn"><button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button></span></p>'
       };
       return {
         restrict: 'E',

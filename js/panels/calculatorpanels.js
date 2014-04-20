@@ -9,7 +9,7 @@
    * Available calculators
    */
   angular.module('medical.panels').
-    factory('calculators', function () {
+    factory('calculatorpanels', function () {
       var roundNum = function (thisNum, dec) {
         thisNum = thisNum * Math.pow(10, dec);
         thisNum = Math.round(thisNum);
@@ -128,7 +128,7 @@
               }
             }
           ],
-          calc: function (newValue) {
+          update: function (newValue) {
             var pH = val("pH", newValue);
             var pO2 = val("pO2", newValue);
             var pCO2 = val("pCO2", newValue);
@@ -305,7 +305,7 @@
               }
             }
           ],
-          calc: function (newValue) {
+          update: function (newValue) {
             var weight = val("weight", newValue);
             var height = val("height", newValue);
 
@@ -370,23 +370,23 @@
               }
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          update: function (newValue, oldValue, scope) {
             var result = "";
             var explanation = "";
             var resultlevel;
 
-            if (angular.isUndefined(this.calc.error)) {
-              this.calc.error = false;
+            if (angular.isUndefined(this.update.error)) {
+              this.update.error = false;
             }
 
             var calculation = val("calculation", newValue);
             try {
-              this.calc.error = false;
+              this.update.error = false;
               result = scope.$new(true).$eval(calculation);
               resultlevel = null;
               //if (isNaN(result)) throw "nan";
             } catch (err) {
-              this.calc.error = true;
+              this.update.error = true;
               result = "";
               resultlevel = 2;
             }
@@ -484,7 +484,7 @@
               }
             }
           ],
-          calc: function (v) {
+          update: function (v) {
             var result;
             var explanation;
             var resultlevel;
@@ -695,7 +695,7 @@
               }
             }
           ],
-          calc: function (newValue) {
+          update: function (newValue) {
             var result;
             var explanation;
             var resultlevel;
@@ -902,7 +902,7 @@
               }
             }
           ],
-          calc: function (newValue) {
+          update: function (newValue) {
             var result;
             var explanation;
 
@@ -1020,7 +1020,7 @@
               }
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          update: function (newValue, oldValue, scope) {
             var result;
             var explanation;
             var resultlevel;
@@ -1151,7 +1151,7 @@
               }
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          update: function (newValue, oldValue, scope) {
             var result;
             var explanation;
             var resultlevel;
@@ -1286,7 +1286,7 @@
               }
             }
           ],
-          calc: function (newValue, oldValue, scope) {
+          update: function (newValue, oldValue, scope) {
             var result;
             var explanation;
 
@@ -1639,7 +1639,7 @@
               }
             }
           ],
-          calc: function (newValue) {
+          update: function (newValue) {
             var result;
             var explanation;
             var resultlevel;
@@ -1723,7 +1723,7 @@
               }
             }
           ],
-          calc: function (newValue) {
+          update: function (newValue) {
             var result = val("killip", newValue);
             var explanation;
             var resultlevel;
@@ -1789,7 +1789,7 @@
               }
             }
           ],
-          calc: function (newValue) {
+          update: function (newValue) {
             var result = val("nyha", newValue);
             var nyha = fieldFromId("nyha", newValue);
             var explanation = fieldFromAnyValue(result, "value", nyha.input.options).description;

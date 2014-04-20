@@ -29,9 +29,9 @@
 	<script src="lib/ui-bootstrap-tpls.min.js"></script>
 
 	<script src="js/panels/panelGroups.js" type="text/javascript"></script>
-	<script src="js/panels/calculators.js" type="text/javascript"></script>
-	<script src="js/panels/triplex.js" type="text/javascript"></script>
-	<script src="js/panels/algorithms.js" type="text/javascript"></script>
+	<script src="js/panels/calculatorpanels.js" type="text/javascript"></script>
+	<script src="js/panels/triplexpanels.js" type="text/javascript"></script>
+	<script src="js/panels/algorithmpanels.js" type="text/javascript"></script>
 
 	<script src="js/services.js"></script>
 	<script src="js/controllers.js"></script>
@@ -67,7 +67,7 @@
 		<div class="doc row" ng-swipe-left="filters.setRelative(+1)" ng-swipe-right="filters.setRelative(-1)">
 			<div class="col-md-3">
 				<div class="navigation list-group">
-					<nav-calc class='list-group-item slide' ng-class="{slideRight: slideAnimationInvert}" panel='panel' ng-repeat="panel in panels" ></nav-calc>
+					<nav-panel class='list-group-item slide' ng-class="{slideRight: slideAnimationInvert}" panel='panel' ng-repeat="panel in panels" ></nav-panel>
 				</div>
 			</div>
 
@@ -76,7 +76,7 @@
                 <div class="panels">
                     <section id="{{panel.id}}" class="well well-large slide" ng-class="{slideRight: slideAnimationInvert}" ng-repeat="panel in panels">
                         <h1 class="animate">{{panel.name}}</h1>
-                        <calc panel='panel'></calc>
+                        <panel panel='panel'></panel>
                         <result result='panel.result'></result>
                     </section>
                 </div>

@@ -9,7 +9,7 @@
    * Available calculators
    */
   angular.module('medical.panels').
-    factory('triplex', function () {
+    factory('triplexpanels', function () {
       var roundNum = function (thisNum, dec) {
         thisNum = thisNum * Math.pow(10, dec);
         thisNum = Math.round(thisNum);
@@ -93,7 +93,7 @@
               url: "img/panels/lav.png"
             }
           ],
-          calc: function (newValue) {
+          update: function (newValue) {
             var area4Ch = val("Area4Ch", newValue);
             var area2Ch = val("Area4Ch", newValue);
             var length = val("Length", newValue);
@@ -168,7 +168,7 @@
               url: "img/panels/AVVR.png"
             }
           ],
-          calc: function (newValue) {
+          update: function (newValue) {
             var lvot = val("LVOTV", newValue);
             var av = val("AorticV", newValue);
             var result;
@@ -243,7 +243,7 @@
               url: "img/panels/AVVR.png"
             }
           ],
-          calc: function (newValue) {
+          update: function (newValue) {
             var lvot = val("LVOT", newValue);
             var lvotv = val("LVOTVTI", newValue);
             var av = val("AorticVTI", newValue);
@@ -320,7 +320,7 @@
               url: "img/panels/AVVR.png"
             }
           ],
-          calc: function (newValue) {
+          update: function (newValue) {
             var lvot = val("LVOT", newValue);
             var lvotv = val("LVOTVmax", newValue);
             var av = val("AorticVmax", newValue);
@@ -413,7 +413,7 @@
               }
             }
           ],
-          calc: function (newValue) {
+          update: function (newValue) {
             var lvot = val("LVOT", newValue);
             var lvotvti = val("LVOTVTI", newValue);
             var bsa = val("bsa", newValue);

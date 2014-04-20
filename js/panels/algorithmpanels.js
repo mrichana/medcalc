@@ -16,7 +16,7 @@
    *		inverse
    */
   angular.module('medical.panels').
-    factory('algorithms', ['$http', '$templateCache', function ($http, $templateCache) {
+    factory('algorithmpanels', ['$http', '$templateCache', function ($http, $templateCache) {
       var panels = [];
       var ret = {};
 

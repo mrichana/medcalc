@@ -6,16 +6,16 @@
   angular.module('medical.panels', []);
 
   angular.module('medicalCalculator.panelgroups', ['medical.panels']).
-    factory('basicCalculators', function (calculators) {
-      return calculators;
+    factory('basicCalculators', function (calculatorpanels) {
+      return calculatorpanels;
     }
   ).
-    factory('triplexCalculators', function (triplex) {
-      return triplex;
+    factory('triplexCalculators', function (triplexpanels) {
+      return triplexpanels;
     }
   ).
-    factory('algorithmCalculators', function (algorithms) {
-      return algorithms;
+    factory('algorithmCalculators', function (algorithmpanels) {
+      return algorithmpanels;
     }
   );
 })();

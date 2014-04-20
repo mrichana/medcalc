@@ -34,7 +34,7 @@
     <script src="js/directives.js"></script>
     <script src="js/app.js"></script>
     
-    <script src="js/panels/algorithms.js" type="text/javascript"></script>
+    <script src="js/panels/algorithmpanels.js" type="text/javascript"></script>
 
   </head>
 
@@ -97,7 +97,7 @@
     ================================================== -->
       <div class="span3 bs-docs-sidebar">
         <ul class="nav nav-list bs-docs-sidenav bs-navbar">
-          <nav-calc panel='panel' ng-repeat="panel in panels"></nav-calc>
+          <nav-panel panel='panel' ng-repeat="panel in panels"></nav-panel>
         </ul>
       </div>
 
@@ -105,7 +105,7 @@
         <section id="{{panel.id}}" class="well well-large" ng-repeat="panel in panels">
           <div><h1>{{panel.name}}</h1></div>
 
-          <calc panel='panel'></calc>
+          <panel panel='panel'></panel>
 
           <div class="well well-small">
             <h3 ng-bind-html="panel.result | to_trusted"></h3>

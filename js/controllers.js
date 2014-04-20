@@ -1,4 +1,5 @@
 /*global angular: true */
+/*global _: true */
 
 (function () {
   'use strict';
@@ -31,16 +32,23 @@
     });
 
 
-  angular.module('medicalFile.controllers', ['medicalFile.services', 'ui.bootstrap']).
-    controller('fileCtrl', function ($scope, $location, $anchorScroll, patientStorage, $modal) {
+  angular.module('medicalFile.controllers', ['medicalFile.services', 'ui.bootstrap', 'medical.panels']).
+    controller('fileCtrl', function ($scope, $location, $anchorScroll, patientStorage, $modal, patientpanels) {
       $scope.patientStorage = patientStorage;
+      $scope.ageFromBirthday = function (birthday) {return (new Date()).getUTCFullYear()-(new Date(birthday)).getUTCFullYear();};
 
       $scope.newPatientModal = function () {
         var modalInstance = $modal.open({
           templateUrl: 'partials/newPatientModal.html',
           controller: function ($scope, $modalInstance) {
-            $scope.patient = {id:'', lastname:'', firstname:'', birthday:''};
-            $scope.ok = function () { $modalInstance.close($scope.patient); };
+            $scope.fields = patientpanels.newPatient.fields;
+            $scope.ok = function () {
+              $modalInstance.close(
+                _.reduce($scope.fields, function(patient, field){
+                  patient[field.id]=field.value;return patient;
+                }, {})
+              );
+            };
             $scope.cancel = function () { $modalInstance.dismiss('cancel'); };
           },
           resolve: {
