@@ -375,20 +375,22 @@
             var explanation = "";
             var resultlevel;
 
-            if (angular.isUndefined(this.update.error)) {
-              this.update.error = false;
-            }
-
             var calculation = val("calculation", newValue);
+
             try {
-              this.update.error = false;
               result = scope.$new(true).$eval(calculation);
-              resultlevel = null;
-              //if (isNaN(result)) throw "nan";
-            } catch (err) {
-              this.update.error = true;
-              result = "";
-              resultlevel = 2;
+              resultlevel = 0;
+              if (!angular.isNumber(result)) {
+                throw "nan";
+              }
+              if (!isFinite(result)) {
+                result = "Άπειρο";
+                resultlevel = 2;
+              }
+            }
+            catch(err){
+                result = "Λάθος Υπολογισμός";
+                resultlevel = 3;
             }
             return {
               result: result,

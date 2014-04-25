@@ -103,12 +103,8 @@
               element.replaceWith($compile(element.html())(scope));
             });
 
-          scope.id = scope.panel.id;
-          scope.name = scope.panel.name;
-          scope.fields = scope.panel.fields;
-
           if (scope.panel.update) {
-            scope.$watch('fields', function (newValue, oldValue, scope) {
+            scope.$watch('panel.fields', function (newValue, oldValue, scope) {
               scope.panel.result = scope.panel.update(newValue, oldValue, scope);
             }, true);
           }
@@ -167,7 +163,7 @@
         restrict: 'E',
         replace: true,
         scope: {
-          panel: '='
+//          panel: '='
         },
         link: function (scope, element, attrs) {
           var templateName = scope.panel.template || 'calculator';
