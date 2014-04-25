@@ -445,7 +445,6 @@
               explanation: explanation,
               resultlevel: resultlevel
             };
-
           }
         }
       };

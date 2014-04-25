@@ -67,8 +67,11 @@
               }
             }
           ],
-          update: function () {
-            return;
+          update: function (newValue, oldValue, scope) {
+            return _.reduce(newValue, function(patient, field){
+              patient[field.id]=field.value;
+              return patient;
+            }, {});
           }
         }
       };

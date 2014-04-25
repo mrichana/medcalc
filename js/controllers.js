@@ -41,15 +41,18 @@
         var modalInstance = $modal.open({
           templateUrl: 'partials/newPatientModal.html',
           controller: function ($scope, $modalInstance) {
-            $scope.fields = patientpanels.newPatient.fields;
+            $scope.newPatient = patientpanels.newPatient;
             $scope.ok = function () {
-              $modalInstance.close(
-                _.reduce($scope.fields, function(patient, field){
-                  patient[field.id]=field.value;return patient;
-                }, {})
-              );
+              $modalInstance.close( $scope.newPatient.result );
             };
             $scope.cancel = function () { $modalInstance.dismiss('cancel'); };
+
+            if ($scope.newPatient.update) {
+              $scope.$watch('newPatient.fields', function (newValue, oldValue, scope) {
+                $scope.newPatient.result = $scope.newPatient.update(newValue, oldValue, scope);
+              }, true);
+            }
+
           },
           resolve: {
             items: function () {
