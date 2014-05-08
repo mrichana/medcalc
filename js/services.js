@@ -14,20 +14,19 @@
   angular.module('medical.services', []).
     factory('appVersion', function () {
     });
-  angular.module('medicalCalculator.services', []).
-    factory('null', function () {
-      return null;
-    });
-  angular.module('medicalFile.services', ['ngStorage']).
+  angular.module('medicalCalculator.services', ['ngStorage']).
     factory('patientStorage', function ($localStorage) {
       $localStorage.patients = $localStorage.patients || {};
       return {
         patients:         $localStorage.patients,
-        patientsNames:    function() {return _.map(this.patients, function(patient) {return {name: patient.name, id: patient.id};});},
         patient:          function(id) {return this.patients[id];},
-        patientsFromName: function(name) {return _.filter(this.patients, {name: name});},
         addPatient:       function(patient) {this.patients[patient.id] = patient;},
-        removePatient:    function(patient) {delete this.patients[patient.id && patient];}
-      };
+        removePatient:    function(patient) {delete this.patients[patient.id && patient];},
+        filterPatients:   function(patienttempl) {
+          return _.filter(this.patients, function (patient) {
+            return _.all(patienttempl, function (value, key) { return (!value) || patient[key].toUpperCase().lastIndexOf(value.toUpperCase(), 0) === 0;} );
+          });
+        }
+    };
     });
 })();

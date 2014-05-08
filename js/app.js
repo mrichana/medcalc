@@ -21,21 +21,4 @@
     function ($locationProvider) {
       $locationProvider.html5Mode(false);
     });
-
-  angular.module('medicalFile', [
-      'medical.filters',
-      'medical.services',
-      'medical.directives',
-      'medicalFile.controllers',
-      'medicalFile.filters',
-      'medicalFile.services',
-      'medicalFile.directives',
-      'ngTouch',
-      'ngAnimate',
-      'ngSanitize',
-      'ui.bootstrap'
-    ],
-    function ($locationProvider) {
-      $locationProvider.html5Mode(false);
-    });
 })();

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="medicalFile">
+<html lang="en" ng-app="medicalCalculator">
 
 <head>
 	<meta charset="utf-8">   
@@ -41,7 +41,7 @@
 	<script src="js/app.js"></script>
 </head>
 
-<body ng-controller="fileCtrl">
+<body ng-controller="calculatorCtrl">
     <div class="container-fluid">
 		<div class="jumbotron" id="overview">
 			<h1>
@@ -72,29 +72,15 @@
 				</div>
 			</div>
 
-			
-			<div class="col-md-9">
-                <button class="btn btn-primary" ng-click="newPatientModal()">Νέος Ασθενής</button>
-                <div>
-                <div class="list-group">
-                    <a ng-href="#{{patient.id}}" class='list-group-item'
-                        ng-repeat="patient in patientStorage.patients">
-                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-                        {{patient.lastname}},
-                        {{patient.firstname}}
-                        ({{ageFromBirthday(patient.birthday)}})
-                        <span class="badge">{{patient.id}}</span>
-                    </a>
-                </div>
-                </div>
+
+            <div class="col-md-9">
                 <div class="panels">
-                    <section id="{{panel.id}}" class="well well-large slide" ng-class="{slideRight: slideAnimationInvert}" ng-repeat="panel in panels">
-                        <h1 class="animate">{{panel.name}}</h1>
-                        <panel panel='panel'></panel>
-                        <result result='panel.result'></result>
-                    </section>
+                    <div id="{{panel.id}}" class="panel panel-default slide" ng-class="{slideRight: slideAnimationInvert}" panel='panel' ng-repeat="panel in panels">
+                        <div class="panel-heading"><h4>{{panel.name}}<span class="glyphicon glyphicon-trash pull-right" ng-click="clearPanel(panel.id)"></span></h4></div>
+                        <div class="panel-body"><panel panel='panel'></panel></div>
+                    </div>
                 </div>
-			</div>
+            </div>
 		</div>
 	</div>
 

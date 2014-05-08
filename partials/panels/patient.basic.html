@@ -1,11 +1,15 @@
-<!-- Calculator
+<!-- Default
 ================================================== -->
-<ng-form>
+<ng-form class="form-horizontal">
 	<div class="form-group" ng-repeat="field in panel.fields">
 		<label class="col-sm-2 control-label" for="{{field.id}}" ng-bind-html="field.name | to_trusted"></label>
-		<div class="col-sm-10 input-group">
+		<div class="col-sm-10">
 			<custom-input type="{{field.input.type}}"></custom-input>
-			<span class="input-group-btn"><button class="btn" type="button" ng-click="field.value=''"><span class="glyphicon glyphicon-remove-sign"></span></button></span>
 		</div>
 	</div>
+    <ul>
+        <li ng-repeat="patient in panel.result.result">
+            {{patient.lastname}}, {{patient.firstname}}
+        </li>
+    </ul>
 </ng-form>

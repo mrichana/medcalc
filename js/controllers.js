@@ -7,8 +7,9 @@
   /* Controllers */
 
   angular.module('medicalCalculator.controllers', ['medicalCalculator.panelgroups']).
-    controller('calculatorCtrl', function ($scope, $location, $anchorScroll, basicCalculators, triplexCalculators, algorithmCalculators) {
+    controller('calculatorCtrl', function ($scope, $location, $anchorScroll, patientStorage, patientsFile, basicCalculators, triplexCalculators, algorithmCalculators) {
       $scope.filters = [
+        {name: 'Αρχείο Ασθενών', content: patientsFile},
         {name: 'Βασικά', content: basicCalculators},
         {name: 'Triplex', content: triplexCalculators},
         {name: 'Αλγόριθμοι', content: algorithmCalculators}
@@ -29,40 +30,10 @@
         }
         $scope.filters.setAbsolute(newValue);
       };
-    });
-
-
-  angular.module('medicalFile.controllers', ['medicalFile.services', 'ui.bootstrap', 'medical.panels']).
-    controller('fileCtrl', function ($scope, $location, $anchorScroll, patientStorage, $modal, patientpanels) {
       $scope.patientStorage = patientStorage;
-      $scope.ageFromBirthday = function (birthday) {return (new Date()).getUTCFullYear()-(new Date(birthday)).getUTCFullYear();};
 
-      $scope.newPatientModal = function () {
-        var modalInstance = $modal.open({
-          templateUrl: 'partials/newPatientModal.html',
-          controller: function ($scope, $modalInstance) {
-            $scope.newPatient = patientpanels.newPatient;
-            $scope.ok = function () {
-              $modalInstance.close( $scope.newPatient.result );
-            };
-            $scope.cancel = function () { $modalInstance.dismiss('cancel'); };
-
-            if ($scope.newPatient.update) {
-              $scope.$watch('newPatient.fields', function (newValue, oldValue, scope) {
-                $scope.newPatient.result = $scope.newPatient.update(newValue, oldValue, scope);
-              }, true);
-            }
-
-          },
-          resolve: {
-            items: function () {
-              return $scope.patientStorage;
-            }
-          }
-        });
-        modalInstance.result.then(function (patient) {
-          $scope.patientStorage.addPatient(patient);
-        });
+      $scope.clearPanel = function(id) {
+        angular.copy($scope.filters[$scope.filters.active].content[id], $scope.panels[id]);
       };
     });
 })();

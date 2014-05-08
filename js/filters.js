@@ -24,12 +24,4 @@
         return text;
       };
     }]);
-
-
-  angular.module('medicalFile.filters', []).
-    filter('null', [ function (){
-      return function(text) {
-        return text;
-      };
-    }]);
 })();

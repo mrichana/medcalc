@@ -25,6 +25,7 @@
         return fieldFromAnyValue(id, "id", array);
       };
       var val = function (id, array) {
+        if (id==='result'){ return null; }
         var field = fieldFromId(id, array);
         var ret = field.value;
         if (field.input.type === "check") {
@@ -125,6 +126,12 @@
                     name: "60% (Ventouri 60%)"
                   }
                 ]
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
               }
             }
           ],
@@ -303,6 +310,12 @@
                 min: 0,
                 max: 250
               }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
+              }
             }
           ],
           update: function (newValue) {
@@ -358,7 +371,7 @@
         calculator: {
           id: "calculator",
           name: "Υπολογιστής",
-          template: "calculator.singlefield",
+          template: "calculator.basic",
           type: "basic",
           fields: [
             {
@@ -367,6 +380,12 @@
               value: "",
               input: {
                 type: "text"
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
               }
             }
           ],
@@ -483,6 +502,12 @@
                     name: "♀ Θήλυ"
                   }
                 ]
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
               }
             }
           ],
@@ -695,6 +720,12 @@
                   }
                 ]
               }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
+              }
             }
           ],
           update: function (newValue) {
@@ -902,6 +933,12 @@
                 type: "check",
                 multiplier: 1.462009
               }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
+              }
             }
           ],
           update: function (newValue) {
@@ -1019,6 +1056,12 @@
                     name: "♀ Θήλυ"
                   }
                 ]
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
               }
             }
           ],
@@ -1150,6 +1193,12 @@
                     name: "Εκτελεί εντολές"
                   }
                 ]
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
               }
             }
           ],
@@ -1285,6 +1334,12 @@
                     description: "Καρδιογενές Σόκ ή Υπόταση (ΑΠ<90mmHg) και σημεία περιφερικού αγγειόσπασμου (Ολιγουρία, Κυάνωση ή Εφύδρωση)"
                   }
                 ]
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
               }
             }
           ],
@@ -1639,6 +1694,12 @@
               input: {
                 type: "check"
               }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
+              }
             }
           ],
           update: function (newValue) {
@@ -1723,6 +1784,12 @@
                   }
                 ]
               }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
+              }
             }
           ],
           update: function (newValue) {
@@ -1788,6 +1855,12 @@
                     description: "Έντονος περιορισμός δραστηριότητας λόγω συμπτωμάτων. Παρουσία συμπτωμάτων κατά την ανάπαυση"
                   }
                 ]
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
               }
             }
           ],

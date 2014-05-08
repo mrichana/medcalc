@@ -86,6 +86,12 @@
               }
             },
             {
+              id: "result",
+              input: {
+                type: "result"
+              }
+            },
+            {
               id: "image",
               input: {
                 type: "image"
@@ -158,6 +164,12 @@
                 step: 0.1,
                 min: 0.1,
                 max: 8
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
               }
             },
             {
@@ -236,6 +248,12 @@
               }
             },
             {
+              id: "result",
+              input: {
+                type: "result"
+              }
+            },
+            {
               id: "image",
               input: {
                 type: "image"
@@ -310,6 +328,12 @@
                 step: 0.1,
                 min: 0.1,
                 max: 8
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
               }
             },
             {
@@ -410,6 +434,12 @@
                 step: 0.1,
                 min: 0.1,
                 max: 8
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
               }
             }
           ],
