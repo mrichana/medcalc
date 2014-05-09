@@ -7,12 +7,11 @@
   /* Controllers */
 
   angular.module('medicalCalculator.controllers', ['medicalCalculator.panelgroups']).
-    controller('calculatorCtrl', function ($scope, $location, $anchorScroll, patientStorage, patientsFile, basicCalculators, triplexCalculators, algorithmCalculators) {
+    controller('calculatorCtrl', function ($scope, $location, $anchorScroll, patientStorage, patientsFile, basicCalculators, triplexCalculators) {
       $scope.filters = [
         {name: 'Αρχείο Ασθενών', content: patientsFile},
         {name: 'Βασικά', content: basicCalculators},
         {name: 'Triplex', content: triplexCalculators},
-        {name: 'Αλγόριθμοι', content: algorithmCalculators}
       ];
       $scope.filters.setAbsolute = function (filterNumber) {
         $scope.panels = angular.copy($scope.filters[filterNumber].content);

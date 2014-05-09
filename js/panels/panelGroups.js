@@ -16,9 +16,5 @@
     factory('triplexCalculators', function (triplexpanels) {
       return triplexpanels;
     }
-  ).
-    factory('algorithmCalculators', function (algorithmpanels) {
-      return algorithmpanels;
-    }
   );
 })();
