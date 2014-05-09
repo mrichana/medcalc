@@ -16,6 +16,7 @@
       ];
       $scope.filters.setAbsolute = function (filterNumber) {
         $scope.panels = angular.copy($scope.filters[filterNumber].content);
+        $scope.panelsList = _.sortBy($scope.panels, "ordinal");
         $scope.slideAnimationInvert = ($scope.filters.active < filterNumber);
         $scope.filters.active = filterNumber;
       };
@@ -34,6 +35,10 @@
 
       $scope.clearPanel = function(id) {
         angular.copy($scope.filters[$scope.filters.active].content[id], $scope.panels[id]);
+      };
+
+      $scope.filteredPatients = function () {
+        return $scope.panels.newPatient ? $scope.panels.newPatient.result.result : [];
       };
     });
 })();

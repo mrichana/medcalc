@@ -27,6 +27,7 @@
         newPatient: {
           id: "newPatient",
           name: "Αναζήτηση/Νέος Ασθενής",
+          ordinal: 0,
           type: "basic",
           template: "patient.basic",
           fields: [
@@ -65,6 +66,13 @@
               result: result
             };
           }
+        },
+        listPatient: {
+          id: "listPatient",
+          name: "Λίστα Ασθενών",
+          ordinal: 1,
+          type: "basic",
+          template: "patient.list"
         }
       };
     });

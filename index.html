@@ -31,7 +31,6 @@
 	<script src="js/panels/panelGroups.js" type="text/javascript"></script>
 	<script src="js/panels/calculatorpanels.js" type="text/javascript"></script>
 	<script src="js/panels/triplexpanels.js" type="text/javascript"></script>
-	<script src="js/panels/algorithmpanels.js" type="text/javascript"></script>
     <script src="js/panels/patientpanels.js" type="text/javascript"></script>
 
 	<script src="js/services.js"></script>
@@ -68,14 +67,14 @@
 		<div class="doc row" ng-swipe-left="filters.setRelative(+1)" ng-swipe-right="filters.setRelative(-1)">
 			<div class="col-md-3">
 				<div class="navigation list-group">
-					<nav-panel class='list-group-item slide' ng-class="{slideRight: slideAnimationInvert}" panel='panel' ng-repeat="panel in panels" ></nav-panel>
+					<nav-panel class='list-group-item slide' ng-class="{slideRight: slideAnimationInvert}" panel='panel' ng-repeat="panel in panelsList" ></nav-panel>
 				</div>
 			</div>
 
 
             <div class="col-md-9">
                 <div class="panels">
-                    <div id="{{panel.id}}" class="panel panel-default slide" ng-class="{slideRight: slideAnimationInvert}" panel='panel' ng-repeat="panel in panels">
+                    <div id="{{panel.id}}" class="panel panel-default slide" ng-class="{slideRight: slideAnimationInvert}" panel='panel' ng-repeat="panel in panelsList">
                         <div class="panel-heading"><h4>{{panel.name}}<span class="glyphicon glyphicon-trash pull-right" ng-click="clearPanel(panel.id)"></span></h4></div>
                         <div class="panel-body"><panel panel='panel'></panel></div>
                     </div>

@@ -1,0 +1,8 @@
+<!-- Default
+================================================== -->
+<div class="list-group">
+	<a ng-href="{{patient.id}}" class="list-group-item" ng-repeat="patient in filteredPatients()">
+        <span class="badge">{{patient.id}}</span>
+        {{patient.lastname}}, {{patient.firstname}}
+	</a>
+</div>
