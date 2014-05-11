@@ -9,7 +9,7 @@
    * Available calculators
    */
   angular.module('medical.panels').
-    factory('calculatorpanels', function () {
+    factory('calculatorPanels', function () {
       var roundNum = function (thisNum, dec) {
         thisNum = thisNum * Math.pow(10, dec);
         thisNum = Math.round(thisNum);
@@ -35,8 +35,8 @@
       };
 
 
-      return {
-        abg: {
+      return [
+        {
           id: "abg",
           name: "Αέρια Αίματος",
           type: "basic",
@@ -283,7 +283,7 @@
             };
           }
         },
-        bmi: {
+        {
           id: "bmi",
           name: "Δείκτης Μάζας Σώματος",
           type: "basic",
@@ -368,7 +368,7 @@
             };
           }
         },
-        calculator: {
+        {
           id: "calculator",
           name: "Υπολογιστής",
           template: "calculator.basic",
@@ -418,7 +418,7 @@
             };
           }
         },
-        chad: {
+        {
           id: "chad",
           name: "CHAD Score",
           type: "basic",
@@ -538,7 +538,7 @@
             };
           }
         },
-        crusade: {
+        {
           id: "crusade",
           name: "CRUSADE Score",
           type: "basic",
@@ -752,7 +752,7 @@
             };
           }
         },
-        euroscore: {
+        {
           id: "euroscore",
           name: "EuroSCORE",
           type: "basic",
@@ -1001,7 +1001,7 @@
             };
           }
         },
-        gfr: {
+        {
           id: "gfr",
           name: "eGFR",
           type: "basic",
@@ -1099,7 +1099,7 @@
             };
           }
         },
-        glasgow: {
+        {
           id: "glasgow",
           name: "Κλίμακα Γλασκόβης",
           type: "basic",
@@ -1232,7 +1232,7 @@
             };
           }
         },
-        grace: {
+        {
           id: "grace",
           name: "GRACE Score",
           type: "basic",
@@ -1613,7 +1613,7 @@
             };
           }
         },
-        hasbled: {
+        {
           id: "hasbled",
           name: "HAS-BLED Score",
           type: "basic",
@@ -1749,7 +1749,7 @@
             };
           }
         },
-        killip: {
+        {
           id: "killip",
           name: "Killip Class",
           type: "basic",
@@ -1821,7 +1821,7 @@
             };
           }
         },
-        nyha: {
+        {
           id: "nyha",
           name: "NYHA Class",
           type: "basic",
@@ -1880,6 +1880,6 @@
             };
           }
         }
-      };
+      ];
     });
 })();

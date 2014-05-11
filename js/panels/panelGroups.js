@@ -3,18 +3,18 @@
 (function () {
   'use strict';
 
-  angular.module('medical.panels', []);
+  angular.module('medical.panels', ['medical.calculators']);
 
-  angular.module('medicalCalculator.panelgroups', ['medical.panels']).
-    factory('patientsFile', function (patientpanels) {
-      return patientpanels;
+  angular.module('medical.panelgroups', ['medical.panels']).
+    factory('patientsFile', function (patientPanels) {
+      return patientPanels;
     }).
-    factory('basicCalculators', function (calculatorpanels) {
-      return calculatorpanels;
+    factory('basicCalculatorPanels', function (calculatorPanels) {
+      return calculatorPanels;
     }
   ).
-    factory('triplexCalculators', function (triplexpanels) {
-      return triplexpanels;
+    factory('triplexCalculatorPanels', function (triplexPanels) {
+      return triplexPanels;
     }
   );
 })();

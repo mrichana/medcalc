@@ -16,12 +16,4 @@
         return String(text).replace(/\%VERSION\%/mg, version);
       };
     }]);
-
-
-  angular.module('medicalCalculator.filters', []).
-    filter('null', [ function (){
-      return function(text) {
-        return text;
-      };
-    }]);
 })();

@@ -88,6 +88,11 @@
             panel: '='
           },
           link: function (scope, element, attrs) {
+            if (scope.panel.update) {
+              scope.$watch('panel.fields', function (newValue, oldValue, scope) {
+                scope.panel.result = scope.panel.update(newValue, oldValue, scope);
+              }, true);
+            }
             var templateName = scope.panel.template || 'calculator';
             var loader = $http.get('partials/panels/' + templateName + '.html', {
               cache: $templateCache
@@ -99,12 +104,6 @@
               then(function (response) {
                 element.replaceWith($compile(element.html())(scope));
               });
-
-            if (scope.panel.update) {
-              scope.$watch('panel.fields', function (newValue, oldValue, scope) {
-                scope.panel.result = scope.panel.update(newValue, oldValue, scope);
-              }, true);
-            }
           }
         };
       }])
@@ -137,10 +136,4 @@
         }
       };
     }]);
-
-
-  angular.module('medicalCalculator.directives', []);
-
-
-  angular.module('medicalFile.directives', []);
 })();

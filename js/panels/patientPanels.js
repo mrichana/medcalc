@@ -9,7 +9,7 @@
    * Available calculators
    */
   angular.module('medical.panels').
-    factory('patientpanels', function () {
+    factory('patientPanels', function () {
 
       var fieldFromAnyValue = function (value, field, array) {
         return _.find(array, function (iterator) {
@@ -21,10 +21,10 @@
         return fieldFromAnyValue(id, "id", array);
       };
 
-      var patientStorage = angular.injector(['medicalCalculator.services', 'ngStorage', 'ng']).get('patientStorage');
+      var patientStorage = angular.injector(['medical.services', 'ngStorage', 'ng']).get('patientStorage');
 
-      return {
-        newPatient: {
+      return [
+        {
           id: "newPatient",
           name: "Αναζήτηση/Νέος Ασθενής",
           ordinal: 0,
@@ -67,14 +67,14 @@
             };
           }
         },
-        listPatient: {
+        {
           id: "listPatient",
           name: "Λίστα Ασθενών",
           ordinal: 1,
           type: "basic",
           template: "patient.list"
         }
-      };
+      ];
     });
 })();
 

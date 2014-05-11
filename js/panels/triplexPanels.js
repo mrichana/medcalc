@@ -1,0 +1,336 @@
+/*global angular: true */
+/*global _: true */
+
+(function () {
+  'use strict';
+  /**
+   * calculators Module
+   *
+   * Available calculators
+   */
+  angular.module('medical.panels').
+    factory('triplexPanels', function (triplexCalculators) {
+      var calculators = function (id) {
+        return angular.copy(triplexCalculators[id]);
+      };
+
+      var update = function (fields, oldValues) {
+        if (!this.calculator ) {
+          this.calculator = calculators(this.id);
+        }
+        if (fields === oldValues) {
+          init(this);
+        }
+        var values = _.reduce (fields, function (memo, field) {
+          if (field.value) {
+            memo[field.id] = field.value;
+          }
+          return memo;
+        }, this.calculator);
+        return this.calculator.result();
+      };
+
+      var init = function(panel) {
+        _.each(panel.fields, function (field){
+          if (angular.isDefined(panel.calculator[field.id])) {
+            field.value = panel.calculator[field.id];
+          }
+        });
+      };
+
+      return [
+        {
+          id: "lavi",
+          name: "Left Atrium Volume Index",
+          type: "basic",
+          template: "calculator.basic",
+          fields: [
+            {
+              id: "area4Ch",
+              name: "A1(cm<sup>2</sup>)",
+              description: "Πλανιμέτρηση αριστερού κόλπου από εικόνα 4 κοιλοτήτων",
+              input: {
+                type: "number",
+                step: 1,
+                min: 5,
+                max: 80
+              }
+            },
+            {
+              id: "area2Ch",
+              name: "A2(cm<sup>2</sup>)",
+              description: "Πλανιμέτρηση αριστερού κόλπου από εικόνα 2 κοιλοτήτων",
+              input: {
+                type: "number",
+                step: 1,
+                min: 5,
+                max: 80
+              }
+            },
+            {
+              id: "length",
+              name: "L(mm)",
+              description: "Μήκος αριστερού κόλπου",
+              input: {
+                type: "number",
+                step: 1,
+                min: 5,
+                max: 80
+              }
+            },
+            {
+              id: "bsa",
+              name: "BSA (m<sup>2</sup>)",
+              input: {
+                type: "number",
+                step: 0.1,
+                min: 0.1,
+                max: 3
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
+              }
+            },
+            {
+              id: "image",
+              input: {
+                type: "image"
+              },
+              url: "img/panels/lav.png"
+            }
+          ],
+          update: update
+        },
+        {
+          id: "avvr",
+          name: "Aortic Valve Velocity Ratio",
+          type: "basic",
+          template: "calculator.basic",
+          fields: [
+            {
+              id: "LVOTV",
+              name: "LVOT Vmax<sub>1</sub> (m/s)",
+              description: "Υποβαλβιδική Μέγιστη Ταχύτητα",
+              input: {
+                type: "number",
+                step: 0.1,
+                min: 0.1,
+                max: 8
+              }
+            },
+            {
+              id: "AoV",
+              name: "AV Vmax<sub>2</sub> (m/s)",
+              description: "Διαβαλβιδική Μέγιστη Ταχύτητα",
+              input: {
+                type: "number",
+                step: 0.1,
+                min: 0.1,
+                max: 8
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
+              }
+            },
+            {
+              id: "image",
+              input: {
+                type: "image"
+              },
+              url: "img/panels/AVVR.png"
+            }
+          ],
+          update: update
+        },
+        {
+          id: "avavti",
+          name: "Aortic Valve Area (VTI)",
+          type: "basic",
+          template: "calculator.basic",
+          fields: [
+            {
+              id: "LVOT",
+              name: "Διάμετρος LVOT (mm)",
+              input: {
+                type: "number",
+                step: 1,
+                min: 1,
+                max: 50
+              }
+            },
+            {
+              id: "LVOTVTI",
+              name: "LVOT VTI<sub>1</sub> (cm)",
+              description: "Υποβαλβιδικό Ολοκλήρωμα",
+              input: {
+                type: "number",
+                step: 1,
+                min: 1,
+                max: 100
+              }
+            },
+            {
+              id: "AoVTI",
+              name: "AV VTI<sub>2</sub> (cm)",
+              description: "Διαβαλβιδικό Ολοκλήρωμα",
+              input: {
+                type: "number",
+                step: 1,
+                min: 1,
+                max: 100
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
+              }
+            },
+            {
+              id: "image",
+              input: {
+                type: "image"
+              },
+              url: "img/panels/AVVR.png"
+            }
+          ],
+          update: update
+        },
+        {
+          id: "avamax",
+          name: "Aortic Valve Area (Vmax)",
+          type: "basic",
+          template: "calculator.basic",
+          fields: [
+            {
+              id: "LVOT",
+              name: "Διάμετρος LVOT (mm)",
+              input: {
+                type: "number",
+                step: 1,
+                min: 1,
+                max: 50
+              }
+            },
+            {
+              id: "LVOTV",
+              name: "LVOT Vmax<sub>1</sub> (m/s)",
+              description: "Υποβαλβιδική Μέγιστη Ταχύτητα",
+              input: {
+                type: "number",
+                step: 0.1,
+                min: 0.1,
+                max: 8
+              }
+            },
+            {
+              id: "AoV",
+              name: "AV Vmax<sub>2</sub> (m/s)",
+              description: "Διαβαλβιδική Μέγιστη Ταχύτητα",
+              input: {
+                type: "number",
+                step: 0.1,
+                min: 0.1,
+                max: 8
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
+              }
+            },
+            {
+              id: "image",
+              input: {
+                type: "image"
+              },
+              url: "img/panels/AVVR.png"
+            }
+          ],
+          update: update
+        },
+        {
+          id: "Zva",
+          name: "Αορτοβαλβιδική Αντίσταση (Zva)",
+          type: "basic",
+          template: "calculator.basic",
+          fields: [
+            {
+              id: "LVOT",
+              name: "Διάμετρος LVOT (mm)",
+              input: {
+                type: "number",
+                step: 1,
+                min: 1,
+                max: 50
+              }
+            },
+            {
+              id: "LVOTVTI",
+              name: "LVOT VTI<sub>1</sub> (cm)",
+              description: "Υποβαλβιδικό Ολοκλήρωμα",
+              input: {
+                type: "number",
+                step: 1,
+                min: 1,
+                max: 100
+              }
+            },
+            {
+              id: "bsa",
+              name: "BSA (m<sup>2</sup>)",
+              input: {
+                type: "number",
+                step: 0.1,
+                min: 0.1,
+                max: 3
+              }
+            },
+            {
+              id: "sbp",
+              name: "Σ.Α.Π. (mmHg)",
+              description: "Συστηματική Συστολική Αρτηριακή Πίεση",
+              input: {
+                type: "number",
+                step: 5,
+                min: 60,
+                max: 220
+              }
+            },
+            {
+              id: "AoVmean",
+              name: "AV Vmean(m/s)",
+              description: "Διαβαλβιδική Μέση Ταχύτητα",
+              input: {
+                type: "number",
+                step: 0.1,
+                min: 0.1,
+                max: 8
+              }
+            },
+            {
+              id: "result",
+              input: {
+                type: "result"
+              }
+            },
+            {
+              id: "image",
+              input: {
+                type: "image"
+              },
+              url: "img/panels/AVVR.png"
+            }
+          ],
+          update: update
+        }
+      ];
+    });
+})();

@@ -7,14 +7,13 @@
   /* Services */
 
   /**
-   * medicalCalculator.services Module
+   * medical.services Module
    *
    * Description
    */
-  angular.module('medical.services', []).
+  angular.module('medical.services', ['ngStorage']).
     factory('appVersion', function () {
-    });
-  angular.module('medicalCalculator.services', ['ngStorage']).
+    }).
     factory('patientStorage', function ($localStorage) {
       $localStorage.patients = $localStorage.patients || {};
       return {
@@ -27,6 +26,6 @@
             return _.all(patienttempl, function (value, key) { return (!value) || patient[key].toUpperCase().lastIndexOf(value.toUpperCase(), 0) === 0;} );
           });
         }
-    };
+      };
     });
 })();
