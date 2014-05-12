@@ -1,5 +1,6 @@
 /*global angular: true */
 /*global _: true */
+/*global sprintf: true */
 
 (function () {
   'use strict';

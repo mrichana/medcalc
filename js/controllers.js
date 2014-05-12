@@ -19,7 +19,7 @@
         $scope.slideAnimationInvert = ($scope.filters.active < filterNumber);
         $scope.filters.active = filterNumber;
       };
-      $scope.filters.setAbsolute(2);
+      $scope.filters.setAbsolute(1);
       $scope.filters.setRelative = function (steps) {
         var newValue = $scope.filters.active + steps;
         if (newValue >= $scope.filters.length) {
@@ -33,7 +33,10 @@
       $scope.patientStorage = patientStorage;
 
       $scope.clearPanel = function(id) {
-        angular.copy($scope.filters[$scope.filters.active].content[id], $scope.panels[id]);
+        var panel = _.find($scope.panels, function (panel) {
+          return panel.id === id;
+        });
+        panel.reset();
       };
 
       $scope.filteredPatients = function () {

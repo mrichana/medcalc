@@ -15,7 +15,7 @@
     <option eqnull="false" />
     <option es3="false" />
     <option esnext="false" />
-    <option evil="false" />
+    <option evil="true" />
     <option expr="false" />
     <option forin="true" />
     <option freeze="false" />

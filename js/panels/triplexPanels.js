@@ -9,41 +9,19 @@
    * Available calculators
    */
   angular.module('medical.panels').
-    factory('triplexPanels', function (triplexCalculators) {
-      var calculators = function (id) {
-        return angular.copy(triplexCalculators[id]);
-      };
-
-      var update = function (fields, oldValues) {
-        if (!this.calculator ) {
-          this.calculator = calculators(this.id);
-        }
-        if (fields === oldValues) {
-          init(this);
-        }
-        var values = _.reduce (fields, function (memo, field) {
-          if (field.value) {
-            memo[field.id] = field.value;
-          }
-          return memo;
-        }, this.calculator);
-        return this.calculator.result();
-      };
-
-      var init = function(panel) {
-        _.each(panel.fields, function (field){
-          if (angular.isDefined(panel.calculator[field.id])) {
-            field.value = panel.calculator[field.id];
-          }
-        });
-      };
-
+    factory('triplexPanels', function (update, init, reset) {
       return [
         {
           id: "lavi",
           name: "Left Atrium Volume Index",
           type: "basic",
           template: "calculator.basic",
+          defaultValues: {
+            area4Ch: 15,
+            area2Ch: 15,
+            length: 40,
+            bsa: 1.8
+          },
           fields: [
             {
               id: "area4Ch",
@@ -102,6 +80,8 @@
               url: "img/panels/lav.png"
             }
           ],
+          init: init,
+          reset: reset,
           update: update
         },
         {
@@ -109,6 +89,10 @@
           name: "Aortic Valve Velocity Ratio",
           type: "basic",
           template: "calculator.basic",
+          defaultValues: {
+            LVOTV: 1,
+            AoV: 1
+          },
           fields: [
             {
               id: "LVOTV",
@@ -146,6 +130,8 @@
               url: "img/panels/AVVR.png"
             }
           ],
+          init: init,
+          reset: reset,
           update: update
         },
         {
@@ -153,6 +139,11 @@
           name: "Aortic Valve Area (VTI)",
           type: "basic",
           template: "calculator.basic",
+          defaultValues: {
+            LVOT: 20,
+            LVOTVTI: 20,
+            AoVTI: 40
+          },
           fields: [
             {
               id: "LVOT",
@@ -200,6 +191,8 @@
               url: "img/panels/AVVR.png"
             }
           ],
+          init: init,
+          reset: reset,
           update: update
         },
         {
@@ -207,6 +200,11 @@
           name: "Aortic Valve Area (Vmax)",
           type: "basic",
           template: "calculator.basic",
+          defaultValues: {
+            LVOT: 20,
+            LVOTV: 1,
+            AoV: 1
+          },
           fields: [
             {
               id: "LVOT",
@@ -254,6 +252,8 @@
               url: "img/panels/AVVR.png"
             }
           ],
+          init: init,
+          reset: reset,
           update: update
         },
         {
@@ -261,6 +261,13 @@
           name: "Αορτοβαλβιδική Αντίσταση (Zva)",
           type: "basic",
           template: "calculator.basic",
+          defaultValues: {
+            LVOT: 20,
+            LVOTVTI: 20,
+            bsa: 1.9,
+            sbp: 120,
+            AoVmean: 1
+          },
           fields: [
             {
               id: "LVOT",
@@ -329,6 +336,8 @@
               url: "img/panels/AVVR.png"
             }
           ],
+          init: init,
+          reset: reset,
           update: update
         }
       ];

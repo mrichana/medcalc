@@ -1,5 +1,6 @@
 /*global angular: true */
 /*global _: true */
+/*global sprintf: true */
 
 (function () {
   'use strict';
@@ -11,183 +12,117 @@
    *
    * Description
    */
-  angular.module('medical.calculators', []).
-    factory('triplexCalculators', function () {
-      var roundNum = function (thisNum, dec) {
-        thisNum = thisNum * Math.pow(10, dec);
-        thisNum = Math.round(thisNum);
-        thisNum = thisNum / Math.pow(10, dec);
-        return thisNum;
-      };
+  angular.module('medical.calculators').
+    factory('triplexCalculators', function (mathParser, roundNum, evaluator) {
       return {
-        lavi: {
-          area4Ch: 15,
-          area2Ch: 15,
-          length: 40,
-          bsa: 1.8,
+        lavi: function (values) {
+          this.evaluator = evaluator;
+          var ret = {};
+          ret.formula = '8 * area4Ch * area2Ch / ( 3 * pi * ( length / 10 )) / bsa';
+          ret.result = roundNum(this.evaluator(values, ret.formula));
 
-          result: function () {
-            var result;
-            var explanation;
-            var resultlevel;
-
-            result = roundNum((8 * this.area4Ch * this.area2Ch / (3 * Math.PI * (this.length / 10))) / this.bsa, 0);
-
-            if (result >= 40) {
-              explanation = "Μεγάλη διάταση αριστερού κόλπου";
-              resultlevel = 3;
-            }
-            else if (result >= 34) {
-              explanation = "Μέτρια διάταση αριστερού κόλπου";
-              resultlevel = 2;
-            }
-            else if (result >= 29) {
-              explanation = "Μικρή διάταση αριστερού κόλπου";
-              resultlevel = 1;
-            }
-            else if (result >= 16) {
-              explanation = "Φυσιολογικές διάστασεις αριστερού κόλπου";
-              resultlevel = 0;
-            }
-            else {
-              explanation = "";
-              resultlevel = null;
-            }
-
-            return {
-              result: result,
-              explanation: explanation,
-              resultlevel: resultlevel
-            };
+          if (ret.result >= 40) {
+            ret.explanation = "Μεγάλη διάταση αριστερού κόλπου";
+            ret.resultlevel = 3;
           }
+          else if (ret.result >= 34) {
+            ret.explanation = "Μέτρια διάταση αριστερού κόλπου";
+            ret.resultlevel = 2;
+          }
+          else if (ret.result >= 29) {
+            ret.explanation = "Μικρή διάταση αριστερού κόλπου";
+            ret.resultlevel = 1;
+          }
+          else if (ret.result >= 16) {
+            ret.explanation = "Φυσιολογικές διάστασεις αριστερού κόλπου";
+            ret.resultlevel = 0;
+          }
+          else {
+            ret.explanation = "";
+            ret.resultlevel = null;
+          }
+
+          return ret;
         },
-        avvr: {
-          LVOTV: 1,
-          AoV: 1,
+        avvr: function (values) {
+          this.evaluator = evaluator;
+          var ret = {};
+          ret.formula = "LVOTV / AoV";
+          ret.result = roundNum(evaluator(values, ret.formula), 2);
 
-          result: function () {
-            var result;
-            var explanation;
-            var resultlevel;
-
-            result = roundNum(this.LVOTV / this.AoV, 2);
-
-            if (result < 0.25) {
-              explanation = "Σοβαρή στένωση αορτικής βαλβίδας";
-              resultlevel = 3;
-            }
-            else if (result <= 0.50) {
-              explanation = "Μέτρια στένωση αορτικής βαλβίδας";
-              resultlevel = 2;
-            }
-            else {
-              explanation = "Μικρή στένωση/Σκλήρυνση αορτικής βαλβίδας";
-              resultlevel = 0;
-            }
-            return {
-              result: result,
-              explanation: explanation,
-              resultlevel: resultlevel
-            };
+          if (ret.result < 0.25) {
+            ret.explanation = "Σοβαρή στένωση αορτικής βαλβίδας";
+            ret.resultlevel = 3;
           }
+          else if (ret.result <= 0.50) {
+            ret.explanation = "Μέτρια στένωση αορτικής βαλβίδας";
+            ret.resultlevel = 2;
+          }
+          else {
+            ret.explanation = "Μικρή στένωση/Σκλήρυνση αορτικής βαλβίδας";
+            ret.resultlevel = 0;
+          }
+          return ret;
         },
-        avavti: {
-          LVOT: 20,
-          LVOTVTI: 20,
-          AoVTI: 40,
-          result: function () {
-            var result;
-            var explanation;
-            var resultlevel;
+        avavti: function (values) {
+          this.evaluator = evaluator;
+          var ret = {};
+          ret.formula = "(pi * ((LVOT / 10) / 2) ^ 2) * LVOTVTI / AoVTI";
+          ret.result = roundNum(evaluator(values, ret.formula), 2);
 
-            var lvotarea = Math.PI * Math.pow((this.LVOT / 10) / 2, 2);
-            result = roundNum((lvotarea * this.LVOTVTI / this.AoVTI), 2);
-
-            if (result < 1.0) {
-              explanation = "Σοβαρή στένωση αορτικής βαλβίδας";
-              resultlevel = 3;
-            }
-            else if (result <= 1.50) {
-              explanation = "Μέτρια στένωση αορτικής βαλβίδας";
-              resultlevel = 2;
-            }
-            else {
-              explanation = "Μικρή στένωση/Σκλήρυνση αορτικής βαλβίδας";
-              resultlevel = 0;
-            }
-            return {
-              result: result,
-              explanation: explanation,
-              resultlevel: resultlevel
-            };
+          if (ret.result < 1.0) {
+            ret.explanation = "Σοβαρή στένωση αορτικής βαλβίδας";
+            ret.resultlevel = 3;
           }
+          else if (ret.result <= 1.50) {
+            ret.explanation = "Μέτρια στένωση αορτικής βαλβίδας";
+            ret.resultlevel = 2;
+          }
+          else {
+            ret.explanation = "Μικρή στένωση/Σκλήρυνση αορτικής βαλβίδας";
+            ret.resultlevel = 0;
+          }
+          return ret;
         },
-        avamax: {
-          LVOT: 20,
-          LVOTV: 1,
-          AoV: 1,
-          result: function () {
-            var result;
-            var explanation;
-            var resultlevel;
+        avamax: function (values) {
+          this.evaluator = evaluator;
+          var ret = {};
+          ret.formula = "(pi * ((LVOT / 10) / 2) ^ 2) * LVOTV / AoV";
+          ret.result = roundNum(evaluator(values, ret.formula), 2);
 
-            var lvotarea = Math.PI * Math.pow((this.LVOT / 10) / 2, 2);
-            result = roundNum(((lvotarea * this.LVOTV) / this.AoV), 2);
-
-            if (result < 1.0) {
-              explanation = "Σοβαρή στένωση αορτικής βαλβίδας";
-              resultlevel = 3;
-            }
-            else if (result <= 1.50) {
-              explanation = "Μέτρια στένωση αορτικής βαλβίδας";
-              resultlevel = 2;
-            }
-            else {
-              explanation = "Μικρή στένωση/Σκλήρυνση αορτικής βαλβίδας";
-              resultlevel = 0;
-            }
-            return {
-              result: result,
-              explanation: explanation,
-              resultlevel: resultlevel
-            };
-
+          if (ret.result < 1.0) {
+            ret.explanation = "Σοβαρή στένωση αορτικής βαλβίδας";
+            ret.resultlevel = 3;
           }
+          else if (ret.result <= 1.50) {
+            ret.explanation = "Μέτρια στένωση αορτικής βαλβίδας";
+            ret.resultlevel = 2;
+          }
+          else {
+            ret.explanation = "Μικρή στένωση/Σκλήρυνση αορτικής βαλβίδας";
+            ret.resultlevel = 0;
+          }
+          return ret;
         },
-        Zva: {
-          LVOT: 20,
-          LVOTVTI: 20,
-          bsa: 1.9,
-          sbp: 120,
-          AoVmean: 1,
-          result: function () {
-            var result;
-            var explanation;
-            var resultlevel;
+        Zva: function (values) {
+          this.evaluator = evaluator;
+          var ret = {};
+          ret.formula = "( sbp + 4 * AoVmean ^ 2 ) / ( ( ( pi * ((LVOT / 10) / 2) ^ 2) * LVOTVTI ) / bsa )";
+          ret.result = roundNum(evaluator(values, ret.formula));
 
-            var lvotarea = Math.PI * Math.pow((this.LVOT / 10) / 2, 2);
-            var pressure = this.sbp + (4 * Math.pow(this.AoVmean, 2));
-            var strokevolume = lvotarea * this.LVOTVTI;
-            result = roundNum(pressure / (strokevolume / this.bsa), 0);
-
-            if (result >= 4.5) {
-              explanation = "Υψηλή Αορτοβαλβιδική Αντίσταση";
-              resultlevel = 3;
-            }
-            else if (result > 3.50) {
-              explanation = "Μέτρια Αορτοβαλβιδική Αντίσταση";
-              resultlevel = 1;
-            }
-            else {
-              explanation = "Μικρή Αορτοβαλβιδική Αντίσταση";
-              resultlevel = 0;
-            }
-            return {
-              result: result,
-              explanation: explanation,
-              resultlevel: resultlevel
-            };
+          if (ret.result >= 4.5) {
+            ret.explanation = "Υψηλή Αορτοβαλβιδική Αντίσταση";
+            ret.resultlevel = 3;
           }
+          else if (ret.result > 3.50) {
+            ret.explanation = "Μέτρια Αορτοβαλβιδική Αντίσταση";
+            ret.resultlevel = 1;
+          }
+          else {
+            ret.explanation = "Μικρή Αορτοβαλβιδική Αντίσταση";
+            ret.resultlevel = 0;
+          }
+          return ret;
         }
       };
     });
