@@ -23,6 +23,7 @@
 	<script src="lib/underscore.js"></script>
 	<script src="lib/jquery.min.js"></script>
 	<script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular/angular-route.min.js"></script>
 	<script src="lib/angular/angular-sanitize.min.js"></script>
     <script src="lib/angular/angular-animate.min.js"></script>
     <script src="lib/angular/angular-touch.min.js"></script>
@@ -32,6 +33,7 @@
     <script src="js/calculators/Calculators.js" type="text/javascript"></script>
     <script src="js/calculators/basicCalculators.js" type="text/javascript"></script>
     <script src="js/calculators/triplexCalculators.js" type="text/javascript"></script>
+    <script src="js/calculators/patientCalculators.js" type="text/javascript"></script>
 
 	<script src="js/panels/panelGroups.js" type="text/javascript"></script>
 	<script src="js/panels/calculatorPanels.js" type="text/javascript"></script>
@@ -45,7 +47,7 @@
 	<script src="js/app.js"></script>
 </head>
 
-<body ng-controller="calculatorCtrl">
+<body ng-controller="generalCtrl">
     <div class="container-fluid">
 		<div class="jumbotron" id="overview">
 			<h1>
@@ -59,33 +61,16 @@
         <div affix="navbar-fixed-top" affix-offset="70" class="navbar navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href>{{filters[filters.active].name}}</a>
+                    <a class="navbar-brand" href></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href ng-click="filters.setRelative(-1)"><span class="glyphicon glyphicon-backward"></span></a></li>
-                    <li ng-repeat="filter in filters" ng-class="{active: filters.active == $index}"><a href ng-click="filters.setAbsolute($index)">{{filter.name}}</a></li>
-                    <li><a href ng-click="filters.setRelative(+1)"><span class="glyphicon glyphicon-forward"></span></a></li>
+                    <li ng-repeat="filter in filters"><a href ng-href="{{filter.content}}">{{filter.name}}</a></li>
                 </ul>
             </div>
         </div>
 
-		<div class="doc row" ng-swipe-left="filters.setRelative(+1)" ng-swipe-right="filters.setRelative(-1)">
-			<div class="col-md-3">
-				<div class="navigation list-group">
-					<nav-panel class='list-group-item slide' ng-class="{slideRight: slideAnimationInvert}" panel='panel' ng-repeat="panel in panelsList track by panel.id" ></nav-panel>
-				</div>
-			</div>
+        <ng-view></ng-view>
 
-
-            <div class="col-md-9">
-                <div class="panels">
-                    <div id="{{panel.id}}" class="panel panel-default slide" ng-class="{slideRight: slideAnimationInvert}" panel='panel' ng-repeat="panel in panelsList track by panel.id">
-                        <div class="panel-heading"><h4>{{panel.name}}<span class="glyphicon glyphicon-trash pull-right" ng-show="panel.reset" ng-click="clearPanel(panel.id)"></span></h4></div>
-                        <div class="panel-body"><panel panel='panel'></panel></div>
-                    </div>
-                </div>
-            </div>
-		</div>
 	</div>
 
 	<!-- Footer

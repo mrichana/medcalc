@@ -23,7 +23,7 @@
         return thisNum;
       }
     ).
-    factory('calculators', function (basicCalculators, triplexCalculators) {
-      return _.extend({}, basicCalculators, triplexCalculators);
+    factory('calculators', function (patientCalculators, basicCalculators, triplexCalculators) {
+      return _.extend({}, patientCalculators, basicCalculators, triplexCalculators);
     });
 })();

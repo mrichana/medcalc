@@ -6,41 +6,83 @@
 
   /* Controllers */
 
-  angular.module('medical.controllers', ['medical.panelgroups']).
-    controller('calculatorCtrl', function ($scope, $location, $anchorScroll, patientStorage, patientsFile, basicCalculatorPanels, triplexCalculatorPanels) {
-      $scope.filters = [
-        {name: 'Αρχείο Ασθενών', content: patientsFile},
-        {name: 'Βασικά', content: basicCalculatorPanels},
-        {name: 'Triplex', content: triplexCalculatorPanels}
-      ];
-      $scope.filters.setAbsolute = function (filterNumber) {
-        $scope.panels = angular.copy($scope.filters[filterNumber].content);
-        $scope.panelsList = _.sortBy($scope.panels, "ordinal");
-        $scope.slideAnimationInvert = ($scope.filters.active < filterNumber);
-        $scope.filters.active = filterNumber;
+  angular.module('medical.controllers', ['ngRoute', 'medical.panelgroups'])
+    .config(['$routeProvider', '$locationProvider',
+      function($routeProvider, $locationProvider) {
+        $routeProvider
+          .when('/Calculators/:id', {
+            templateUrl: 'partials/calculators.html',
+            controller: 'calculatorCtrl'
+          })
+          .when('/Patients', {
+            templateUrl: 'partials/calculators.html',
+            controller: 'patientListCtrl'
+          })
+          .when('/Patient/:id', {
+            templateUrl: 'partials/calculators.html',
+            controller: 'patientCtrl'
+          })
+          .otherwise({redirectTo: '/Calculators/General'});
+        // configure html5 to get links working on jsfiddle
+        $locationProvider.html5Mode(true);
+      }])
+    .controller('generalCtrl',
+      function ($scope, $route) {
+        $scope.filters = [
+          {name: 'Αρχείο Ασθενών', content: '#/Patients'},
+          {name: 'Βασικά', content: '#/Calculator/General'},
+          {name: 'Triplex', content: '#/Calculator/Triplex'}
+        ];
+        $scope.$on("$routeChangeSuccess", function (event, route) {
+//          $scope.location = $location.url();
+        });
+      })
+    .controller('calculatorCtrl',
+    function ($scope, $route, $routeParams, basicCalculatorPanels, triplexCalculatorPanels) {
+      $scope.filters = {
+        General: {name: 'Βασικά', content: basicCalculatorPanels},
+        Triplex: {name: 'Triplex', content: triplexCalculatorPanels}
       };
-      $scope.filters.setAbsolute(1);
-      $scope.filters.setRelative = function (steps) {
-        var newValue = $scope.filters.active + steps;
-        if (newValue >= $scope.filters.length) {
-          newValue = $scope.filters.length - 1;
-        }
-        if (newValue < 0) {
-          newValue = 0;
-        }
-        $scope.filters.setAbsolute(newValue);
-      };
-      $scope.patientStorage = patientStorage;
 
-      $scope.clearPanel = function(id) {
+      $scope.filters.setAbsolute = function (filterName) {
+        $scope.panels = $scope.filters[filterName].content;
+
+        $scope.panelsList = _.sortBy($scope.panels, "ordinal");
+        $scope.filters.active = filterName;
+      };
+
+      $scope.$on("$routeChangeSuccess", function (event, route) {
+        $scope.filters.setAbsolute(route.params.id);
+      });
+
+      $scope.clearPanel = function (id) {
         var panel = _.find($scope.panels, function (panel) {
           return panel.id === id;
         });
         panel.reset();
       };
-
-      $scope.filteredPatients = function () {
-        return $scope.panels.newPatient ? $scope.panels.newPatient.result.result : [];
+    })
+    .controller('patientListCtrl',
+    function ($scope, $route, $routeParams, patientsFile, patientStorage) {
+      var values = {};
+      $scope.patientStorage = patientStorage;
+      $scope.panelsList = _.sortBy(patientsFile, 'ordinal');
+      _.each($scope.panelsList, function (panel){panel.values = values;});
+      $scope.clearPanel = function (id) {
+        var panel = _.find($scope.panels, function (panel) {
+          return panel.id === id;
+        });
+        panel.reset();
       };
+    })
+  .controller('patientCtrl',
+    function ($scope, $route, $location, patientStorage) {
+      var patient;
+      $scope.$on("$routeChangeSuccess", function (event, route) {
+        patient = patientStorage.patient(route.params.id);
+        if (!patient) {
+          $location.path('/Patients');
+        }
+      });
     });
 })();

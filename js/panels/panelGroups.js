@@ -10,7 +10,9 @@
         if (!this.calculator) {
           this.calculator = calculators[this.id];
         }
-        return this.calculator(this.values);
+        var result = this.calculator(this.values);
+        if (angular.equals(fields[this.id], result)) {fields[this.id]=result;}
+        return result;
       };
     }).
     factory('init', function () {

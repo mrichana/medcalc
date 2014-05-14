@@ -89,10 +89,10 @@
           },
           link: function (scope, element, attrs) {
             if (scope.panel.update) {
-              scope.panel.init && scope.panel.init();
-              scope.$watch('panel.values', function (newValue, oldValue, scope) {
+              if (scope.panel.init) {scope.panel.init();}
+              scope.$watchCollection('panel.values', function (newValue, oldValue, scope) {
                 scope.panel.result = scope.panel.update(newValue, oldValue, scope);
-              }, true);
+              });
             }
             var templateName = scope.panel.template || 'calculator';
             var loader = $http.get('partials/panels/' + templateName + '.html', {

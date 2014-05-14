@@ -10,6 +10,7 @@
       'medical.filters',
       'medical.services',
       'medical.directives',
+      'ngRoute',
       'ngTouch',
       'ngAnimate',
       'ngSanitize',
