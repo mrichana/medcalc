@@ -45,13 +45,6 @@
               input: {
                 type: 'text'
               }
-            },
-            {
-              id: 'birthday',
-              name: 'Γεννέθλια',
-              input: {
-                type: 'static'
-              }
             }
           ],
           init: init,

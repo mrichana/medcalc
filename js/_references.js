@@ -1,4 +1,4 @@
-﻿;/// <reference path="~/lib/angular/angular.js" />
+﻿/// <reference path="~/lib/angular/angular.js" />
 /// <reference path="~/lib/hammer.js" />
 /// <reference path="~/lib/angular-hammer.js" />
 
