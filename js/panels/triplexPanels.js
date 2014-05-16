@@ -9,11 +9,12 @@
    * Available calculators
    */
   angular.module('medical.panels').
-    factory('triplexPanels', function (update, init, reset) {
-      return [
+    factory('triplexPanels', function (panels, update, init, reset) {
+      return panels.add([
         {
           id: "lavi",
           name: "Left Atrium Volume Index",
+          category: "triplex",
           type: "basic",
           template: "calculator.basic",
           defaultValues: {
@@ -87,8 +88,8 @@
         {
           id: "avvr",
           name: "Aortic Valve Velocity Ratio",
+          category: "triplex",
           type: "basic",
-          template: "calculator.basic",
           defaultValues: {
             LVOTV: 1,
             AoV: 1
@@ -137,8 +138,9 @@
         {
           id: "avavti",
           name: "Aortic Valve Area (VTI)",
-          type: "basic",
+          category: "triplex",
           template: "calculator.basic",
+          type: "basic",
           defaultValues: {
             LVOT: 20,
             LVOTVTI: 20,
@@ -198,6 +200,7 @@
         {
           id: "avamax",
           name: "Aortic Valve Area (Vmax)",
+          category: "triplex",
           type: "basic",
           template: "calculator.basic",
           defaultValues: {
@@ -259,6 +262,7 @@
         {
           id: "Zva",
           name: "Αορτοβαλβιδική Αντίσταση (Zva)",
+          category: "triplex",
           type: "basic",
           template: "calculator.basic",
           defaultValues: {
@@ -340,6 +344,6 @@
           reset: reset,
           update: update
         }
-      ];
+      ]);
     });
 })();

@@ -19,12 +19,14 @@
       $localStorage.patients = $localStorage.patients || {};
       return {
         patients:         $localStorage.patients,
-        patient:          function(id) {return this.patients[id];},
-        addPatient:       function(patient) {this.patients[patient.id] = patient;},
-        removePatient:    function(patient) {delete this.patients[patient.id && patient];},
+        patient:          function(amka) {return this.patients[amka];},
+        addPatient:       function(patient) {this.patients[patient.amka] = patient;},
+        removePatient:    function(patient) {delete this.patients[patient.amka && patient];},
         filterPatients:   function(patienttempl) {
           return _.filter(this.patients, function (patient) {
-            return _.all(patienttempl, function (value, key) { return (!value) || patient[key].toUpperCase().lastIndexOf(value.toUpperCase(), 0) === 0;} );
+            return _.all(patienttempl,function(value, key){
+              return patient[key].toLowerCase().lastIndexOf(value.toLowerCase(), 0) === 0;
+            });
           });
         }
       };

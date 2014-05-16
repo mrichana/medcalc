@@ -2,14 +2,14 @@
 /*global _: true */
 /*global $: true */
 
-(function () {
+(function() {
   'use strict';
 
   /* Directives */
   angular.module('medical.directives', [])
-    .directive('scrollto', [function () {
-      return function (scope, elm, attrs) {
-        elm.bind('click', function (e) {
+    .directive('scrollto', [function() {
+      return function(scope, elm, attrs) {
+        elm.bind('click', function(e) {
           e.preventDefault();
           if (attrs.href) {
             attrs.scrollto = attrs.href;
@@ -19,11 +19,11 @@
         });
       };
     }])
-    .directive('affix', function ($window) {
+    .directive('affix', function($window) {
       return {
         restrict: 'A',
-        link: function ($scope, elem, attrs) {
-          $($window).scroll(function () {
+        link: function($scope, elem, attrs) {
+          $($window).scroll(function() {
             var scroll = $window.scrollY;
             var $body, offset, padding;
             if (scroll > elem.offset().top) {
@@ -45,11 +45,11 @@
         }
       };
     })
-    .directive('scrollSpy', function ($window) { //works but could get a lot more optimised. Check bellow... Also should check first the previous spy element and if still selected, return. Finally if the element does not exist anymore, remove it from the spy array.
+    .directive('scrollSpy', function($window) { //works but could get a lot more optimised. Check bellow... Also should check first the previous spy element and if still selected, return. Finally if the element does not exist anymore, remove it from the spy array.
       return {
         restrict: 'A',
-        link: function ($scope, elem, attrs) {
-          $($window).scroll(function () {
+        link: function($scope, elem, attrs) {
+          $($window).scroll(function() {
             var scroll = $window.scrollY;
             var element = $('#' + attrs.scrollSpy);
             if (element.length) {
@@ -63,14 +63,14 @@
         }
       };
     })
-    .directive('navPanel', [function () {
+    .directive('navPanel', [function() {
       return {
         restrict: 'E',
         replace: true,
         template: '<a scrollto ng-href="#{{panel.id}}" scroll-spy="{{panel.id}}"><span class="glyphicon glyphicon-chevron-right"></span> {{panel.name}}</a>'
       };
     }])
-      .directive('result', function () {
+      .directive('result', function() {
         return {
           restrict: 'E',
           replace: true,
@@ -80,18 +80,25 @@
           template: '<div ng-class="{\'alert\': result.resultlevel!=null, \'alert-danger\': result.resultlevel==3, \'alert-warning\': result.resultlevel==2, \'alert-info\': result.resultlevel==1, \'alert-success\': result.resultlevel==0}"><h3 ng-bind-html="result.result | to_trusted"></h3><h4 ng-bind-html="result.explanation | to_trusted"></h4></div>'
         };
       })
-      .directive('panel', ['$compile', '$http', '$templateCache', function ($compile, $http, $templateCache) {
+      .directive('panel', ['$compile', '$http', '$templateCache', function($compile, $http, $templateCache) {
         return {
           restrict: 'E',
           replace: true,
           scope: {
             panel: '='
           },
-          link: function (scope, element, attrs) {
+          link: function(scope, element, attrs) {
             if (scope.panel.update) {
               if (scope.panel.init) {scope.panel.init();}
-              scope.$watchCollection('panel.values', function (newValue, oldValue, scope) {
-                scope.panel.result = scope.panel.update(newValue, oldValue, scope);
+              _.each(scope.panel.fields, function(field) {
+                scope.$watch('panel.values.' + field.id, function(newValue, oldValue, scope) {
+                  scope.panel.result = scope.panel.update(newValue, oldValue, scope, field);
+                });
+              });
+              _.each(scope.panel.external, function(field) {
+                scope.$watch('panel.values.' + field, function(newValue, oldValue, scope) {
+                  scope.panel.result = scope.panel.update(newValue, oldValue, scope, null);
+                });
               });
             }
             var templateName = scope.panel.template || 'calculator';
@@ -99,16 +106,16 @@
               cache: $templateCache
             });
 
-            loader.success(function (html) {
+            loader.success(function(html) {
               element.html(html);
             }).
-              then(function (response) {
+              then(function(response) {
                 element.replaceWith($compile(element.html())(scope));
               });
           }
         };
       }])
-    .directive('customInput', ['$compile', function ($compile) {
+    .directive('customInput', ['$compile', function($compile) {
       var options = {
         none: '',
         image: '<img ng-src="{{field.url}}" class="img-responsive"/>',
@@ -119,15 +126,16 @@
         radio: '<div class="btn-group" data-toggle="buttons-checkbox"><button type="button" class="btn span2" ng-model="panel.values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
         vradio: '<div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox"><button type="button" class="btn span4" ng-model="panel.values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
         result: '<result result="panel.result"></result>',
-        date:   '<p class="input-group"><input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="panel.values[field.id]" name="field.id" is-open="opened" ng-required="true" close-text="Close" /><span class="input-group-btn"><button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button></span></p>'
+        'static': '<p class="form-control-static" name="{{field.id}}">{{panel.values[field.id]}}</p>',
+        date: '<p class="input-group"><input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="panel.values[field.id]" name="field.id" is-open="opened" ng-required="true" close-text="Close" /><span class="input-group-btn"><button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button></span></p>'
       };
       return {
         restrict: 'E',
         replace: true,
         scope: false,
-        link: function (scope, element, attrs) {
-          scope.fieldFromAnyValue = function (value, field, array) {
-            return _.find(array, function (iterator) {
+        link: function(scope, element, attrs) {
+          scope.fieldFromAnyValue = function(value, field, array) {
+            return _.find(array, function(iterator) {
               return iterator[field] === value;
             });
           };
