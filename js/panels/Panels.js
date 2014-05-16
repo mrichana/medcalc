@@ -6,12 +6,13 @@
 
   angular.module('medical.panels', ['medical.calculators']).
     factory('update', function (calculators) {
-      return function (fields, oldValues) {
+      return function (newValue, oldValue, scope) {
         if (!this.calculator) {
           this.calculator = calculators[this.id];
         }
         var result = this.calculator(this.values);
-        if (angular.equals(fields[this.id], result)) {fields[this.id]=result;}
+        this.values[this.id]=result;
+        if (scope.panel && scope.panel.validate) {scope.panel.validate(scope);}
         return result;
       };
     }).
