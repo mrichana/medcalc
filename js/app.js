@@ -15,8 +15,5 @@
       'ngAnimate',
       'ngSanitize',
       'ui.bootstrap'
-    ],
-    function ($locationProvider) {
-      $locationProvider.html5Mode(false);
-    });
+    ]);
 })();

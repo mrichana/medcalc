@@ -716,7 +716,7 @@
           init: init,
           reset: reset,
           update: update,
-          validate: function(scope) {
+          validate: function(newValue, scope, field) {
             var aorta = _.find(scope.panel.fields, function(field) {
               return field.id === 'aorta';
             });

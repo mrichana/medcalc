@@ -6,21 +6,22 @@
 
   angular.module('medical.panels', ['medical.calculators']).
     factory('panels', function() {
-      var allList = [];
-      var categories = {};
-      var all = {};
+      var _allList = [];
+      var _categories = {};
+      var _all = {};
 
       return {
         add: function(panelList) {
-          allList = _.union(allList, panelList);
-          all = _.indexBy(allList, 'id');
-          categories = _.groupBy(allList, function(panel) {
+          _allList = _.union(_allList, panelList);
+          _all = _.indexBy(_allList, 'id');
+          _categories = _.groupBy(_allList, function(panel) {
             return panel.category || 'general';
           });
           return panelList;
         },
-        all: function() { return allList; },
-        categories: function() {return categories;}
+        all: function() {return _all;},
+        allList: function() {return _allList;},
+        categories: function() {return _categories;}
       };
     }).
     factory('update', function(calculators) {

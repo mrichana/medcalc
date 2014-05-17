@@ -90,6 +90,7 @@
           name: "Aortic Valve Velocity Ratio",
           category: "triplex",
           type: "basic",
+          template: "calculator.basic",
           defaultValues: {
             LVOTV: 1,
             AoV: 1

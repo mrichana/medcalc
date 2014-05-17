@@ -674,7 +674,7 @@
           };
         },
         killip: function (values) {
-          var result = values.killip;
+          var result = values.killipSelection;
           var explanation;
           var resultlevel;
           switch (result) {
@@ -702,7 +702,7 @@
           };
         },
         nyha: function (values) {
-          var result = values.nyha;
+          var result = values.nyhaSelection;
           var resultlevel;
           if (result === "IV") {resultlevel = 3;}
           if (result === "III") {resultlevel = 2;}
