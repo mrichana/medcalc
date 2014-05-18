@@ -113,7 +113,7 @@
                             });
                         }
                         var templateName = scope.panel.template || 'calculator';
-                        var loader = $http.get('partials/panels/' + templateName + '.html', {
+                        var loader = $http.get('partials/views/' + templateName + '.html', {
                             cache: $templateCache
                         });
 

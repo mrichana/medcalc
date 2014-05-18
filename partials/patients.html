@@ -10,7 +10,7 @@
     <div class="col-md-9">
         <div class="panels">
             <div id="{{searchPanel.id}}" class="panel panel-success" ng-controller="searchPatientCtrl">
-                <div class="panel-heading"><h4>{{searchPanel.name}}<span class="glyphicon glyphicon-trash pull-right" ng-show="searchPanel.reset" ng-click="clearPanel(searchPanel.id)"></span></h4></div>
+                <div class="panel-heading"><h4>{{searchPanel.name}}<span class="glyphicon glyphicon-refresh pull-right" ng-show="searchPanel.reset" ng-click="clearPanel(searchPanel.id)"></span></h4></div>
                 <div class="panel-body"><panel panel='searchPanel'></panel></div>
             </div>
             <div ng-repeat="patient in patients track by patient.amka"

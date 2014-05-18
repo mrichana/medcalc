@@ -18,10 +18,6 @@
         newPatient: function(values) {
           var ret = {amka: values.amka, firstname: values.firstname, lastname: values.lastname};
           return ret;
-        },
-        listPatients: function(values) {
-          var ret = patientStorage.filterPatients(values.newPatient);
-          return ret;
         }
       };
     });

@@ -6,7 +6,7 @@
 
     /* Controllers */
 
-    angular.module('medical.controllers', ['ngRoute', 'medical.panels'])
+    angular.module('medical.controllers', ['ngRoute', 'medical.views'])
         .config(['$routeProvider', '$locationProvider',
             function($routeProvider, $locationProvider) {
                 $routeProvider
@@ -47,22 +47,22 @@
             })
         .controller('calculatorCtrl',
             function($scope, $route, $routeParams,
-                panels, calculatorPanels, triplexPanels) {
+                views, internalMedicineViews, triplexViews) {
                 $scope.filters = {
                     General: {
                         name: 'Βασικά',
-                        content: panels.categories().general
+                        content: views.categories().general
                     },
                     Triplex: {
                         name: 'Triplex',
-                        content: panels.categories().triplex
+                        content: views.categories().triplex
                     }
                 };
 
                 $scope.filters.setAbsolute = function(filterName) {
-                    $scope.panels = $scope.filters[filterName].content;
+                    $scope.views = $scope.filters[filterName].content;
 
-                    $scope.panelsList = _.sortBy($scope.panels, 'ordinal');
+                    $scope.panelsList = _.sortBy($scope.views, 'ordinal');
                     $scope.filters.active = filterName;
                 };
 
@@ -71,26 +71,26 @@
                 });
 
                 $scope.clearPanel = function(id) {
-                    var panel = _.find($scope.panels, function(panel) {
+                    var panel = _.find($scope.views, function(panel) {
                         return panel.id === id;
                     });
                     panel.reset();
                 };
             })
         .controller('patientListCtrl',
-            function($scope, panels, patientStorage, patientPanels) {
+            function($scope, views, patientStorage, patientViews) {
                 var values = {};
                 $scope.patientStorage = patientStorage;
-                $scope.searchPanel = panels.categories().patient[0];
-                //$scope.listPanel = panels.categories().patient[1];
+                $scope.searchPanel = views.categories().patient[0];
+                //$scope.listPanel = views.categories().patient[1];
                 $scope.searchPanel.values = $scope.values = values;
         $scope.patients = patientStorage.filterPatients(values.newPatient);
                 $scope.clearPanel = function(id) {
-                    panels.all()[id].reset();
+                    views.all()[id].reset();
                 };
             })
         .controller('searchPatientCtrl',
-            function($scope, panels, patientStorage, patientPanels) {
+            function($scope, views, patientStorage, patientViews) {
                 $scope.searchPanel.addPatient = function() {
                     patientStorage.addPatient(this.result);
                     $scope.searchPanel.reset();

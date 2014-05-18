@@ -8,9 +8,9 @@
    *
    * Available calculators
    */
-  angular.module('medical.panels').
-    factory('triplexPanels', function (panels, update, init, reset) {
-      return panels.add([
+  angular.module('medical.views').
+    factory('triplexViews', function (views, update, init, reset) {
+      return views.add([
         {
           id: "lavi",
           name: "Left Atrium Volume Index",
@@ -78,7 +78,7 @@
               input: {
                 type: "image"
               },
-              url: "img/panels/lav.png"
+              url: "img/views/lav.png"
             }
           ],
           init: init,
@@ -129,7 +129,7 @@
               input: {
                 type: "image"
               },
-              url: "img/panels/AVVR.png"
+              url: "img/views/AVVR.png"
             }
           ],
           init: init,
@@ -191,7 +191,7 @@
               input: {
                 type: "image"
               },
-              url: "img/panels/AVVR.png"
+              url: "img/views/AVVR.png"
             }
           ],
           init: init,
@@ -253,7 +253,7 @@
               input: {
                 type: "image"
               },
-              url: "img/panels/AVVR.png"
+              url: "img/views/AVVR.png"
             }
           ],
           init: init,
@@ -338,7 +338,7 @@
               input: {
                 type: "image"
               },
-              url: "img/panels/AVVR.png"
+              url: "img/views/AVVR.png"
             }
           ],
           init: init,

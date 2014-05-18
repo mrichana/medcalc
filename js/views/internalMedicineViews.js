@@ -8,9 +8,9 @@
    *
    * Available calculators
    */
-  angular.module('medical.panels').
-    factory('calculatorPanels', function(panels, update, init, reset) {
-      return panels.add([
+  angular.module('medical.views').
+    factory('internalMedicineViews', function(views, update, init, reset) {
+      return views.add([
         {
           id: 'abg',
           name: 'Αέρια Αίματος',

@@ -4,8 +4,8 @@
 (function() {
   'use strict';
 
-  angular.module('medical.panels', ['medical.calculators']).
-    factory('panels', function() {
+  angular.module('medical.views', ['medical.calculators']).
+    factory('views', function() {
       var _allList = [];
       var _categories = {};
       var _all = {};

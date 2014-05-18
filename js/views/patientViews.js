@@ -8,21 +8,19 @@
      *
      * Available calculators
      */
-    angular.module('medical.panels').
-    factory('patientPanels', function(panels, update, init, reset) {
-        return panels.add([{
+    angular.module('medical.views').
+    factory('patientViews', function(views, update, init, reset) {
+        return views.add([{
             id: 'newPatient',
             name: 'Αναζήτηση/Νέος Ασθενής',
             category: 'patient',
-            ordinal: 0,
             type: 'basic',
-            template: 'patient.basic',
+            template: 'patient.search',
             defaultValues: {
                 amka: '',
                 lastname: '',
                 firstname: '',
-                birthday: null
-            },
+             },
             fields: [{
                 id: 'amka',
                 name: 'Α.Μ.Κ.Α.',
@@ -64,17 +62,23 @@
                 fieldsId.firstname.warning = !scope.panel.values.firstname;
                 scope.addPatientReady = !(fieldsId.amka.warning || fieldsId.lastname.warning || fieldsId.firstname.warning || scope.panel.values.listPatients.length);
             }
-        }, {
-            id: 'listPatients',
-            name: 'Λίστα Ασθενών',
+        },
+        {
+            id: 'patient',
+            name: '',
             category: 'patient',
-            ordinal: 1,
             type: 'basic',
-            template: 'patient.list',
-            external: [
-                'newPatient'
+            template: 'patient.basic',
+            defaultValues: {
+            },
+            fields: [
             ],
-            update: update
-        }]);
+            init: init,
+            reset: reset,
+            update: update,
+            validate: function(newValue, scope, field) {
+            }
+        }
+        ]);
     });
 })();
