@@ -81,19 +81,18 @@
             function($scope, views, patientStorage, patientViews) {
                 var values = {};
                 $scope.patientStorage = patientStorage;
-                $scope.searchPanel = views.categories().patient[0];
-                //$scope.listPanel = views.categories().patient[1];
-                $scope.searchPanel.values = $scope.values = values;
-        $scope.patients = patientStorage.filterPatients(values.newPatient);
+                $scope.searchView = views.categories().patient[0];
+                $scope.searchView.values = $scope.values = values;
+                $scope.patients = patientStorage.filterPatients(values.newPatient);
                 $scope.clearPanel = function(id) {
                     views.all()[id].reset();
                 };
             })
         .controller('searchPatientCtrl',
             function($scope, views, patientStorage, patientViews) {
-                $scope.searchPanel.addPatient = function() {
+                $scope.searchView.addPatient = function() {
                     patientStorage.addPatient(this.result);
-                    $scope.searchPanel.reset();
+                    $scope.searchView.reset();
                 };
             })
         .controller('patientCtrl',

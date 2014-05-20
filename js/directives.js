@@ -68,14 +68,14 @@
                 }
             };
         })
-        .directive('navPanel', function() {
+        .directive('navView', function() {
             return {
                 restrict: 'E',
                 replace: true,
                 scope: {
-                    panel: '='
+                    view: '='
                 },
-                template: '<a class="list-group-item" scrollto ng-href="#{{panel.id}}" scroll-spy="{{panel.id}}"><span class="glyphicon glyphicon-chevron-right"></span> {{panel.name}}</a>'
+                template: '<a class="list-group-item" ng-href="#{{view.id}}">{{view.name}} <i class="fa fa-chevron-right pull-right"></i></a>'
             };
         })
         .directive('result', function() {
@@ -88,31 +88,31 @@
                 template: '<div ng-class="{\'alert\': result.resultlevel!=null, \'alert-danger\': result.resultlevel==3, \'alert-warning\': result.resultlevel==2, \'alert-info\': result.resultlevel==1, \'alert-success\': result.resultlevel==0}"><h3 ng-bind-html="result.result | to_trusted"></h3><h4 ng-bind-html="result.explanation | to_trusted"></h4></div>'
             };
         })
-        .directive('panel', ['$compile', '$http', '$templateCache',
+        .directive('view', ['$compile', '$http', '$templateCache',
             function($compile, $http, $templateCache) {
                 return {
                     restrict: 'E',
                     replace: true,
                     scope: {
-                        panel: '='
+                        view: '='
                     },
                     link: function(scope, element, attrs) {
-                        if (scope.panel.update) {
-                            if (scope.panel.init) {
-                                scope.panel.init();
+                        if (scope.view.update) {
+                            if (scope.view.init) {
+                                scope.view.init();
                             }
-                            _.each(scope.panel.fields, function(field) {
-                                scope.$watch('panel.values.' + field.id, function(newValue, oldValue, scope) {
-                                    scope.panel.result = scope.panel.update(newValue, oldValue, scope, field);
+                            _.each(scope.view.fields, function(field) {
+                                scope.$watch('view.values.' + field.id, function(newValue, oldValue, scope) {
+                                    scope.view.result = scope.view.update(newValue, oldValue, scope, field);
                                 });
                             });
-                            _.each(scope.panel.external, function(field) {
-                                scope.$watch('panel.values.' + field, function(newValue, oldValue, scope) {
-                                    scope.panel.result = scope.panel.update(newValue, oldValue, scope, null);
+                            _.each(scope.view.external, function(field) {
+                                scope.$watch('view.values.' + field, function(newValue, oldValue, scope) {
+                                    scope.view.result = scope.view.update(newValue, oldValue, scope, null);
                                 });
                             });
                         }
-                        var templateName = scope.panel.template || 'calculator';
+                        var templateName = scope.view.template || 'calculator';
                         var loader = $http.get('partials/views/' + templateName + '.html', {
                             cache: $templateCache
                         });
@@ -127,6 +127,30 @@
                 };
             }
         ])
+        .directive("switch", function() {
+            return {
+                restrict: "E",
+                require: "^ngModel",
+                replace: true,
+                scope: {},
+                template: "<div class='switch'><div class='switch-handle'></div></div>",
+                link: function(scope, elem, attrs, ngModelController) {
+
+                    ngModelController.$render = function() {
+                        elem.toggleClass('active', ngModelController.$viewValue);
+                    };
+
+                    elem.on('click tap', function() {
+                        if (!attrs.disabled) {
+                            scope.$apply(ngModelController.$setViewValue(!ngModelController.$viewValue));
+                            ngModelController.$render();
+                        }
+                    });
+
+                    elem.addClass('switch-transition-enabled');
+                }
+            };
+        })
         .directive('customInput', ['$compile',
             function($compile) {
                 var options = {
@@ -135,17 +159,22 @@
                     number: '<input class="form-control" type="number" step="{{field.input.step}}" min="{{field.input.min}}" max="{{field.input.max}}" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]"/><span class="help-inline">{{field.description}}</span>',
                     text: '<input class="form-control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" maxlength="{{field.input.length || 524288}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
                     select: '<select class="form-control" required ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-options="option.value as option.name for option in field.input.options"></select><span class="help-inline">{{fieldFromAnyValue(values[field.id], "value", field.input.options).description}}</span>',
-                    check: '<button type="button" class="btn" ng-model="values[field.id]" btn-checkbox ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}"><span class="glyphicon glyphicon-remove-circle" ng-hide="values[field.id]" /><span class="glyphicon glyphicon-ok-sign" ng-show="values[field.id]" /></button><span class="help-inline">{{field.description}}</span>',
+                    // check: '<button type="button" class="btn" ng-model="values[field.id]" btn-checkbox ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}"><i class="fa fa-remove-circle" ng-hide="values[field.id]" /><i class="fa fa-ok-sign" ng-show="values[field.id]" /></button><span class="help-inline">{{field.description}}</span>',
+                    check: '<switch ng-model="values[field.id]"></switch>',
                     radio: '<div class="btn-group" data-toggle="buttons-checkbox"><button type="button" class="btn span2" ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
                     vradio: '<div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox"><button type="button" class="btn span4" ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
                     result: '<result result="result"></result>',
                     'static': '<p class="form-control-static" name="{{field.id}}">{{values[field.id]}}</p>',
-                    date: '<p class="input-group"><input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="values[field.id]" name="field.id" is-open="opened" ng-required="true" close-text="Close" /><span class="input-group-btn"><button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button></span></p>'
+                    date: '<p class="input-group"><input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="values[field.id]" name="field.id" is-open="opened" ng-required="true" close-text="Close" /><span class="input-group-btn"><button class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button></span></p>'
                 };
                 return {
                     restrict: 'E',
                     replace: true,
-                    scope: {field: '=', values: '=', result:'='},
+                    scope: {
+                        field: '=',
+                        values: '=',
+                        result: '='
+                    },
                     link: function(scope, element, attrs) {
                         var html = options[scope.field.input.type];
                         element.html(html);
