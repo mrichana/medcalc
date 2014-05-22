@@ -16,10 +16,12 @@
                         if (attrs.href) {
                             attrs.scrollto = attrs.href;
                         }
-                        var top = $(attrs.scrollto).offset().top;
-                        $('body,html').animate({
-                            scrollTop: top - 40
-                        }, 800);
+                        var item = $(attrs.scrollto);
+                        var parent = item.parentsUntil('.scrollable');
+                        var top = parent.scrollTop() + item.offset().top - parent.offset().top;
+                        parent.animate({
+                            scrollTop: top
+                        }, 1800);
                     });
                 };
             }
@@ -75,7 +77,7 @@
                 scope: {
                     view: '='
                 },
-                template: '<a class="list-group-item" ng-href="#{{view.id}}">{{view.name}} <i class="fa fa-chevron-right pull-right"></i></a>'
+                template: '<a class="list-group-item" scrollto="#{{view.id}}" href>{{view.name}} <i class="fa fa-chevron-right pull-right"></i></a>'
             };
         })
         .directive('result', function() {

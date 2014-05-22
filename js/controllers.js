@@ -23,34 +23,42 @@
                         controller: 'patientCtrl'
                     })
                     .otherwise({
-                        redirectTo: '/Calculators/General'
+                        redirectTo: '/Calculators/InternalMedicine'
                     });
                 // configure html5 to get links working on jsfiddle
                 $locationProvider.html5Mode(false);
             }
         ])
         .controller('generalCtrl',
-            function($scope, $route) {
+            function($scope, $route, $location) {
                 $scope.filters = [{
                     name: 'Αρχείο Ασθενών',
-                    content: '#/Patients'
+                    content: '/Patients',
+                    category: 'Αρχείο'
                 }, {
-                    name: 'Βασικά',
-                    content: '#/Calculators/General'
+                    name: 'Γενική Παθολογία',
+                    content: '/Calculators/InternalMedicine',
+                    category: 'Υπολογιστές'
                 }, {
                     name: 'Triplex',
-                    content: '#/Calculators/Triplex'
+                    content: '/Calculators/Triplex',
+                    category: 'Υπολογιστές'
                 }];
+
                 $scope.$on('$routeChangeSuccess', function(event, route) {
-                    //          $scope.location = $location.url();
+                    $scope.location = $location.path();
+                });
+
+                $scope.$watch('location', function() {
+                    $location.path($scope.location);
                 });
             })
         .controller('calculatorCtrl',
             function($scope, $route, $routeParams,
                 views, internalMedicineViews, triplexViews) {
                 $scope.filters = {
-                    General: {
-                        name: 'Βασικά',
+                    InternalMedicine: {
+                        name: 'Γενική Παθολογία',
                         content: views.categories().general
                     },
                     Triplex: {

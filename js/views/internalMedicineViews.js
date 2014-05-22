@@ -287,9 +287,9 @@
                 gfr: 0,
                 hr: 1,
                 sbp: 1,
-                sn: 0,
-                diabetes: 0,
-                chf: 0,
+                sn: false,
+                diabetes: false,
+                chf: false,
                 sex: 0
             },
             fields: [{

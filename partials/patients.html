@@ -1,31 +1,34 @@
-<div class="sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in" id="mainSidebar">
-    <h1 class="app-name">Αρχείο</h1>
-        <div class="scrollable">
-            <div class="scrollable-content">
-                <div class="list-group" toggle="off" bubble target="mainSidebar">
-                    <nav-view class="list-group-item-success" view="searchView"></nav-view>
-                    <nav-view ng-repeat="patient in patients track by patient.amka" view="{id:patient.amka, name:patient.firstname}"></nav-view>
-                </div>
+<div class="app">
+    <div class="app-body scrollable">
+        <div class="scrollable-content">
+            <div id="{{searchView.id}}" class="panel panel-success" ng-controller="searchPatientCtrl">
+                <div class="panel-heading"><h4>{{searchView.name}}<i class="fa fa-refresh pull-right" ng-show="searchView.reset" ng-click="clearPanel(searchPanel.id)"></i></h4></div>
+                <div class="panel-body"><view view='searchView'></view></div>
+            </div>
+            <div ng-repeat="patient in patients track by patient.amka"
+            id="{{patient.amka}}" class="panel panel-default">
+                <div class="panel-heading"><h4>{{patient.firstname + " " + patient.lastname}}</h4></div>
+                <div class="panel-body"></div>
             </div>
         </div>
     </div>
 
+    <div class="navbar navbar-app navbar-absolute-bottom">
+      <div class="container">
+         <i class="fa fa-icon-ok"></i>2013 Missel Richana      
+      </div>
+    </div>
+</div>
 
-    <div class="app">
-        <div class="app-body">
-            <div class="scrollable">
-                <div class="scrollable-content">
-                    <div id="{{searchPanel.id}}" class="panel panel-success" ng-controller="searchPatientCtrl">
-                        <div class="panel-heading"><h4>{{searchView.name}}<i class="fa fa-refresh pull-right" ng-show="searchView.reset" ng-click="clearPanel(searchPanel.id)"></i></h4></div>
-                        <div class="panel-body"><view view='searchView'></view></div>
-                    </div>
-                    <div ng-repeat="patient in patients track by patient.amka"
-                    id="{{'patient'+patient.amka}}" class="panel panel-default">
-                        <div class="panel-heading"><h4>{{patient.firstname + " " + patient.lastname}}</h4></div>
-                        <div class="panel-body"></div>
-                    </div>
-                </div>    
+<div class="sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in" id="mainSidebar">
+    <h1 class="app-name">Αρχείο</h1>
+    <div class="scrollable">
+        <div class="scrollable-content">
+            <div class="list-group" toggle="off" bubble target="mainSidebar">
+                <nav-view class="list-group-item-success" view="searchView"></nav-view>
+                <nav-view ng-repeat="patient in patients track by patient.amka" view="{id:patient.amka, name:patient.firstname}"></nav-view>
             </div>
         </div>
     </div>
 </div>
+

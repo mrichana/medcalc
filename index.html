@@ -16,6 +16,7 @@
 
   <link rel="stylesheet" href="css/mobile-angular-ui-base.css" />
   <link rel="stylesheet" href="css/mobile-angular-ui-desktop.css" />
+  <link rel="stylesheet" type="text/css" href="css/site.css" />
 
   <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png" />
@@ -35,7 +36,7 @@
   <script src="lib/mobile-angular-ui.js"></script>
 
   <script src="js/calculators/Calculators.js" type="text/javascript"></script>
-  <script src="js/calculators/basicCalculators.js" type="text/javascript"></script>
+  <script src="js/calculators/internalMedicineCalculators.js" type="text/javascript"></script>
   <script src="js/calculators/triplexCalculators.js" type="text/javascript"></script>
   <script src="js/calculators/patientCalculators.js" type="text/javascript"></script>
 
@@ -54,44 +55,8 @@
 
 <body>
 
-<ng-view></ng-view>
-    <!-- Navbar -->
-<!--     <div class="navbar navbar-app navbar-absolute-top">
+  <ng-view></ng-view>
 
-        <div class="navbar-brand navbar-brand-center">
-          <span>Mobile Angular UI</span>
-        </div>
-
-        <div class="btn-group pull-left">
-          <div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
-            <i class="fa fa-bars"></i> Menu
-          </div>
-        </div>
-
-        <div class="btn-group pull-right" yield-to="navbarAction">
-          <div ng-click="toggle('rightSidebar')" class="btn btn-navbar">
-            <i class="fa fa-comment"></i> Chat
-          </div>
-        </div>
-    </div>
-
-    <div class="navbar navbar-app navbar-absolute-bottom">
-      <div class="btn-group justified">
-        <a href="http://mobileangularui.com/" class="btn btn-navbar"><i class="fa fa-home fa-navbar"></i> Docs</a>
-        <a href="https://github.com/mcasimir/mobile-angular-ui" class="btn btn-navbar"><i class="fa fa-github fa-navbar"></i> Sources</a>
-        <a href="https://github.com/mcasimir/mobile-angular-ui/issues" class="btn btn-navbar"><i class="fa fa-exclamation-circle fa-navbar"></i> Issues</a>
-
-      </div>
-    </div>
-
-    <div class="app-body" ng-class="{loading: loading}">
-        <div ng-show="loading" class="app-content-loading">
-          <i class="fa fa-spinner fa-spin loading-spinner"></i>
-        </div>
-        <ng-view class="app-content" ng-hide="loading"></ng-view>
-      </div>
-    </div>
- -->
 </body>
 
 </html>
