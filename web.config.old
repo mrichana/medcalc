@@ -1,0 +1,32 @@
+<configuration>
+    <system.webServer>
+        <rewrite>
+          <rules>
+            <rule name="css" stopProcessing="true">
+                <match url="(.+)/(.+)css" />
+                <conditions logicalGrouping="MatchAll" trackAllCaptures="false" />
+            </rule>
+            <rule name="fonts" stopProcessing="true">
+                <match url="(.+)\\fonts\\(.+)" />
+                <conditions logicalGrouping="MatchAll" trackAllCaptures="false" />
+            </rule>
+            <rule name="img" stopProcessing="true">
+                <match url="(.+)\\img\\(.+)" />
+                <conditions logicalGrouping="MatchAll" trackAllCaptures="false" />
+            </rule>
+            <rule name="js" stopProcessing="true">
+                <match url="(.+)/(.+)js" />
+                <conditions logicalGrouping="MatchAll" trackAllCaptures="false" />
+            </rule>
+            <rule name="Main Rule" stopProcessing="true">
+                    <match url=".*" />
+                    <conditions logicalGrouping="MatchAll">
+                        <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+                        <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+                    </conditions>
+                    <action type="Rewrite" url="/" />
+                </rule>
+            </rules>
+        </rewrite>
+    </system.webServer>
+</configuration>

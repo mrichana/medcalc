@@ -56,17 +56,19 @@
             return {
                 restrict: 'A',
                 link: function($scope, elem, attrs) {
-                    $($window).scroll(function() {
-                        var scroll = $window.scrollY;
-                        var element = $('#' + attrs.scrollSpy);
-                        if (element.length) {
-                            if (scroll > element.offset().top && scroll < (element.offset().top + element.height())) {
+                        var element = $(attrs.scrollSpy);
+                        var parent = $('.scroll-spy-target');
+                        parent.scroll(function() {
+                            var element = $(attrs.scrollSpy);
+                            var parent = $('.scroll-spy-target');
+                            var parentHalf = parent.height() / 2;
+                            var elementPos = element.offset().top - parent.offset().top;
+                            if ((elementPos < parentHalf) && (elementPos + element.height() > parentHalf )) {
                                 elem.addClass('active');
                             } else {
                                 elem.removeClass('active');
                             }
-                        }
-                    });
+                        });
                 }
             };
         })
@@ -77,7 +79,7 @@
                 scope: {
                     view: '='
                 },
-                template: '<a class="list-group-item" scrollto="#{{view.id}}" href>{{view.name}} <i class="fa fa-chevron-right pull-right"></i></a>'
+                template: '<a class="list-group-item" scrollto="#{{view.id}}" scroll-spy="#{{view.id}}" href>{{view.name}} <i class="fa fa-chevron-right pull-right"></i></a>'
             };
         })
         .directive('result', function() {

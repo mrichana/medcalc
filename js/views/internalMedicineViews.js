@@ -601,34 +601,26 @@
             reset: reset,
             update: update,
             validate: function(newValue, scope, field) {
-                var aorta = _.find(scope.panel.fields, function(field) {
+                var aorta = _.find(scope.view.fields, function(field) {
                     return field.id === 'aorta';
                 });
-                var septal = _.find(scope.panel.fields, function(field) {
+                var septal = _.find(scope.view.fields, function(field) {
                     return field.id === 'septal';
                 });
-                var cabg = _.find(scope.panel.fields, function(field) {
+                var cabg = _.find(scope.view.fields, function(field) {
                     return field.id === 'cabg';
                 });
 
-                if (this.values.aorta || this.values.septal) {
+                if (field.id === 'aorta' && this.values.aorta === true) {
                     this.values.cabg = false;
-                    cabg.input.disabled = true;
-                } else {
-                    cabg.input.disabled = false;
                 }
-
-                if (this.values.cabg) {
-                    this.values.aorta = false;
-                    aorta.input.disabled = true;
-                    this.values.septal = false;
-                    septal.input.disabled = true;
-                } else {
-                    aorta.input.disabled = false;
-                    septal.input.disabled = false;
+                if (field.id === 'septal' && this.values.septal === true) {
+                    this.values.cabg = false;
                 }
-
-            }
+                if (field.id === 'cabg' && this.values.cabg === true) {
+                    this.values.aorta = this.values.septal = false;
+                }
+           }
         }, {
             id: 'gfr',
             name: 'eGFR',

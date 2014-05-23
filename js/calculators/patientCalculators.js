@@ -15,7 +15,7 @@
   angular.module('medical.calculators').
     factory('patientCalculators', function(patientStorage) {
       return {
-        newPatient: function(values) {
+        searchPatient: function(values) {
           var ret = {amka: values.amka, firstname: values.firstname, lastname: values.lastname};
           return ret;
         }

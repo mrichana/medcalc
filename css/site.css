@@ -1,41 +1,4 @@
-.slide.ng-enter {
-    opacity: 0;
-    -webkit-transition: 1s ease all;
-    transition: 1s ease all;
-
-    -webkit-transform: translateX(-2000px);
-    transform: translateX(-2000px);
-}
-
-.slide.ng-enter.slideRight {
-    -webkit-transform: translateX(2000px);
-    transform: translateX(2000px);
-}
-
-.slide.ng-enter.ng-enter-active {
-    opacity: 1;
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-}
-
-.slide.ng-enter-stagger{
-    -webkit-transition-delay:0.2s;
-    transition-delay:0.2s;
-
-    /* yes we still need to do this too */
-    -webkit-transition-duration:0;
-    transition-duration:0;
-}
-.navbar-fixed-top {
-    opacity: 0.9;
-}
-.navbar-nav>li, .navbar-nav>li.active,
-.nav-pills>li, .nav-pills>li.active {
-     -webkit-transition: all ease 0.5s;
-     transition: all ease 0.5s;
-}
-
-.navigation .list-group-item.active {
-    -webkit-transition: 0.5s all ease-in-out;
-    transition: 0.5s all ease-in-out;
+a[scroll-spy] {
+     -webkit-transition: all ease 0.7s;
+     transition: all ease 0.7s;
 }

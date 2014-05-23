@@ -91,7 +91,7 @@
                 $scope.patientStorage = patientStorage;
                 $scope.searchView = views.categories().patient[0];
                 $scope.searchView.values = $scope.values = values;
-                $scope.patients = patientStorage.filterPatients(values.newPatient);
+                $scope.patients = patientStorage.filterPatients(values.searchPatient);
                 $scope.clearPanel = function(id) {
                     views.all()[id].reset();
                 };
