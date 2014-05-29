@@ -14,7 +14,7 @@
         'ngTouch',
         'ngAnimate',
         'ngSanitize',
-        'mobile-angular-ui'
-        // 'ui.bootstrap'
+        'mobile-angular-ui',
+        'textAngular'
     ]);
 })();

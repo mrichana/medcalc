@@ -11,7 +11,7 @@
     angular.module('medical.views').
     factory('patientViews', function(views, update, init, reset) {
         return views.add([{
-            id: 'searchPatient',
+            id: 'newPatient',
             name: 'Αναζήτηση/Νέος Ασθενής',
             category: 'patient',
             type: 'basic',
@@ -19,14 +19,14 @@
             defaultValues: {
                 amka: '',
                 lastname: '',
-                firstname: '',
-             },
+                firstname: ''
+            },
             fields: [{
                 id: 'amka',
                 name: 'Α.Μ.Κ.Α.',
                 input: {
                     type: 'text',
-                    length: '13'
+                    length: '11'
                 }
             }, {
                 id: 'lastname',
@@ -46,7 +46,7 @@
             update: update,
             validate: function(newValue, scope, field) {
                 var fieldsId = _.indexBy(scope.view.fields, 'id');
-                var regEx = /^([0-3][0-9])([01][0-9])([0-9][0-9])[0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/g;
+                var regEx = /^([0-3][0-9])([01][0-9])([0-9][0-9])[0-9][0-9][0-9][0-9][0-9]$/g;
                 fieldsId.amka.warning = !regEx.test(scope.view.values.amka);
                 if (field.id === 'amka' && scope.view.values.amka.match(/^([0-3][0-9])([01][0-9])([0-9][0-9])/g)) {
                     var date = scope.view.values.amka;
@@ -60,25 +60,25 @@
                 }
                 fieldsId.lastname.warning = !scope.view.values.lastname;
                 fieldsId.firstname.warning = !scope.view.values.firstname;
-                scope.addPatientReady = !(fieldsId.amka.warning || fieldsId.lastname.warning || fieldsId.firstname.warning || scope.view.values.listPatients.length);
+                scope.addPatientReady = !(fieldsId.amka.warning || fieldsId.lastname.warning || fieldsId.firstname.warning || scope.view.values.patients.length);
             }
-        },
-        {
-            id: 'patient',
-            name: '',
+        }, {
+            id: 'patientView',
             category: 'patient',
             type: 'basic',
             template: 'patient.basic',
             defaultValues: {
+                notes: ''
             },
-            fields: [
-            ],
+            fields: [{
+                id: 'notes',
+                name: 'Σημειώσεις',
+                input: {
+                    type: 'static'
+                }
+            }],
             init: init,
-            reset: reset,
-            update: update,
-            validate: function(newValue, scope, field) {
-            }
-        }
-        ]);
+            // update: update
+        }]);
     });
 })();

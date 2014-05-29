@@ -36,7 +36,9 @@
                 this.calculator = calculators[this.id];
             }
             var result = this.calculator(this.values);
-            this.values[this.id] = result;
+            this.values.calculatorsActive = this.values.calculatorsActive || {};
+            this.values.calculatorsActive[this.id] = true;
+            this.values[this.id] = result.result;
             if (scope.view && scope.view.validate) {
                 scope.view.validate(newValue, scope, field);
             }

@@ -15,10 +15,14 @@
   angular.module('medical.calculators').
     factory('patientCalculators', function(patientStorage) {
       return {
-        searchPatient: function(values) {
+        newPatient: function(values) {
           var ret = {amka: values.amka, firstname: values.firstname, lastname: values.lastname};
           return ret;
         }
+            // ,
+            // patientView: function(values) {
+            //   return {notes: values.notes};
+            // }
       };
     });
 })();

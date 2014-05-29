@@ -6,7 +6,7 @@
     'use strict';
 
     /* Directives */
-    angular.module('medical.directives', [])
+    angular.module('medical.directives', ['textAngular'])
         .directive('scrollto', [
 
             function() {
@@ -56,19 +56,19 @@
             return {
                 restrict: 'A',
                 link: function($scope, elem, attrs) {
+                    var element = $(attrs.scrollSpy);
+                    var parent = $('.scroll-spy-target');
+                    parent.scroll(function() {
                         var element = $(attrs.scrollSpy);
                         var parent = $('.scroll-spy-target');
-                        parent.scroll(function() {
-                            var element = $(attrs.scrollSpy);
-                            var parent = $('.scroll-spy-target');
-                            var parentHalf = parent.height() / 2;
-                            var elementPos = element.offset().top - parent.offset().top;
-                            if ((elementPos < parentHalf) && (elementPos + element.height() > parentHalf )) {
-                                elem.addClass('active');
-                            } else {
-                                elem.removeClass('active');
-                            }
-                        });
+                        var parentHalf = parent.height() / 2;
+                        var elementPos = element.offset().top - parent.offset().top;
+                        if ((elementPos < parentHalf) && (elementPos + element.height() > parentHalf)) {
+                            elem.addClass('active');
+                        } else {
+                            elem.removeClass('active');
+                        }
+                    });
                 }
             };
         })
@@ -113,6 +113,11 @@
                             _.each(scope.view.external, function(field) {
                                 scope.$watch('view.values.' + field, function(newValue, oldValue, scope) {
                                     scope.view.result = scope.view.update(newValue, oldValue, scope, null);
+                                });
+                            });
+                            scope.$watchCollection('view.values.calculatorsActive', function() {
+                                _.each(scope.view.fields, function(field) {
+                                    field.input.disabled = _.contains(_.keys(scope.view.values.calculatorsActive), field.id);
                                 });
                             });
                         }
@@ -168,8 +173,10 @@
                     radio: '<div class="btn-group" data-toggle="buttons-checkbox"><button type="button" class="btn span2" ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
                     vradio: '<div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox"><button type="button" class="btn span4" ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
                     result: '<result result="result"></result>',
-                    'static': '<p class="form-control-static" name="{{field.id}}">{{values[field.id]}}</p>',
-                    date: '<p class="input-group"><input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="values[field.id]" name="field.id" is-open="opened" ng-required="true" close-text="Close" /><span class="input-group-btn"><button class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button></span></p>'
+                    'static': '<div class="form-control-static" name="{{field.id}}" ng-bind-html="values[field.id] | to_trusted"></div>',
+                    date: '<p class="input-group"><input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="values[field.id]" name="field.id" is-open="opened" ng-required="true" close-text="Close" /><span class="input-group-btn"><button class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button></span></p>',
+                    multiline: '<textarea class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
+                    richtext: '<div><text-angular ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><div><span class="help-inline">{{field.description}}</span>'
                 };
                 return {
                     restrict: 'E',
@@ -183,6 +190,35 @@
                         var html = options[scope.field.input.type];
                         element.html(html);
                         element.replaceWith($compile(html)(scope));
+                    }
+                };
+            }
+        ])
+        .directive('verifiedClick', ['$timeout', '$animate',
+            function($timeout, $animate) {
+                return {
+                    restrict: 'A',
+                    scope: {
+                        verifiedClick: '&'
+                    },
+                    link: function($scope, elem, attrs) {
+                        elem.on('tap click', function() {
+                            $scope.$apply(function() {
+                                var waitTime = attrs.verifyWait || 1500;
+                                if (!$scope.timer) {
+                                    $animate.addClass(elem, 'verify');
+                                    $scope.timer = $timeout(function() {
+                                        $scope.timer = false;
+                                        $animate.removeClass(elem, 'verify');
+                                    }, waitTime);
+                                } else {
+                                    $timeout.cancel($scope.timer);
+                                    $scope.timer = false;
+                                    $animate.removeClass(elem, 'verify');
+                                    $scope.verifiedClick($scope.elem, attrs);
+                                }
+                            });
+                        });
                     }
                 };
             }

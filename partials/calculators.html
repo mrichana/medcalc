@@ -6,7 +6,7 @@
         </select>
       </div>
 
-      <div class="btn-group pull-left">
+      <div class="btn-group btn-group-lg pull-left">
         <div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
           <i class="fa fa-bars"></i>
         </div>
@@ -14,12 +14,12 @@
     </div>
 
     <div class="app-body scrollable">
-            <div class="scrollable-content scroll-spy-target">
-                <div id="{{view.id}}" class="panel panel-default" view='view' ng-repeat="view in panelsList track by view.id">
-                    <div class="panel-heading"><h4>{{view.name}}<i class="fa fa-refresh pull-right" ng-show="view.reset" ng-click="clearPanel(view.id)" /></h4></div>
-                    <div class="panel-body"><view view='view'></view></div>
-                </div>
-            </div>    
+      <div class="scrollable-content scroll-spy-target">
+          <div id="{{view.id}}" class="panel panel-info" view='view' ng-repeat="view in panelsList track by view.id">
+              <div class="panel-heading"><button class="btn btn-default pull-right" ng-show="view.reset" verified-click="clearPanel(view.id)"><i class="fa fa-refresh"></i></button><h4>{{view.name}}</h4></div>
+              <div class="panel-body"><view view='view'></view></div>
+          </div>
+      </div>    
     </div>
 
     <div class="navbar navbar-app navbar-absolute-bottom">

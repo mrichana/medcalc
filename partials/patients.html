@@ -6,23 +6,22 @@
         </select>
       </div>
 
-      <div class="btn-group pull-left">
+      <div class="btn-group btn-group-lg pull-left">
         <div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
           <i class="fa fa-bars"></i>
         </div>
       </div>
     </div>
 
-    <div class="app-body scrollable scroll-spy-target">
-        <div class="scrollable-content">
-            <div id="{{searchView.id}}" class="panel panel-success" ng-controller="searchPatientCtrl">
-                <div class="panel-heading"><h4>{{searchView.name}}<i class="fa fa-refresh pull-right" ng-show="searchView.reset" ng-click="clearPanel(searchPanel.id)"></i></h4></div>
+    <div class="app-body scrollable">
+        <div class="scrollable-content scroll-spy-target">
+            <div id="{{searchView.id}}" class="panel panel-success">
+                <div class="panel-heading"><button class="btn btn-danger pull-right" ng-show="searchView.reset" ng-click="clearPanel(searchView.id)"><i class="fa fa-refresh"></i></button><h4>{{searchView.name}}</h4></div>
                 <div class="panel-body"><view view='searchView'></view></div>
             </div>
-            <div ng-repeat="patient in patients track by patient.amka"
-            id="{{patient.amka}}" class="panel panel-default">
-                <div class="panel-heading"><h4>{{patient.firstname + " " + patient.lastname}}</h4></div>
-                <div class="panel-body"></div>
+            <div ng-repeat="patient in patients track by patient.values.amka" id="{{patient.values.amka}}" class="panel panel-info">
+                <div class="panel-heading" ng-click="go('/Patient/'+patient.values.amka)"><span class="badge pull-right">{{patient.values.amka}}</span><h4>{{fullName(patient.values)}}</h4></div>
+                <div class="panel-body"><view view='patient'></view></div>
             </div>
         </div>
     </div>
@@ -40,7 +39,7 @@
         <div class="scrollable-content">
             <div class="list-group" toggle="off" bubble target="mainSidebar">
                 <nav-view class="list-group-item-success" view="searchView"></nav-view>
-                <nav-view ng-repeat="patient in patients track by patient.amka" view="{id:patient.amka, name:patient.firstname}"></nav-view>
+                <nav-view ng-repeat="patient in values.patients track by patient.amka" view="{id:patient.amka, name:fullName(patient)}"></nav-view>
             </div>
         </div>
     </div>
