@@ -39,21 +39,23 @@
                 return _categories;
             }
         };
-    }).factory('update', function(calculators) {
-        return function(newValue, oldValue, scope, field) {
-            if (!this.calculator) {
-                this.calculator = calculators[this.id];
-            }
-            var result = this.calculator(this.values);
-            this.values.calculatorsActive = this.values.calculatorsActive || {};
-            this.values.calculatorsActive[this.id] = true;
-            this.values[this.id] = result.result;
-            if (scope.view && scope.view.validate) {
-                scope.view.validate(newValue, scope, field);
-            }
-            return result;
-        };
-    }).factory('init', function() {
+    }).factory('update', ['calculators',
+        function(calculators) {
+            return function(newValue, oldValue, scope, field) {
+                if (!this.calculator) {
+                    this.calculator = calculators[this.id];
+                }
+                var result = this.calculator(this.values);
+                this.values.calculatorsActive = this.values.calculatorsActive || {};
+                this.values.calculatorsActive[this.id] = true;
+                this.values[this.id] = result.result;
+                if (scope.view && scope.view.validate) {
+                    scope.view.validate(newValue, scope, field);
+                }
+                return result;
+            };
+        }
+    ]).factory('init', function() {
         return function() {
             this.values = this.values || {};
             _.defaults(this.values, this.defaultValues);

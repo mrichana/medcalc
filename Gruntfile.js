@@ -221,7 +221,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.dist %>',
-                    src: ['*.html', 'views/{,*/}*.html', 'assets/partials/{,*/}*.html'],
+                    src: ['*.html', 'views/{,*/}*.html', 'partials/{,*/}*.html'],
                     dest: '<%= yeoman.dist %>'
                 }]
             }
@@ -308,14 +308,28 @@ module.exports = function(grunt) {
         //     }
         //   }
         // },
-        uglify: {
-            options: {
-                beautify: true
-            }
-        }
+        // uglify: {
+        //   dist: {
+        //     files: {
+        //       '<%= yeoman.dist %>/scripts/scripts.js': [
+        //         '<%= yeoman.dist %>/scripts/scripts.js'
+        //       ]
+        //     }
+        //   }
+        // },
         // concat: {
         //   dist: {}
         // },
+
+        'ftp-deploy': {
+            build: {
+                auth: {
+                    host: 'richana.eu'
+                },
+                src: '<%= yeoman.dist %>',
+                dest: '/httpdocs/beta'
+            }
+        }
     });
 
 
@@ -349,13 +363,17 @@ module.exports = function(grunt) {
         'cdnify',
         'cssmin',
         'uglify',
-        'rev',
+        //        'rev',
         'usemin',
-        'htmlmin'
+        'htmlmin',
+        'ftp-deploy'
     ]);
 
     grunt.registerTask('default', [
-        'newer:jshint',
         'build'
+    ]);
+
+    grunt.registerTask('deploy', [
+        'ftp-deploy'
     ]);
 };

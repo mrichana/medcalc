@@ -1,35 +1,45 @@
 <div class="app">
     <div class="navbar navbar-app navbar-absolute-top" role="navigation" ng-controller="generalCtrl">
-      <div class="navbar-brand navbar-brand-center">
-        <select ng-model="location"
-          ng-options="value.content as value.name group by value.category for value in filters">
-        </select>
-      </div>
-
-      <div class="btn-group btn-group-lg pull-left">
-        <div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
-          <i class="fa fa-bars"></i>
+        <div class="navbar-brand navbar-brand-center">
+            <select ng-model="location" ng-options="value.content as value.name group by value.category for value in filters">
+            </select>
         </div>
-      </div>
+
+        <div class="btn-group btn-group-lg pull-left">
+            <div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
     </div>
 
     <div class="app-body scrollable">
         <div class="scrollable-content scroll-spy-target">
             <div id="{{searchView.id}}" class="panel panel-success">
-                <div class="panel-heading"><button class="btn btn-danger pull-right" ng-show="searchView.reset" ng-click="clearPanel(searchView.id)"><i class="fa fa-refresh"></i></button><h4>{{searchView.name}}</h4></div>
-                <div class="panel-body"><view view='searchView'></view></div>
+                <div class="panel-heading">
+                    <button class="btn btn-default pull-right" ng-show="searchView.reset" ng-click="clearPanel(searchView.id)"><i class="fa fa-refresh"></i>
+                    </button>
+                    <h4>{{searchView.name}}</h4>
+                </div>
+                <div class="panel-body">
+                    <view view='searchView'></view>
+                </div>
             </div>
             <div ng-repeat="patient in patients track by patient.values.amka" id="{{patient.values.amka}}" class="panel panel-info">
-                <div class="panel-heading" ng-click="go('/Patient/'+patient.values.amka)"><span class="badge pull-right">{{patient.values.amka}}</span><h4>{{fullName(patient.values)}}</h4></div>
-                <div class="panel-body"><view view='patient'></view></div>
+                <div class="panel-heading" ng-click="go('/Patient/'+patient.values.amka)">
+                    <span class="badge pull-right">{{patient.values.amka}}</span>
+                    <h4>{{fullName(patient.values)}}</h4>
+                </div>
+                <div class="panel-body">
+                    <view view='patient'></view>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="navbar navbar-app navbar-absolute-bottom">
-      <div class="container">
-         <h4><i class="fa fa-stethoscope"></i> Μισέλ Ριχάνα</h4>      
-      </div>
+        <div class="container">
+            <h4><i class="fa fa-stethoscope"></i> Μισέλ Ριχάνα</h4>     
+        </div>
     </div>
 </div>
 
@@ -44,4 +54,3 @@
         </div>
     </div>
 </div>
-

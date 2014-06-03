@@ -1,6 +1,5 @@
 /*global angular: true */
 /*global _: true */
-/*global sprintf: true */
 
 (function() {
     'use strict';
@@ -14,7 +13,7 @@
      */
     angular.module('medical.services', ['ngStorage']).
     factory('appVersion', function() {}).
-    factory('patientStorage', function($localStorage) {
+    factory('patientStorage', ['$localStorage', function($localStorage) {
         $localStorage.patients = $localStorage.patients || {};
         return {
             patients: $localStorage.patients,
@@ -37,5 +36,5 @@
                 });
             }
         };
-    });
+    }]);
 })();

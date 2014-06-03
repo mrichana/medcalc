@@ -29,7 +29,7 @@
                 $locationProvider.html5Mode(false);
             }
         ])
-        .controller('generalCtrl',
+        .controller('generalCtrl', ['$scope', '$route', '$location',
             function($scope, $route, $location) {
                 $scope.filters = [{
                     name: 'Αρχείο Ασθενών',
@@ -56,8 +56,9 @@
                 $scope.$watch('location', function() {
                     $location.path($scope.location);
                 });
-            })
-        .controller('calculatorCtrl',
+            }
+        ])
+        .controller('calculatorCtrl', ['$scope', '$route', '$routeParams', 'views', 'internalMedicineViews', 'triplexViews',
             function($scope, $route, $routeParams,
                 views, internalMedicineViews, triplexViews) {
                 $scope.filters = {
@@ -92,8 +93,9 @@
                     });
                     panel.reset();
                 };
-            })
-        .controller('patientCtrl',
+            }
+        ])
+        .controller('patientCtrl', ['$scope', '$route', '$routeParams', '$location', '$timeout', 'patientStorage', 'views', 'patientViews', 'internalMedicineViews', 'triplexViews',
             function($scope, $route, $routeParams, $location, $timeout, patientStorage, views, patientViews, internalMedicineViews, triplexViews) {
                 $scope.$on('$routeChangeSuccess', function(event, route) {
                     $scope.patient = angular.copy(patientStorage.patient(route.params.amka));
@@ -114,15 +116,19 @@
                 $scope.delete = function() {
                     patientStorage.removePatient($scope.patient);
                     $location.path('/Patients');
-                }
+                };
+                $scope.addPanel = function() {
+                    $scope.panelsList.push(angular.copy(views.all().patientNotes));
+                };
                 $scope.removePanel = function(id) {
                     delete $scope.patient.calculatorsActive[id];
                     $scope.panelsList = _.filter(views.all(), function(view) {
                         return _.contains(_.keys($scope.patient.calculatorsActive), view.id);
                     });
-                }
-            })
-        .controller('patientsCtrl',
+                };
+            }
+        ])
+        .controller('patientsCtrl', ['$scope', '$location', 'views', 'patientStorage', 'patientViews',
             function($scope, $location, views, patientStorage, patientViews) {
                 var values = {};
                 $scope.patientStorage = patientStorage;
@@ -154,5 +160,6 @@
                 $scope.fullName = function(patient) {
                     return patient.lastname + ', ' + patient.firstname;
                 };
-            });
+            }
+        ]);
 })();

@@ -53,12 +53,11 @@
                 };
             }
         ])
-        .directive('scrollSpy', ['$window',
-            function($window) { //works but could get a lot more optimised. Check bellow... Also should check first the previous spy element and if still selected, return. Finally if the element does not exist anymore, remove it from the spy array.
+        .directive('scrollSpy', [
+            function() { //works but could get a lot more optimised. Check bellow... Also should check first the previous spy element and if still selected, return. Finally if the element does not exist anymore, remove it from the spy array.
                 return {
                     restrict: 'A',
                     link: function($scope, elem, attrs) {
-                        var element = $(attrs.scrollSpy);
                         var parent = $('.scroll-spy-target');
                         parent.scroll(function() {
                             var element = $(attrs.scrollSpy);
