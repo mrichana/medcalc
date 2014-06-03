@@ -1,3 +1,8 @@
 node_modules
 .idea
 
+/bower_components
+/dist
+/.sublime-grunt.cache
+/node_modules/.bin
+Thumbs.db

@@ -15,7 +15,7 @@
 		// "tls": false,
 		// "timeout": 30, // [seconds]
 
-		"passive": true
+		"passive": true,
 		// "download_on_open": false,
 		// "overwrite_newer_prevention": true,
 		// "default_folder_permissions": "755",
@@ -27,10 +27,11 @@
 		// "encoding": "auto",
 
 		// Trade small performance impact for more stable and secure transfer (old file is intact until the download is finished)
-		// "use_tempfile": true,
+		"use_tempfile": true,
 
 		// Regular expression, recommending using \b in general and /.../ for folders to avoid matching substrings
-		// "ignore": "",
+		"ignore": "node_modules\/*.",
+		"ignore": "bower_components\/*."
 
 		// Can be used for increase of performance or to allow build scripts to finish
 		// "upload_delay": 0, // [seconds]
