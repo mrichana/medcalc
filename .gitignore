@@ -6,3 +6,5 @@ node_modules
 /.sublime-grunt.cache
 /node_modules/.bin
 Thumbs.db
+/node_modules/grunt
+/node_modules/grunt-contrib-watch
