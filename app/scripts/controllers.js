@@ -49,7 +49,7 @@
                     category: 'Υπολογιστές'
                 }];
 
-                $scope.$on('$routeChangeSuccess', function(event, route) {
+                $scope.$on('$routeChangeSuccess', function() {
                     $scope.location = $location.path();
                 });
 
@@ -79,7 +79,7 @@
                 $scope.filters.setAbsolute = function(filterName) {
                     $scope.views = $scope.filters[filterName].content;
 
-                    $scope.panelsList = _.sortBy($scope.views, 'ordinal');
+                    $scope.panelsList = $scope.views;
                     $scope.filters.active = filterName;
                 };
 
@@ -99,9 +99,9 @@
             function($scope, $route, $routeParams, $location, $timeout, patientStorage, views, patientViews, internalMedicineViews, triplexViews) {
                 $scope.$on('$routeChangeSuccess', function(event, route) {
                     $scope.patient = angular.copy(patientStorage.patient(route.params.amka));
-                    $scope.panelsList = _.filter(views.all(), function(view) {
+                    $scope.panelsList = angular.copy(_.filter(views.all(), function(view) {
                         return _.contains(_.keys($scope.patient.calculatorsActive), view.id);
-                    });
+                    }));
                     _.each($scope.panelsList, function(panel) {
                         panel.values = $scope.patient;
                     });
@@ -117,9 +117,19 @@
                     patientStorage.removePatient($scope.patient);
                     $location.path('/Patients');
                 };
-                $scope.addPanel = function() {
-                    $scope.panelsList.push(angular.copy(views.all().patientNotes));
+                $scope.addPanel = function(panelId) {
+                    $scope.patient.calculatorsActive = $scope.patient.calculatorsActive || {};
+                    $scope.patient.calculatorsActive[panelId] = true;
+
+                    $scope.panelsList = _.filter(views.all(), function(view) {
+                        return _.contains(_.keys($scope.patient.calculatorsActive), view.id);
+                    });
+
+                    _.each($scope.panelsList, function(panel) {
+                        panel.values = $scope.patient;
+                    });
                 };
+
                 $scope.removePanel = function(id) {
                     delete $scope.patient.calculatorsActive[id];
                     $scope.panelsList = _.filter(views.all(), function(view) {
@@ -147,7 +157,7 @@
                 $scope.$watch('values.newPatient', function() {
                     $scope.values.patients = patientStorage.filterPatients(values.newPatient);
                     $scope.patients = _.map($scope.values.patients, function(patient) {
-                        var view = angular.copy(views.all().patientView);
+                        var view = views.all().patientView;
                         view.values = patient;
                         return view;
                     });

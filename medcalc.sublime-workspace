@@ -3,63 +3,87 @@
 	{
 		"selected_items":
 		[
+			[
+				"sele",
+				"selectPanelOverlay"
+			],
+			[
+				"filter",
+				"filterPatients"
+			],
+			[
+				"class",
+				"ng-class"
+			],
+			[
+				"text",
+				"textarea"
+			],
+			[
+				"cal",
+				"calculators (?)"
+			],
+			[
+				"calcu",
+				"calculatorsActive"
+			],
+			[
+				"ca",
+				"categories"
+			],
+			[
+				"rou",
+				"roundNum"
+			],
+			[
+				"patient",
+				"patientViews"
+			],
+			[
+				"pa",
+				"patientStorage"
+			],
+			[
+				"tr",
+				"triplexViews"
+			],
+			[
+				"cate",
+				"categories"
+			],
+			[
+				"Ao",
+				"Aortic"
+			],
+			[
+				"_",
+				"_allList"
+			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "index.html",
+			"file": "app/scripts/views/views.js",
 			"settings":
 			{
-				"buffer_size": 2901,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "assets/js/controllers.js",
-			"settings":
-			{
-				"buffer_size": 6307,
+				"buffer_size": 2123,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "assets/partials/views/calculator.basic.html",
+			"file": "app/scripts/calculators/patientCalculators.js",
 			"settings":
 			{
-				"buffer_size": 500,
+				"buffer_size": 614,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "assets/js/directives.js",
+			"file": "app/scripts/controllers.js",
 			"settings":
 			{
-				"buffer_size": 13166,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "assets/js/views/triplexViews.js",
-			"settings":
-			{
-				"buffer_size": 9059,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "web.config",
-			"settings":
-			{
-				"buffer_size": 824,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "ftpsync.settings",
-			"settings":
-			{
-				"buffer_size": 3179,
+				"buffer_size": 7527,
 				"line_ending": "Unix"
 			}
 		}
@@ -67,11 +91,51 @@
 	"build_system": "Packages/User/web.sublime-build",
 	"command_palette":
 	{
-		"height": 81.0,
+		"height": 150.0,
 		"selected_items":
 		[
 			[
 				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"grunt",
+				"Grunt"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"js",
+				"JSHint: Set Keyboard Shortcuts"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"GRUNT",
+				"Grunt"
+			],
+			[
+				"g",
+				"Grunt: Kill Running Tasks"
+			],
+			[
+				"INS",
 				"Package Control: Install Package"
 			],
 			[
@@ -83,13 +147,14 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 400.0
+		"width": 472.0
 	},
 	"console":
 	{
 		"height": 158.0,
 		"history":
 		[
+			"change_quotes",
 			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
 			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
 		]
@@ -105,19 +170,97 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/index.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/patients.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/patient.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/views/patient.basic.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/triplexViews.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/directives.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/patientViews.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/selectPanelOverlay.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/calculators.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/.jshintrc",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/lib/bootstrap-wysiHtml5.css",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/styles/bootstrap-rta.css",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/lib/jquery.min.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/lib/jquery.min.map",
+		"/C/Users/Missel/SkyDrive/Downloads/jquery-2.1.1.min.map",
 		"/C/Users/Missel/Documents/GitHub/medcalc/Gruntfile.js",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/tern_for_sublime/README.md",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/internalMedicineViews.js",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/views.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/calculators/patientCalculators.js",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/User/TernJS.sublime-settings",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/TernJS/TernJS.sublime-settings",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/controllers/generalCtrl.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/controllers.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/controllers/generalCtrl.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/index.html",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/Grunt/SublimeGrunt.sublime-settings",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/User/SublimeGrunt.sublime-settings",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/views/views.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/views/patientViews.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/package.json",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/directives.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/ftpsync.settings",
+		"/C/Users/Missel/Documents/GitHub/angularjs/Gruntfile.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/.ftppass",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/app.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/views/internalMedicineViews.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/dist/partials/calculators.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/dist/partials/patient.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/views/triplexViews.js",
+		"/C/Users/Missel/Desktop/js/directives.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/calculators/triplexCalculators.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/calculators/patientCalculators.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/calculators/internalMedicineCalculators.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/calculators/Calculators.js",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/HTML-CSS-JS Prettify/.jsbeautifyrc",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/HTML-CSS-JS Prettify/HTMLPrettify.sublime-settings",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/services.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/filters.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/assets/js/_references.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/assets/js/app.js",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/JSHint Gutter/Default (Windows).sublime-keymap",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/JSHint Gutter/JSHint.sublime-settings",
+		"/C/Users/Missel/Documents/GitHub/medcalc2/index.html",
+		"/C/Users/Missel/Desktop/app/index.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/bower.json",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/Javascript Beautify/JavascriptBeautify.sublime-settings",
+		"/C/Users/Missel/Documents/GitHub/test/Gruntfile.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/assets/js/services.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/assets/js/views/views.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/assets/js/controllers.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/assets/partials/patient.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/assets/partials/patients.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/assets/js/views/internalMedicineViews.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/assets/js/views/triplexViews.js",
+		"/C/Users/Missel/Documents/GitHub/test/bower.json",
+		"/C/Users/Missel/Documents/GitHub/test/app/index.html",
+		"/C/Users/Missel/Documents/GitHub/test/app/scripts/app.js",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/User/JavascriptBeautify.sublime-settings",
+		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/HTMLBeautify/HTMLBeautify.sublime-settings",
+		"/C/Users/Missel/Documents/GitHub/medcalc/web.config",
+		"/C/Users/Missel/Documents/GitHub/medcalc/assets/partials/views/calculator.basic.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/assets/js/directives.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/medcalc.sublime-project",
 		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/User/web.sublime-build",
 		"/C/Users/Missel/Desktop/med.richana.eu/webapp/index-sync.html"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
+			"C:\\Users\\Missel\\Documents\\GitHub\\medcalc\\app",
+			""
 		]
 	},
 	"find_state":
@@ -125,6 +268,28 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ordinal",
+			".min",
+			"update",
+			"calculatorsActive",
+			"/css/",
+			"/js/",
+			"conne",
+			"/images/views/",
+			"img",
+			"\"",
+			"ug",
+			"\"",
+			"inject",
+			"assets",
+			"bower",
+			"main",
+			"karma",
+			"^            name:",
+			"            type: \"basic\",\n",
+			"            type: 'basic',\n",
+			"categ",
+			"calculators",
 			"url: \"",
 			"Url:",
 			"src=\"",
@@ -133,9 +298,10 @@
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": false,
+		"regex": true,
 		"replace_history":
 		[
+			"'"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -146,54 +312,24 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "index.html",
+					"file": "app/scripts/views/views.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2901,
+						"buffer_size": 2123,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1283,
-								1283
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "assets/js/controllers.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6307,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								960,
-								960
+								1584,
+								1584
 							]
 						],
 						"settings":
@@ -203,136 +339,32 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "assets/partials/views/calculator.basic.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 500,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "assets/js/directives.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 13166,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6127,
-								6127
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1935.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "assets/js/views/triplexViews.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9059,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2157,
-								2157
-							],
-							[
-								3486,
-								3486
-							],
-							[
-								5084,
-								5084
-							],
-							[
-								6693,
-								6693
-							],
-							[
-								8920,
-								8920
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 4097.0,
+						"translation.y": 49.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "web.config",
+					"buffer": 1,
+					"file": "app/scripts/calculators/patientCalculators.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 824,
+						"buffer_size": 614,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								824,
-								824
+								501,
+								501
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/XML/XML.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
@@ -344,29 +376,30 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "ftpsync.settings",
+					"buffer": 2,
+					"file": "app/scripts/controllers.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3179,
+						"buffer_size": 7527,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1056,
-								1056
+								3431,
+								3431
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 135.0,
+						"translation.y": 752.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -377,7 +410,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 34.0
 	},
 	"input":
 	{
@@ -430,19 +463,19 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{
-		"height": 0.0,
+		"height": 392.0,
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 392.0
 	},
 	"settings":
 	{
@@ -451,7 +484,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 276.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

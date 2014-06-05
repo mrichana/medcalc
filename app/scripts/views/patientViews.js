@@ -80,7 +80,7 @@
                     }
                 }],
                 init: init,
-                // update: update
+                update: update
             }, {
                 id: 'patientNotes',
                 name: 'Σημειώσεις',
@@ -94,13 +94,14 @@
                     id: 'notes',
                     name: 'Σημειώσεις',
                     input: {
-                        type: 'multiline'
+                        type: 'richtext'
                     }
                 }],
                 init: init,
-                // update: update
+                update: update
             }, {
                 id: 'patientContactDetails',
+                name: 'Στοιχεία Επικοινωνίας',
                 category: 'patient',
                 type: 'basic',
                 template: 'patient.basic',
@@ -131,7 +132,7 @@
                     }
                 }],
                 init: init,
-                // update: update
+                update: update,
             }]);
         }
     ]);

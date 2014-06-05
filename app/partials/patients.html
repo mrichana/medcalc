@@ -24,10 +24,10 @@
                     <view view='searchView'></view>
                 </div>
             </div>
-            <div ng-repeat="patient in patients track by patient.values.amka" id="{{patient.values.amka}}" class="panel panel-info">
-                <div class="panel-heading" ng-click="go('/Patient/'+patient.values.amka)">
-                    <span class="badge pull-right">{{patient.values.amka}}</span>
-                    <h4>{{fullName(patient.values)}}</h4>
+            <div ng-repeat="patient in values.patients track by patient.amka" id="{{patient.amka}}" class="panel panel-info">
+                <div class="panel-heading" ng-click="go('/Patient/'+patient.amka)">
+                    <span class="badge pull-right">{{patient.amka}}</span>
+                    <h4>{{fullName(patient)}}</h4>
                 </div>
                 <div class="panel-body">
                     <view view='patient'></view>

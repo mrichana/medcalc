@@ -74,6 +74,23 @@
                 };
             }
         ])
+        .directive('selectOnClick', function() {
+            return {
+                restrict: 'A',
+                link: function(scope, element) {
+                    var focusedElement;
+                    element.on('click', function() {
+                        if (focusedElement !== this) {
+                            this.select();
+                            focusedElement = this;
+                        }
+                    });
+                    element.on('blur', function() {
+                        focusedElement = null;
+                    });
+                }
+            };
+        })
         .directive('navView', function() {
             return {
                 restrict: 'E',
@@ -167,10 +184,9 @@
                 var options = {
                     none: '',
                     image: '<img ng-src="{{field.url}}" class="img-responsive"/>',
-                    number: '<input class="form-control" type="number" step="{{field.input.step}}" min="{{field.input.min}}" max="{{field.input.max}}" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]"/><span class="help-inline">{{field.description}}</span>',
-                    text: '<input class="form-control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" maxlength="{{field.input.length || 524288}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
+                    number: '<input select-on-click class="form-control" type="number" step="{{field.input.step}}" min="{{field.input.min}}" max="{{field.input.max}}" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]"/><span class="help-inline">{{field.description}}</span>',
+                    text: '<input select-on-click class="form-control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" maxlength="{{field.input.length || 524288}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
                     select: '<select class="form-control" required ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-options="option.value as option.name for option in field.input.options"></select><span class="help-inline">{{fieldFromAnyValue(values[field.id], "value", field.input.options).description}}</span>',
-                    // check: '<button type="button" class="btn" ng-model="values[field.id]" btn-checkbox ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}"><i class="fa fa-remove-circle" ng-hide="values[field.id]" /><i class="fa fa-ok-sign" ng-show="values[field.id]" /></button><span class="help-inline">{{field.description}}</span>',
                     check: '<switch ng-model="values[field.id]"></switch>',
                     radio: '<div class="btn-group" data-toggle="buttons-checkbox"><button type="button" class="btn span2" ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
                     vradio: '<div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox"><button type="button" class="btn span4" ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
@@ -178,7 +194,7 @@
                     'static': '<div class="form-control-static" name="{{field.id}}" ng-bind-html="values[field.id] | to_trusted"></div>',
                     date: '<p class="input-group"><input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="values[field.id]" name="field.id" is-open="opened" ng-required="true" close-text="Close" /><span class="input-group-btn"><button class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button></span></p>',
                     multiline: '<textarea class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
-                    richtext: '<div><text-angular ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><div><span class="help-inline">{{field.description}}</span>'
+                    richtext: '<textarea class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>'
                 };
                 return {
                     restrict: 'E',
@@ -196,6 +212,13 @@
                 };
             }
         ])
+        .directive('selectPanelOverlay', function() {
+            return {
+                restrict: 'E',
+                replace: true,
+                templateUrl: '/partials/selectPanelOverlay.html'
+            };
+        })
         .directive('verifiedClick', ['$timeout', '$animate',
             function($timeout, $animate) {
                 return {

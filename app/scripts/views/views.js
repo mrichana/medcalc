@@ -14,10 +14,6 @@
             add: function(viewList) {
                 _allList = _.union(_allList, viewList);
                 _all = _.indexBy(_allList, 'id');
-
-                // _categories = _.groupBy(_allList, function(view) {
-                //     return view.category || 'general';
-                // });
                 _categories = _.reduce(_allList, function(memo, view) {
                     var categories = view.category ? view.category.split(/\W+/g) : ['generic'];
                     _.each(categories, function(category) {
@@ -42,16 +38,18 @@
     }).factory('update', ['calculators',
         function(calculators) {
             return function(newValue, oldValue, scope, field) {
+                var result = {};
                 if (!this.calculator) {
                     this.calculator = calculators[this.id];
                 }
-                var result = this.calculator(this.values);
-                this.values.calculatorsActive = this.values.calculatorsActive || {};
-                this.values.calculatorsActive[this.id] = true;
-                this.values[this.id] = result.result;
+                if (this.calculator) {
+                    result = this.calculator(this.values);
+                    this.values[this.id] = result;
+                }
                 if (scope.view && scope.view.validate) {
                     scope.view.validate(newValue, scope, field);
                 }
+
                 return result;
             };
         }

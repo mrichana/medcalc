@@ -1,31 +1,36 @@
 <div class="app">
     <div class="navbar navbar-app navbar-absolute-top" role="navigation" ng-controller="generalCtrl">
-      <div class="navbar-brand navbar-brand-center">
-        <select ng-model="location"
-          ng-options="value.content as value.name group by value.category for value in filters">
-        </select>
-      </div>
-
-      <div class="btn-group btn-group-lg pull-left">
-        <div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
-          <i class="fa fa-bars"></i>
+        <div class="navbar-brand navbar-brand-center">
+            <select ng-model="location" ng-options="value.content as value.name group by value.category for value in filters">
+            </select>
         </div>
-      </div>
+
+        <div class="btn-group btn-group-lg pull-left">
+            <div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
     </div>
 
     <div class="app-body scrollable">
-      <div class="scrollable-content scroll-spy-target">
-          <div id="{{view.id}}" class="panel panel-info" view='view' ng-repeat="view in panelsList track by view.id">
-              <div class="panel-heading"><button class="btn btn-default pull-right" ng-show="view.reset" verified-click="clearPanel(view.id)"><i class="fa fa-refresh"></i></button><h4>{{view.name}}</h4></div>
-              <div class="panel-body"><view view='view'></view></div>
-          </div>
-      </div>    
+        <div class="scrollable-content scroll-spy-target">
+            <div id="{{view.id}}" class="panel panel-info" view='view' ng-repeat="view in panelsList track by view.id">
+                <div class="panel-heading">
+                    <button class="btn btn-default pull-right" ng-show="view.reset" verified-click="clearPanel(view.id)"><i class="fa fa-refresh"></i>
+                    </button>
+                    <h4>{{view.name}}</h4>
+                </div>
+                <div class="panel-body">
+                    <view view='view'></view>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="navbar navbar-app navbar-absolute-bottom">
-      <div class="container">
-         <h4><i class="fa fa-stethoscope"></i> Μισέλ Ριχάνα</h4>      
-      </div>
+        <div class="container">
+            <h4><i class="fa fa-stethoscope"></i> Μισέλ Ριχάνα</h4>
+        </div>
     </div>
 </div>
 
@@ -33,9 +38,9 @@
     <h1 class="app-name">Υπολογιστές</h1>
     <div class="scrollable">
         <div class="scrollable-content">
-          <div class="list-group" toggle="off" bubble target="mainSidebar">
-              <nav-view view='view' ng-repeat="view in panelsList track by view.id" ></nav-view>
-          </div>
+            <div class="list-group" toggle="off" bubble target="mainSidebar">
+                <nav-view view='view' ng-repeat="view in panelsList track by view.id"></nav-view>
+            </div>
         </div>
     </div>
 </div>
