@@ -86,6 +86,14 @@
 				"buffer_size": 7527,
 				"line_ending": "Unix"
 			}
+		},
+		{
+			"file": "app/index.html",
+			"settings":
+			{
+				"buffer_size": 3896,
+				"line_ending": "Unix"
+			}
 		}
 	],
 	"build_system": "Packages/User/web.sublime-build",
@@ -170,6 +178,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Missel/Desktop/build.prop",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/index.html",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/patients.html",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/patient.html",
@@ -312,7 +321,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -342,7 +351,7 @@
 						"translation.y": 49.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -372,7 +381,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -400,6 +409,36 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 752.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3896,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1541,
+								1541
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 105.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
