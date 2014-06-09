@@ -21,7 +21,7 @@
                     <h4>{{searchView.name}}</h4>
                 </div>
                 <div class="panel-body">
-                    <view view='searchView'></view>
+                    <view view="searchView"></view>
                 </div>
             </div>
             <div ng-repeat="patient in values.patients track by patient.amka" id="{{patient.amka}}" class="panel panel-info">
@@ -30,7 +30,7 @@
                     <h4>{{fullName(patient)}}</h4>
                 </div>
                 <div class="panel-body">
-                    <view view='patient'></view>
+                    <view view="patientView"></view>
                 </div>
             </div>
         </div>

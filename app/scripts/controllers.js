@@ -131,9 +131,15 @@
                 };
 
                 $scope.removePanel = function(id) {
+                    _.each(views.all()[id].defaultValues, function (value, key){
+                        $scope.patient[key] = value;
+                    });
                     delete $scope.patient.calculatorsActive[id];
                     $scope.panelsList = _.filter(views.all(), function(view) {
                         return _.contains(_.keys($scope.patient.calculatorsActive), view.id);
+                    });
+                    _.each($scope.panelsList, function(panel) {
+                        panel.values = $scope.patient;
                     });
                 };
             }
