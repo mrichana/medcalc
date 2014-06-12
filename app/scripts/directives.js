@@ -54,14 +54,18 @@
             }
         ])
         .directive('scrollSpy', [
-            function() { //works but could get a lot more optimised. Check bellow... Also should check first the previous spy element and if still selected, return. Finally if the element does not exist anymore, remove it from the spy array.
+            function() {
                 return {
                     restrict: 'A',
                     link: function($scope, elem, attrs) {
                         var parent = $('.scroll-spy-target');
-                        parent.scroll(function() {
+                        var scrollHandler = function() {
                             var element = $(attrs.scrollSpy);
                             var parent = $('.scroll-spy-target');
+                            if (!element.length) {
+                                parent.off('scroll', scrollHandler);
+                                return;
+                            }
                             var parentHalf = parent.height() / 2;
                             var elementPos = element.offset().top - parent.offset().top;
                             if ((elementPos < parentHalf) && (elementPos + element.height() > parentHalf)) {
@@ -69,7 +73,8 @@
                             } else {
                                 elem.removeClass('active');
                             }
-                        });
+                        };
+                        parent.on('scroll', scrollHandler);
                     }
                 };
             }
@@ -117,7 +122,8 @@
                     restrict: 'E',
                     replace: true,
                     scope: {
-                        view: '='
+                        view: '=',
+                        show: '&'
                     },
                     link: function(scope, element) {
                         if (scope.view.update) {
@@ -126,12 +132,16 @@
                             }
                             _.each(scope.view.fields, function(field) {
                                 scope.$watch('view.values.' + field.id, function(newValue, oldValue, scope) {
-                                    scope.view.result = scope.view.update(newValue, oldValue, scope, field);
+                                    if (scope.view.update) {
+                                        scope.view.result = scope.view.update(newValue, oldValue, scope, field);
+                                    }
                                 });
                             });
                             _.each(scope.view.external, function(field) {
                                 scope.$watch('view.values.' + field, function(newValue, oldValue, scope) {
-                                    scope.view.result = scope.view.update(newValue, oldValue, scope, null);
+                                    if (scope.view.update) {
+                                        scope.view.result = scope.view.update(newValue, oldValue, scope, null);
+                                    }
                                 });
                             });
                             scope.$watchCollection('view.values.calculatorsActive', function() {
@@ -140,8 +150,9 @@
                                 });
                             });
                         }
+
                         var templateName = scope.view.template || 'calculator';
-                        var loader = $http.get('/partials/views/' + templateName + '.html', {
+                        var loader = $http.get('partials/views/' + templateName + '.html', {
                             cache: $templateCache
                         });
 
@@ -212,13 +223,6 @@
                 };
             }
         ])
-        .directive('selectPanelOverlay', function() {
-            return {
-                restrict: 'E',
-                replace: true,
-                templateUrl: '/partials/selectPanelOverlay.html'
-            };
-        })
         .directive('verifiedClick', ['$timeout', '$animate',
             function($timeout, $animate) {
                 return {

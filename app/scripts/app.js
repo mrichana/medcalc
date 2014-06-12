@@ -13,6 +13,7 @@
         'ngTouch',
         'ngAnimate',
         'ngSanitize',
-        'mobile-angular-ui'
+        'mobile-angular-ui',
+        'ngModal'
     ]);
 })();

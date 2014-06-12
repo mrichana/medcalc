@@ -1,13 +1,19 @@
-<!-- Default
-================================================== -->
 <ng-form class="form-horizontal">
-	<div ng-repeat="field in view.fields">
-		<div class="form-group" ng-class="{'has-error': field.error, 'has-warning': field.warning}">
-			<label class="col-sm-3 control-label" for="{{field.id}}" ng-bind-html="field.name | to_trusted"></label>
-			<div class="col-sm-9">
-				<custom-input field="field" values="view.values" result="view.result"></custom-input>
-			</div>
-		</div>
-	</div>
+    <div ng-repeat="field in view.fields">
+        <div class="form-group" ng-class="{'has-error': field.error, 'has-warning': field.warning}">
+            <label class="col-sm-3 control-label" for="{{field.id}}" ng-bind-html="field.name | to_trusted"></label>
+            <div class="col-sm-9">
+                <div class="input-group" ng-if="field.calculator">
+                    <custom-input field="field" values="view.values" result="view.result">
+                    </custom-input>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="show({view:view, field: field})"><i class="fa fa-pencil"></i>
+                        </button>
+                    </span>
+                </div>
+                <custom-input ng-if="!field.calculator" field="field" values="view.values" result="view.result">
+                </custom-input>
+            </div>
+        </div>
+    </div>
 </ng-form>
-

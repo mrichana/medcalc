@@ -53,6 +53,7 @@
                 }, {
                     id: 'bsa',
                     name: 'BSA (m<sup>2</sup>)',
+                    calculator: 'bsa',
                     input: {
                         type: 'number',
                         step: 0.1,
@@ -260,6 +261,7 @@
                 }, {
                     id: 'bsa',
                     name: 'BSA (m<sup>2</sup>)',
+                    calculator: 'bsa',
                     input: {
                         type: 'number',
                         step: 0.1,

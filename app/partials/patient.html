@@ -29,12 +29,17 @@
     <div class="app-body scrollable">
         <div class="scrollable-content scroll-spy-target">
             <div id="addPanel" class="panel panel-info">
+                <div>
+                    <button ng-click="dialogShown=true">Dialog...</button>
+                    <modal-dialog show="dialogShown" dialog-title="My Dialog">Test!!!!!!</modal-dialog>
+                </div>
                 <button class="btn btn-default" ng-click="addPanel('patientNotes')">Σημειώσεις...</button>
                 <button class="btn btn-default" ng-click="addPanel('patientContactDetails')">Στοιχεία Επικοινωνίας...</button>
+                <button class="btn btn-default" ng-click="addPanel('bsa')">BSA</button>
             </div>
-            <div id="{{view.id}}" class="panel panel-info" view='view' ng-repeat="view in panelsList track by view.id">
+            <div id="{{view.id}}" class="panel panel-info" view="view" ng-repeat="view in panelsList track by view.id">
                 <div class="panel-heading">
-                    <button class="btn btn-default pull-right" verified-click="removePanel(view.id)"><i class="fa fa-trash-o"></i>
+                    <button class="btn btn-default pull-right" ng-if="!view.dontRemove" verified-click="removePanel(view.id)"><i class="fa fa-trash-o"></i>
                     </button>
                     <h4>{{view.name}}</h4>
                 </div>
@@ -46,7 +51,7 @@
     </div>
 
     <div class="navbar navbar-app navbar-absolute-bottom container">
-        <h4><i class="fa fa-stethoscope"></i> Μισέλ Ριχάνα</h4>     
+        <h4><i class="fa fa-user-md"></i> Μισέλ Ριχάνα</h4>     
     </div>
 </div>
 
@@ -61,5 +66,3 @@
         </div>
     </div>
 </div>
-
-<select-panel-overlay></select-panel-overlay>

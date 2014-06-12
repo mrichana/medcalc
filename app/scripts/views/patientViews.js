@@ -64,6 +64,40 @@
                     scope.addPatientReady = !(fieldsId.amka.warning || fieldsId.lastname.warning || fieldsId.firstname.warning || scope.view.values.patients.length);
                 }
             }, {
+                id: 'patientEdit',
+                name: 'Επεξεργασία Ασθενή',
+                category: 'patient',
+                type: 'basic',
+                template: 'patient.basic',
+                defaultValues: {
+                    amka: '',
+                    lastname: '',
+                    firstname: ''
+                },
+                fields: [{
+                    id: 'amka',
+                    name: 'Α.Μ.Κ.Α.',
+                    input: {
+                        type: 'text',
+                        length: '11'
+                    }
+                }, {
+                    id: 'lastname',
+                    name: 'Επώνυμο',
+                    input: {
+                        type: 'text'
+                    }
+                }, {
+                    id: 'firstname',
+                    name: 'Όνομα',
+                    input: {
+                        type: 'text'
+                    }
+                }],
+                dontRemove: true,
+                init: init,
+                update: update
+            }, {
                 id: 'patientView',
                 name: 'Προβολή',
                 category: 'patient',

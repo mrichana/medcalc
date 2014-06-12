@@ -44,7 +44,7 @@
                 }
                 if (this.calculator) {
                     result = this.calculator(this.values);
-                    this.values[this.id] = result;
+                    this.values[this.id] = result.result;
                 }
                 if (scope.view && scope.view.validate) {
                     scope.view.validate(newValue, scope, field);

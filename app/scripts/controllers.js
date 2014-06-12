@@ -93,6 +93,15 @@
                     });
                     panel.reset();
                 };
+
+                $scope.show = function(view, field) {
+                    $scope.showModalView = views.all()[field.calculator];
+                    $scope.showModalView.values = view.values;
+                };
+
+                $scope.hideModal = function() {
+                    $scope.showModalView = false;
+                };
             }
         ])
         .controller('patientCtrl', ['$scope', '$route', '$routeParams', '$location', '$timeout', 'patientStorage', 'views', 'patientViews', 'internalMedicineViews', 'triplexViews',
@@ -117,6 +126,7 @@
                     patientStorage.removePatient($scope.patient);
                     $location.path('/Patients');
                 };
+
                 $scope.addPanel = function(panelId) {
                     $scope.patient.calculatorsActive = $scope.patient.calculatorsActive || {};
                     $scope.patient.calculatorsActive[panelId] = true;
@@ -131,7 +141,7 @@
                 };
 
                 $scope.removePanel = function(id) {
-                    _.each(views.all()[id].defaultValues, function (value, key){
+                    _.each(views.all()[id].defaultValues, function(value, key) {
                         $scope.patient[key] = value;
                     });
                     delete $scope.patient.calculatorsActive[id];
@@ -153,6 +163,9 @@
                 $scope.searchView.values = $scope.values = values;
 
                 $scope.searchView.addPatient = function() {
+                    this.result.calculatorsActive = {
+                        patientEdit: true
+                    };
                     patientStorage.addPatient(this.result);
                     $scope.go('/Patient/' + this.values.amka);
                 };

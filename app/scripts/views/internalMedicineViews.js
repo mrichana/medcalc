@@ -138,7 +138,7 @@
             }, {
                 id: 'bsa',
                 name: 'Επιφάνεια Σώματος (BSA)',
-                category: 'generic triplex',
+                category: 'generic',
                 template: 'calculator.basic',
                 defaultValues: {
                     height: 170,
@@ -602,16 +602,6 @@
                 reset: reset,
                 update: update,
                 validate: function(newValue, scope, field) {
-                    var aorta = _.find(scope.view.fields, function(field) {
-                        return field.id === 'aorta';
-                    });
-                    var septal = _.find(scope.view.fields, function(field) {
-                        return field.id === 'septal';
-                    });
-                    var cabg = _.find(scope.view.fields, function(field) {
-                        return field.id === 'cabg';
-                    });
-
                     if (field.id === 'aorta' && this.values.aorta === true) {
                         this.values.cabg = false;
                     }
