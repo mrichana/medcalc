@@ -10,18 +10,17 @@
     factory('triplexViews', ['views', 'update', 'init', 'reset',
         function(views, update, init, reset) {
             return views.add([{
-                id: 'lavi',
-                name: 'Left Atrium Volume Index',
-                category: 'triplex atrium',
+                id: 'Triplex_LeftAtriumVolume',
+                name: 'Left Atrial Volume',
+                category: 'triplex atrium volume',
                 template: 'calculator.basic',
                 defaultValues: {
-                    area4Ch: 15,
-                    area2Ch: 15,
-                    leftAtriumLength: 40,
-                    bsa: 1.8
+                    Triplex_LeftAtrium_Area4Ch: 15,
+                    Triplex_LeftAtrium_Area2Ch: 15,
+                    Triplex_LeftAtrium_Length: 40,
                 },
                 fields: [{
-                    id: 'area4Ch',
+                    id: 'Triplex_LeftAtrium_Area4Ch',
                     name: 'A1(cm<sup>2</sup>)',
                     description: 'Πλανιμέτρηση αριστερού κόλπου από εικόνα 4 κοιλοτήτων',
                     input: {
@@ -31,7 +30,7 @@
                         max: 80
                     }
                 }, {
-                    id: 'area2Ch',
+                    id: 'Triplex_LeftAtrium_Area2Ch',
                     name: 'A2(cm<sup>2</sup>)',
                     description: 'Πλανιμέτρηση αριστερού κόλπου από εικόνα 2 κοιλοτήτων',
                     input: {
@@ -41,7 +40,7 @@
                         max: 80
                     }
                 }, {
-                    id: 'leftAtriumLength',
+                    id: 'Triplex_LeftAtrium_Length',
                     name: 'L(mm)',
                     description: 'Μήκος αριστερού κόλπου',
                     input: {
@@ -51,9 +50,65 @@
                         max: 80
                     }
                 }, {
-                    id: 'bsa',
+                    id: 'result',
+                    input: {
+                        type: 'result'
+                    }
+                }, {
+                    id: 'image',
+                    input: {
+                        type: 'image'
+                    },
+                    url: '/images/lav.png'
+                }],
+                init: init,
+                reset: reset,
+                update: update
+            }, {
+                id: 'Triplex_LeftAtriumVolumeIndex',
+                name: 'Left Atrial Volume Index',
+                category: 'triplex atrium volume index',
+                template: 'calculator.basic',
+                defaultValues: {
+                    Triplex_LeftAtrium_Area4Ch: 15,
+                    Triplex_LeftAtrium_Area2Ch: 15,
+                    Triplex_LeftAtrium_Length: 40,
+                    BSA: 1.82
+                },
+                fields: [{
+                    id: 'Triplex_LeftAtrium_Area4Ch',
+                    name: 'A1(cm<sup>2</sup>)',
+                    description: 'Πλανιμέτρηση αριστερού κόλπου από εικόνα 4 κοιλοτήτων',
+                    input: {
+                        type: 'number',
+                        step: 1,
+                        min: 5,
+                        max: 80
+                    }
+                }, {
+                    id: 'Triplex_LeftAtrium_Area2Ch',
+                    name: 'A2(cm<sup>2</sup>)',
+                    description: 'Πλανιμέτρηση αριστερού κόλπου από εικόνα 2 κοιλοτήτων',
+                    input: {
+                        type: 'number',
+                        step: 1,
+                        min: 5,
+                        max: 80
+                    }
+                }, {
+                    id: 'Triplex_LeftAtrium_Length',
+                    name: 'L(mm)',
+                    description: 'Μήκος αριστερού κόλπου',
+                    input: {
+                        type: 'number',
+                        step: 1,
+                        min: 5,
+                        max: 80
+                    }
+                }, {
+                    id: 'BSA',
                     name: 'BSA (m<sup>2</sup>)',
-                    calculator: 'bsa',
+                    calculator: 'BSA',
                     input: {
                         type: 'number',
                         step: 0.1,
@@ -76,16 +131,16 @@
                 reset: reset,
                 update: update
             }, {
-                id: 'avvr',
-                name: 'Aortic Valve Velocity Ratio',
+                id: 'Triplex_AorticValve_VelocityRatio',
+                name: 'Aortic Valve Vmax Ratio',
                 category: 'triplex valvular aortic stenosis',
                 template: 'calculator.basic',
                 defaultValues: {
-                    LVOTV: 1,
-                    AoV: 1
+                    Triplex_LVOT_Vmax: 1,
+                    Triplex_AorticValve_Vmax: 1
                 },
                 fields: [{
-                    id: 'LVOTV',
+                    id: 'Triplex_LVOT_Vmax',
                     name: 'LVOT Vmax<sub>1</sub> (m/s)',
                     description: 'Υποβαλβιδική Μέγιστη Ταχύτητα',
                     input: {
@@ -95,7 +150,7 @@
                         max: 8
                     }
                 }, {
-                    id: 'AoV',
+                    id: 'Triplex_AorticValve_Vmax',
                     name: 'AV Vmax<sub>2</sub> (m/s)',
                     description: 'Διαβαλβιδική Μέγιστη Ταχύτητα',
                     input: {
@@ -103,6 +158,50 @@
                         step: 0.1,
                         min: 0.1,
                         max: 8
+                    }
+                }, {
+                    id: 'result',
+                    input: {
+                        type: 'result'
+                    }
+                }, {
+                    id: 'image',
+                    input: {
+                        type: 'image'
+                    },
+                    url: '/images/AVVR.png'
+                }],
+                init: init,
+                reset: reset,
+                update: update
+            }, {
+                id: 'Triplex_AorticValve_VTIRatio',
+                name: 'Aortic Valve VTI Ratio',
+                category: 'triplex valvular aortic stenosis',
+                template: 'calculator.basic',
+                defaultValues: {
+                    Triplex_LVOT_VTI: 25,
+                    Triplex_AorticValve_VTI: 25
+                },
+                fields: [{
+                    id: 'Triplex_LVOT_VTI',
+                    name: 'LVOT VTI<sub>1</sub> (m)',
+                    description: 'Υποβαλβιδικό Ολοκλήρωμα Ταχύτητας Χρόνου',
+                    input: {
+                        type: 'number',
+                        step: 1,
+                        min: 10,
+                        max: 100
+                    }
+                }, {
+                    id: 'Triplex_AorticValve_VTI',
+                    name: 'AV VΤΙ<sub>2</sub> (m)',
+                    description: 'Διαβαλβιδικό Ολοκλήρωμα Ταχύτητας Χρόνου',
+                    input: {
+                        type: 'number',
+                        step: 1,
+                        min: 10,
+                        max: 400
                     }
                 }, {
                     id: 'result',

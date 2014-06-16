@@ -11,15 +11,15 @@
             function($routeProvider, $locationProvider) {
                 $routeProvider
                     .when('/Calculators/:id', {
-                        templateUrl: '/partials/calculators.html',
+                        templateUrl: 'partials/calculators.html',
                         controller: 'calculatorCtrl'
                     })
                     .when('/Patient/:amka', {
-                        templateUrl: '/partials/patient.html',
+                        templateUrl: 'partials/patient.html',
                         controller: 'patientCtrl'
                     })
                     .when('/Patients', {
-                        templateUrl: '/partials/patients.html',
+                        templateUrl: 'partials/patients.html',
                         controller: 'patientsCtrl'
                     })
                     .otherwise({
@@ -81,6 +81,10 @@
 
                     $scope.panelsList = $scope.views;
                     $scope.filters.active = filterName;
+                    $scope.values = {};
+                    _.each($scope.panelsList, function(panel) {
+                        panel.values = $scope.values;
+                    });
                 };
 
                 $scope.$on('$routeChangeSuccess', function(event, route) {

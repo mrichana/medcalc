@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"calcu",
+				"calculators"
+			],
+			[
+				"valu",
+				"values"
+			],
+			[
+				"scr",
+				"script	Tag"
+			],
+			[
 				"calcula",
 				"calculatorsActive"
 			],
@@ -44,10 +56,6 @@
 				"calculators (?)"
 			],
 			[
-				"calcu",
-				"calculatorsActive"
-			],
-			[
 				"ca",
 				"categories"
 			],
@@ -84,59 +92,83 @@
 	"buffers":
 	[
 		{
-			"file": "app/scripts/views/views.js",
-			"settings":
-			{
-				"buffer_size": 2130,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "app/scripts/controllers.js",
 			"settings":
 			{
-				"buffer_size": 7948,
+				"buffer_size": 8274,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/scripts/directives.js",
+			"file": "app/scripts/views/internalMedicineViews.js",
 			"settings":
 			{
-				"buffer_size": 13940,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/scripts/views/patientViews.js",
-			"settings":
-			{
-				"buffer_size": 5908,
+				"buffer_size": 35645,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/partials/selectPanelOverlay.html",
+			"file": "app/scripts/views/triplexViews.js",
 			"settings":
 			{
-				"buffer_size": 331,
+				"buffer_size": 10271,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/partials/calculators.html",
+			"settings":
+			{
+				"buffer_size": 2574,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/partials/views/calculator.basic.html",
+			"settings":
+			{
+				"buffer_size": 989,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/lib/ng-modal.js",
+			"settings":
+			{
+				"buffer_size": 2536,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/partials/modalDialog.html",
+			"settings":
+			{
+				"buffer_size": 241,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/partials/patient.html",
+			"file": "Gruntfile.js",
 			"settings":
 			{
-				"buffer_size": 2846,
-				"line_ending": "Unix"
+				"buffer_size": 12378,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "app/index.html",
 			"settings":
 			{
-				"buffer_size": 3896,
-				"line_ending": "Unix"
+				"buffer_size": 3997,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/scripts/app.js",
+			"settings":
+			{
+				"buffer_size": 431,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -222,29 +254,40 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Missel/Documents/GitHub/medcalc/package.json",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/directives.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/dialog.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/lib/ng-modal.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/patient.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/patients.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/triplexViews.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/internalMedicineViews.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/calculators.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/calculators/internalMedicineCalculators.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/app.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/index.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/styles/ng-modal.css",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/patientViews.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/dist/index.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/selectPanelOverlay.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/Gruntfile.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/views/patient.search.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/views/patient.basic.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/views/calculator.basic.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/views/algorithm.basic.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/controllers.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/views.js",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/calculators/patientCalculators.js",
 		"/C/Users/Missel/Desktop/build.prop",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/index.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/patients.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/patient.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/views/patient.basic.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/triplexViews.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/directives.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/patientViews.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/selectPanelOverlay.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/calculators.html",
 		"/C/Users/Missel/Documents/GitHub/medcalc/.jshintrc",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/lib/bootstrap-wysiHtml5.css",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/styles/bootstrap-rta.css",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/lib/jquery.min.js",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/lib/jquery.min.map",
 		"/C/Users/Missel/SkyDrive/Downloads/jquery-2.1.1.min.map",
-		"/C/Users/Missel/Documents/GitHub/medcalc/Gruntfile.js",
 		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/tern_for_sublime/README.md",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/internalMedicineViews.js",
 		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/views.js",
 		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/User/TernJS.sublime-settings",
 		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/TernJS/TernJS.sublime-settings",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/controllers/generalCtrl.js",
@@ -255,7 +298,6 @@
 		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/User/SublimeGrunt.sublime-settings",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/views/views.js",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/views/patientViews.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/package.json",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/directives.js",
 		"/C/Users/Missel/Documents/GitHub/medcalc/ftpsync.settings",
 		"/C/Users/Missel/Documents/GitHub/angularjs/Gruntfile.js",
@@ -321,6 +363,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"fa fa-",
+			"fa fa-menu",
+			"fa fa-",
 			"select",
 			"ordinal",
 			".min",
@@ -366,54 +411,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 7,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/scripts/views/views.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2130,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1591,
-								1591
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 94.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "app/scripts/controllers.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7948,
+						"buffer_size": 8274,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6915,
-								6915
+								770,
+								770
 							]
 						],
 						"settings":
@@ -423,27 +438,57 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1624.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/scripts/views/internalMedicineViews.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 35645,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4653,
+								4653
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 1800.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "app/scripts/directives.js",
+					"file": "app/scripts/views/triplexViews.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13940,
+						"buffer_size": 10271,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12368,
-								12368
+								10271,
+								10271
 							]
 						],
 						"settings":
@@ -453,37 +498,37 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2880.0,
+						"translation.y": 3709.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "app/scripts/views/patientViews.js",
+					"file": "app/partials/calculators.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5908,
+						"buffer_size": 2574,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2703,
-								2714
+								949,
+								949
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 780.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -491,19 +536,19 @@
 				},
 				{
 					"buffer": 4,
-					"file": "app/partials/selectPanelOverlay.html",
+					"file": "app/partials/views/calculator.basic.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 331,
+						"buffer_size": 989,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								210,
-								210
+								645,
+								645
 							]
 						],
 						"settings":
@@ -514,24 +559,112 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "app/partials/patient.html",
+					"file": "app/lib/ng-modal.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2846,
+						"buffer_size": 2536,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1690,
-								1690
+								1374,
+								1374
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 270.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/partials/modalDialog.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 241,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								228,
+								228
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Gruntfile.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12378,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12240,
+								12240
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5509.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "app/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3997,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
 							]
 						],
 						"settings":
@@ -541,32 +674,32 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 212.0,
+						"translation.y": 45.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "app/index.html",
+					"buffer": 9,
+					"file": "app/scripts/app.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3896,
+						"buffer_size": 431,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1815,
-								1816
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
@@ -574,7 +707,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
