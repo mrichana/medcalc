@@ -102,7 +102,7 @@
                 name: 'Προβολή',
                 category: 'patient',
                 type: 'basic',
-                template: 'patient.basic',
+                template: 'patient.view',
                 defaultValues: {
                     notes: ''
                 },

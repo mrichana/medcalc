@@ -4,72 +4,12 @@
 		"selected_items":
 		[
 			[
-				"res",
-				"resultlevel"
-			],
-			[
-				"result",
-				"resultlevel"
-			],
-			[
-				"re",
-				"result"
-			],
-			[
-				"reu",
-				"result"
-			],
-			[
-				"fie",
-				"fields"
-			],
-			[
-				"S",
-				"BloodPressure_Systolic"
-			],
-			[
-				"History",
-				"HistoryOf_Stroke"
-			],
-			[
-				"gener",
-				"generalFields"
-			],
-			[
-				"calcu",
-				"calculators"
-			],
-			[
-				"valu",
-				"values"
-			],
-			[
-				"scr",
-				"script	Tag"
-			],
-			[
-				"calcula",
-				"calculatorsActive"
-			],
-			[
-				"pat",
-				"patientPanel"
+				"pan",
+				"panelsList"
 			],
 			[
 				"sele",
-				"select-panel-overlay"
-			],
-			[
-				"scroll",
-				"scrollHandler"
-			],
-			[
-				"sc",
-				"scrollHandler"
-			],
-			[
-				"elem",
-				"element"
+				"selectPanelOverlay"
 			],
 			[
 				"filter",
@@ -86,6 +26,10 @@
 			[
 				"cal",
 				"calculators (?)"
+			],
+			[
+				"calcu",
+				"calculatorsActive"
 			],
 			[
 				"ca",
@@ -124,18 +68,18 @@
 	"buffers":
 	[
 		{
-			"file": "app/scripts/calculators/triplexCalculators.js",
+			"file": "app/scripts/views/patientViews.js",
 			"settings":
 			{
-				"buffer_size": 10721,
+				"buffer_size": 5941,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/scripts/views/triplexViews.js",
+			"file": "app/partials/views/patient.view.html",
 			"settings":
 			{
-				"buffer_size": 18799,
+				"buffer_size": 532,
 				"line_ending": "Unix"
 			}
 		},
@@ -143,31 +87,15 @@
 			"file": "app/scripts/directives.js",
 			"settings":
 			{
-				"buffer_size": 15259,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/lib/ng-modal.js",
-			"settings":
-			{
-				"buffer_size": 2536,
+				"buffer_size": 19401,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/scripts/controllers.js",
+			"file": "/home/mrichana/.config/sublime-text-3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
 			"settings":
 			{
-				"buffer_size": 8456,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/partials/calculators.html",
-			"settings":
-			{
-				"buffer_size": 2599,
+				"buffer_size": 974,
 				"line_ending": "Unix"
 			}
 		}
@@ -175,11 +103,47 @@
 	"build_system": "Packages/User/web.sublime-build",
 	"command_palette":
 	{
-		"height": 127.0,
+		"height": 392.0,
 		"selected_items":
 		[
 			[
-				"remo",
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"re",
+				"Package Control: Remove Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"File: Revert"
+			],
+			[
+				"package",
+				"Preferences: Browse Packages"
+			],
+			[
+				"grun",
+				"Grunt"
+			],
+			[
+				"gr",
+				"Grunt"
+			],
+			[
+				"Package Control: remove",
 				"Package Control: Remove Package"
 			],
 			[
@@ -187,15 +151,7 @@
 				"Grunt"
 			],
 			[
-				"insta",
-				"Package Control: Install Package"
-			],
-			[
-				"Package Control: remove",
-				"Package Control: Remove Package"
-			],
-			[
-				"remove",
+				"remo",
 				"Package Control: Remove Package"
 			],
 			[
@@ -205,10 +161,6 @@
 			[
 				"js",
 				"JSHint: Set Keyboard Shortcuts"
-			],
-			[
-				"ins",
-				"Package Control: Install Package"
 			],
 			[
 				"GRUNT",
@@ -223,21 +175,18 @@
 				"Package Control: Install Package"
 			],
 			[
-				"in",
-				"Package Control: Install Package"
-			],
-			[
 				"Package Control: ",
 				"Package Control: Install Package"
 			]
 		],
-		"width": 512.0
+		"width": 467.0
 	},
 	"console":
 	{
 		"height": 158.0,
 		"history":
 		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
 			"change_quotes",
 			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
 			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
@@ -254,43 +203,42 @@
 	},
 	"file_history":
 	[
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/internalMedicineViews.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/views/calculator.basic.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/calculators/internalMedicineCalculators.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/calculators/Calculators.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/controllers.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/filters.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/calculators.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/directives.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/app.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/index.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/Gruntfile.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/modalDialog.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/lib/ng-modal.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/triplexViews.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/package.json",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/dialog.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/patient.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/patients.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/styles/ng-modal.css",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/patientViews.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/dist/index.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/selectPanelOverlay.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/views/patient.search.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/views/patient.basic.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/views/algorithm.basic.html",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/views.js",
-		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/calculators/patientCalculators.js",
+		"/home/mrichana/.config/sublime-text-3/Packages/Javascript Beautify/JavascriptBeautify.sublime-settings",
+		"/home/mrichana/.config/sublime-text-3/Packages/Javascript Beautify/Default (Linux).sublime-keymap",
+		"/home/mrichana/.config/sublime-text-3/Packages/User/JavascriptBeautify.sublime-settings",
+		"/home/mrichana/Projects/medcalc/app/scripts/directives.js",
+		"/home/mrichana/Projects/medcalc/app/lib/underscore.js",
+		"/home/mrichana/Projects/medcalc/app/partials/patient.html",
+		"/home/mrichana/Projects/medcalc/app/partials/patients.html",
+		"/home/mrichana/Projects/medcalc/app/partials/views/patient.basic.html",
+		"/home/mrichana/Projects/medcalc/app/scripts/controllers.js",
+		"/home/mrichana/Projects/medcalc/app/scripts/services.js",
+		"/home/mrichana/Projects/medcalc/app/scripts/views/views.js",
+		"/home/mrichana/Projects/medcalc/app/index.html",
+		"/home/mrichana/Projects/medcalc/app/scripts/calculators/patientCalculators.js",
 		"/C/Users/Missel/Desktop/build.prop",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/index.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/patients.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/patient.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/views/patient.basic.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/triplexViews.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/directives.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/patientViews.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/selectPanelOverlay.html",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/partials/calculators.html",
 		"/C/Users/Missel/Documents/GitHub/medcalc/.jshintrc",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/lib/bootstrap-wysiHtml5.css",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/styles/bootstrap-rta.css",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/lib/jquery.min.js",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/lib/jquery.min.map",
 		"/C/Users/Missel/SkyDrive/Downloads/jquery-2.1.1.min.map",
+		"/C/Users/Missel/Documents/GitHub/medcalc/Gruntfile.js",
 		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/tern_for_sublime/README.md",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/internalMedicineViews.js",
 		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/views/views.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/calculators/patientCalculators.js",
 		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/User/TernJS.sublime-settings",
 		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/TernJS/TernJS.sublime-settings",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/scripts/controllers/generalCtrl.js",
@@ -301,6 +249,7 @@
 		"/C/Users/Missel/AppData/Roaming/Sublime Text 3/Packages/User/SublimeGrunt.sublime-settings",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/views/views.js",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/views/patientViews.js",
+		"/C/Users/Missel/Documents/GitHub/medcalc/package.json",
 		"/C/Users/Missel/Documents/GitHub/medcalc/app/js/directives.js",
 		"/C/Users/Missel/Documents/GitHub/medcalc/ftpsync.settings",
 		"/C/Users/Missel/Documents/GitHub/angularjs/Gruntfile.js",
@@ -350,7 +299,7 @@
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 25.0
 	},
 	"find_in_files":
 	{
@@ -366,100 +315,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"resultlevel",
-			"result.",
-			"result",
-			"alert",
-			"vc",
-			"result.",
-			"result",
-			"vc",
-			"bsa",
-			"leftAtriumLength",
-			"area2Ch",
-			"area4Ch",
-			"validate",
-			"Plasma_Creatinine",
-			"BloodPressure_Systolic",
-			"GRACEScore_Plasma_Creatinine",
-			"GRACEScore_Plasma_Creatinineinine",
-			"GRACEScore_HeartHeartRate",
-			"killip",
-			"Killip",
-			"killip",
-			"Killip",
-			"killip",
-			"creat",
-			"Creat",
-			"creat",
-			"Creat",
-			"creat",
-			"Creat",
-			"creat",
-			"Creat",
-			"creat",
-			"Creat",
-			"creat",
-			"Creat",
-			"creat",
-			"Creat",
-			"creat",
-			"Creat",
-			"creat",
-			"Creat",
-			"creat",
-			"Creat",
-			"creat",
-			"Creat",
-			"creat",
-			"Creat",
-			"creat",
-			"bp",
-			"rate",
-			"Rate",
-			"rate",
-			"Rate",
-			"rate",
-			"Rate",
-			"rate",
-			"Rate",
-			"rate",
-			"Rate",
-			"rate",
-			"Rate",
-			"rate",
-			"Rate",
-			"rate",
-			"chfs",
-			"crt2",
-			"sysbp2",
-			"pulse2",
-			"age",
-			"age2",
-			"BloodPressureSystolic",
-			"Plasma_Creatinine",
-			"BloodPressureSystolic",
-			"exte",
-			"creatinine",
-			"CRUSADEScore_Hematocrit",
-			"CRUSADEScore_GFR",
-			"values",
-			"age",
-			"result",
-			" {\n                    id: 'result',\n                    input: {\n                        type: 'result'\n                    }\n                }",
-			"{\n                    id: 'result',\n                    input: {\n                        type: 'result'\n                    }",
-			"ArterialBlood.",
-			"arterialBlood",
-			"arterialBlood_",
-			"\\.ArterialBlood_(.*?) ",
-			"\\.(ArterialBlood_.*?) ",
-			"ArterialBloodGasses",
-			"ArterialBloodGasses_pH",
-			"values.",
-			"fa fa-",
-			"fa fa-menu",
-			"fa fa-",
-			"select",
+			"each",
 			"ordinal",
 			".min",
 			"update",
@@ -493,11 +349,9 @@
 		"regex": true,
 		"replace_history":
 		[
-			"['ArterialBlood\\.\\1'] ",
-			"['\\1']",
 			"'"
 		],
-		"reverse": false,
+		"reverse": true,
 		"show_context": true,
 		"use_buffer2": true,
 		"whole_word": false,
@@ -506,67 +360,169 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/scripts/calculators/triplexCalculators.js",
+					"file": "app/scripts/views/patientViews.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10721,
+						"buffer_size": 5941,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10632,
-								10632
+								3404,
+								3404
 							]
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2615.0,
+						"translation.y": 1581.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/scripts/views/triplexViews.js",
+					"file": "app/partials/views/patient.view.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 18799,
+						"buffer_size": 532,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								17501,
-								17501
+								457,
+								457
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/HTML/HTML.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 6513.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -575,110 +531,154 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15259,
+						"buffer_size": 19401,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5762,
-								5762
+								19389,
+								19389
 							]
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
-						"translation.y": 3420.0,
+						"translation.x": 0.0,
+						"translation.y": 5508.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "app/lib/ng-modal.js",
+					"file": "/home/mrichana/.config/sublime-text-3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2536,
+						"buffer_size": 974,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								393,
+								393
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 90.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/scripts/controllers.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8456,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4023,
-								4023
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1099.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "app/partials/calculators.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2599,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								656,
-								656
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
@@ -686,7 +686,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -734,7 +734,7 @@
 	"project": "medcalc.sublime-project",
 	"replace":
 	{
-		"height": 62.0
+		"height": 46.0
 	},
 	"save_all_on_build": true,
 	"select_file":
