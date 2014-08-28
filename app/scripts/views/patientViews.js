@@ -69,6 +69,7 @@
                 category: 'patient',
                 type: 'basic',
                 template: 'patient.basic',
+                order: -1,
                 defaultValues: {
                     amka: '',
                     lastname: '',
@@ -121,6 +122,7 @@
                 category: 'patient',
                 type: 'basic',
                 template: 'patient.basic',
+                order: 0,
                 defaultValues: {
                     notes: ''
                 },
@@ -139,6 +141,7 @@
                 category: 'patient',
                 type: 'basic',
                 template: 'patient.basic',
+                order: -1,
                 defaultValues: {
                     telNo: '',
                     mobileNo: '',

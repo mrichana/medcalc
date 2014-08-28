@@ -11,7 +11,8 @@ module.exports = function(grunt) {
 
     // Load grunt tasks automatically
     require('load-grunt-tasks')(grunt);
-
+    grunt.loadNpmTasks('grunt-appcache');
+    
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
 
@@ -354,6 +355,16 @@ module.exports = function(grunt) {
         // concat: {
         //   dist: {}
         // },
+        'appcache': {
+            options: {
+                basePath: '<%= yeoman.dist %>'
+            },
+            all: {
+                dest: '<%= yeoman.dist %>/manifest.appcache',
+                cache: '<%= yeoman.dist %>/**/*',
+                network: '*',
+            },
+        },
 
         'ftp-deploy': {
             build: {
@@ -401,6 +412,7 @@ module.exports = function(grunt) {
         'usemin',
         'inline_angular_templates',
         'htmlmin',
+        'appcache',
         'ftp-deploy'
     ]);
 
@@ -410,5 +422,9 @@ module.exports = function(grunt) {
 
     grunt.registerTask('deploy', [
         'ftp-deploy'
+    ]);
+
+    grunt.registerTask('cache', [
+        'appcache'
     ]);
 };

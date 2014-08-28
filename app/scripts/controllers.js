@@ -112,13 +112,18 @@
             function($scope, $route, $routeParams, $location, $timeout, patientStorage, views, patientViews, internalMedicineViews, triplexViews) {
                 $scope.$on('$routeChangeSuccess', function(event, route) {
                     $scope.patient = angular.copy(patientStorage.patient(route.params.amka));
-                    $scope.panelsList = angular.copy(_.filter(views.all(), function(view) {
-                        return _.contains(_.keys($scope.patient.calculatorsActive), view.id);
-                    }));
+                    updatePanelsList();
                     _.each($scope.panelsList, function(panel) {
                         panel.values = $scope.patient;
                     });
                 });
+
+                var updatePanelsList = function () {
+                    $scope.panelsList = angular.copy(_.sortBy(_.filter(views.all(), function(view) {
+                        return _.contains(_.keys($scope.patient.calculatorsActive), view.id);
+                    }), 'order'));
+                };
+
                 $scope.fullName = function(patient) {
                     return patient.lastname + ', ' + patient.firstname;
                 };
@@ -131,13 +136,15 @@
                     $location.path('/Patients');
                 };
 
+                $scope.existPanel = function(panelId) {
+                    return _.contains(_.keys($scope.patient.calculatorsActive), panelId);
+                };
+
                 $scope.addPanel = function(panelId) {
                     $scope.patient.calculatorsActive = $scope.patient.calculatorsActive || {};
                     $scope.patient.calculatorsActive[panelId] = true;
 
-                    $scope.panelsList = _.filter(views.all(), function(view) {
-                        return _.contains(_.keys($scope.patient.calculatorsActive), view.id);
-                    });
+                    updatePanelsList();
 
                     _.each($scope.panelsList, function(panel) {
                         panel.values = $scope.patient;
@@ -177,14 +184,18 @@
                 $scope.go = function(address) {
                     $location.path(address);
                 };
-                $scope.$watch('values.newPatient', function() {
-                    $scope.values.patients = patientStorage.filterPatients(values.newPatient);
+                $scope.$watch('values', function() {
+                    $scope.values.patients = patientStorage.filterPatients({
+                        amka: values.amka,
+                        firstname: values.firstname,
+                        lastname: values.lastname
+                    });
                     $scope.patients = _.map($scope.values.patients, function(patient) {
                         var view = views.all().patientView;
                         view.values = patient;
                         return view;
                     });
-                });
+                }, true);
 
                 $scope.clearPanel = function(id) {
                     views.all()[id].reset();

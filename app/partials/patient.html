@@ -29,13 +29,8 @@
     <div class="app-body scrollable">
         <div class="scrollable-content scroll-spy-target">
             <div id="addPanel" class="panel panel-info">
-                <div>
-                    <button ng-click="dialogShown=true">Dialog...</button>
-                    <modal-dialog show="dialogShown" dialog-title="My Dialog">Test!!!!!!</modal-dialog>
-                </div>
-                <button class="btn btn-default" ng-click="addPanel('patientNotes')">Σημειώσεις...</button>
-                <button class="btn btn-default" ng-click="addPanel('patientContactDetails')">Στοιχεία Επικοινωνίας...</button>
-                <button class="btn btn-default" ng-click="addPanel('bsa')">BSA</button>
+                <button class="btn btn-default" ng-class="{disabled: existPanel('patientContactDetails')}" ng-click="addPanel('patientContactDetails')">Στοιχεία Επικοινωνίας...</button>
+                <button class="btn btn-default" ng-class="{disabled: existPanel('patientNotes')}" ng-click="addPanel('patientNotes')">Σημειώσεις...</button>
             </div>
             <div id="{{view.id}}" class="panel panel-info" view="view" ng-repeat="view in panelsList track by view.id">
                 <div class="panel-heading">
