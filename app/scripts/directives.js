@@ -8,6 +8,7 @@
     /* Directives */
     angular.module('medical.directives', [])
         .directive('scrollto', [
+
             function() {
                 return function(scope, elm, attrs) {
                     elm.bind('click', function(e) {
@@ -54,6 +55,7 @@
             }
         ])
         .directive('scrollSpy', [
+
             function() {
                 return {
                     restrict: 'A',
