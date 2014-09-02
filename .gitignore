@@ -10,3 +10,5 @@ Thumbs.db
 /node_modules/grunt-contrib-watch
 /*.exe
 .tmp
+*.sublime-project
+/*.sublime-workspace

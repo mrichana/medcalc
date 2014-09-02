@@ -12,19 +12,33 @@
      * Description
      */
     angular.module('medical.services', ['ngStorage']).
+    factory('uuid', function(){
+        return {
+            generate: function() {
+                var d = new Date().getTime();
+                var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    var r = (d + Math.random()*16)%16 | 0;
+                    d = Math.floor(d/16);
+                    return (c=='x' ? r : (r&0x7|0x8)).toString(16);
+                });
+                return uuid;
+            }
+        };
+    }).
     factory('appVersion', function() {}).
-    factory('patientStorage', ['$localStorage', function($localStorage) {
+    factory('patientStorage', ['$localStorage', 'uuid', function($localStorage, uuid) {
         $localStorage.patients = $localStorage.patients || {};
         return {
             patients: $localStorage.patients,
-            patient: function(amka) {
-                return this.patients[amka];
+            patient: function(id) {
+                return this.patients[id];
             },
             addPatient: function(patient) {
-                this.patients[patient.amka] = patient;
+                patient.id = patient.id || uuid.generate();
+                this.patients[patient.id] = patient;
             },
             removePatient: function(patient) {
-                delete this.patients[patient.amka || patient];
+                delete this.patients[patient.id];
             },
             filterPatients: function(patienttempl) {
                 return _.sortBy(_.filter(this.patients, function(patient) {

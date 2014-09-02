@@ -14,7 +14,7 @@
                         templateUrl: 'partials/calculators.html',
                         controller: 'calculatorCtrl'
                     })
-                    .when('/Patient/:amka', {
+                    .when('/Patient/:id', {
                         templateUrl: 'partials/patient.html',
                         controller: 'patientCtrl'
                     })
@@ -111,7 +111,7 @@
         .controller('patientCtrl', ['$scope', '$route', '$routeParams', '$location', '$timeout', 'patientStorage', 'views', 'patientViews', 'internalMedicineViews', 'triplexViews',
             function($scope, $route, $routeParams, $location, $timeout, patientStorage, views, patientViews, internalMedicineViews, triplexViews) {
                 $scope.$on('$routeChangeSuccess', function(event, route) {
-                    $scope.patient = angular.copy(patientStorage.patient(route.params.amka));
+                    $scope.patient = angular.copy(patientStorage.patient(route.params.id));
                     updatePanelsList();
                     _.each($scope.panelsList, function(panel) {
                         panel.values = $scope.patient;
@@ -128,7 +128,7 @@
                     return patient.lastname + ', ' + patient.firstname;
                 };
                 $scope.save = function() {
-                    _.extend(patientStorage.patient($scope.patient.amka), $scope.patient);
+                    patientStorage.addPatient($scope.patient);
                     $location.path('/Patients');
                 };
                 $scope.delete = function() {
@@ -178,7 +178,7 @@
                         patientEdit: true
                     };
                     patientStorage.addPatient(this.result);
-                    $scope.go('/Patient/' + this.values.amka);
+                    $scope.go('/Patient/' + this.values.id);
                 };
 
                 $scope.go = function(address) {

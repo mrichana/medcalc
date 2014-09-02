@@ -20,28 +20,48 @@
                 defaultValues: {
                     amka: '',
                     lastname: '',
-                    firstname: ''
+                    firstname: '',
+                    age: 0,
+                    birthday: '1/1/1960'
                 },
-                fields: [{
-                    id: 'amka',
-                    name: 'Α.Μ.Κ.Α.',
-                    input: {
-                        type: 'text',
-                        length: '11'
+                fields: {
+                    amka: {
+                        id: 'amka',
+                        name: 'Α.Μ.Κ.Α.',
+                        input: {
+                            type: 'text',
+                            length: '11'
+                        }
+                    }, 
+                    birthday: {
+                        id: 'birthday',
+                        name: 'Γεννέθλια',
+                        input: {
+                            type: 'date'
+                        }
+                    },
+                    age: {
+                        id: 'age',
+                        name: 'Ηλικία',
+                        input: {
+                            type: 'number'
+                        }
+                    },
+                    lastname:{
+                        id: 'lastname',
+                        name: 'Επώνυμο',
+                        input: {
+                            type: 'text'
+                        }
+                    },
+                    firstname:{
+                        id: 'firstname',
+                        name: 'Όνομα',
+                        input: {
+                            type: 'text'
+                        }
                     }
-                }, {
-                    id: 'lastname',
-                    name: 'Επώνυμο',
-                    input: {
-                        type: 'text'
-                    }
-                }, {
-                    id: 'firstname',
-                    name: 'Όνομα',
-                    input: {
-                        type: 'text'
-                    }
-                }],
+                },
                 init: init,
                 reset: reset,
                 update: update,

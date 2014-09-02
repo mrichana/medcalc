@@ -24,8 +24,8 @@
                     <view view="searchView"></view>
                 </div>
             </div>
-            <div ng-repeat="patient in values.patients track by patient.amka" id="{{patient.amka}}" class="panel panel-info">
-                <div class="panel-heading" ng-click="go('/Patient/'+patient.amka)">
+            <div ng-repeat="patient in values.patients track by patient.id" id="{{patient.id}}" class="panel panel-info">
+                <div class="panel-heading" ng-click="go('/Patient/'+patient.id)">
                     <span class="badge pull-right">{{patient.amka}}</span>
                     <h4>{{fullName(patient)}}</h4>
                 </div>
@@ -57,7 +57,7 @@
         <div class="scrollable-content">
             <div class="list-group" toggle="off" bubble target="mainSidebar">
                 <nav-view class="list-group-item-success" view="searchView"></nav-view>
-                <nav-view ng-repeat="patient in values.patients track by patient.amka" view="{id:patient.amka, name:fullName(patient)}"></nav-view>
+                <nav-view ng-repeat="patient in values.patients track by patient.id" view="{id:patient.id, name:fullName(patient)}"></nav-view>
             </div>
         </div>
     </div>

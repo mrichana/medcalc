@@ -14,6 +14,7 @@
         'ngAnimate',
         'ngSanitize',
         'mobile-angular-ui',
-        'ngModal'
+        'mgcrea.ngStrap',
+        //'ngModal'
     ]);
 })();
