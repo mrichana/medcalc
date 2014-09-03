@@ -399,18 +399,18 @@
                     ret.formula = '((140 - Age) * Weight * GFR_Sex ) / ( 72 * Plasma_Creatinine )';
                     ret.result = roundNum(evaluator(values, ret.formula));
 
-                    if (ret.result < 90) {
-                        ret.explanation = 'Νεφρική βλάβη με ήπια μείωση του GFR';
-                        ret.resultlevel = 1;
-                    } else if (ret.result < 60) {
-                        ret.explanation = 'Νεφρική βλάβη με μέτρια μείωση του GFR';
-                        ret.resultlevel = 2;
+                    if (ret.result < 15) {
+                        ret.explanation = 'Νεφρική ανεπάρκεια';
+                        ret.resultlevel = 3;
                     } else if (ret.result < 30) {
                         ret.explanation = 'Νεφρική βλάβη με σοβαρή μείωση του GFR';
                         ret.resultlevel = 3;
-                    } else if (ret.result < 15) {
-                        ret.explanation = 'Νεφρική ανεπάρκεια';
-                        ret.resultlevel = 3;
+                    } else if (ret.result < 60) {
+                        ret.explanation = 'Νεφρική βλάβη με μέτρια μείωση του GFR';
+                        ret.resultlevel = 2;
+                    } else if (ret.result < 90) {
+                        ret.explanation = 'Νεφρική βλάβη με ήπια μείωση του GFR';
+                        ret.resultlevel = 1;
                     } else {
                         ret.explanation = 'Φυσιολογική νεφρική λειτουργία';
                         ret.resultlevel = 0;

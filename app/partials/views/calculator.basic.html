@@ -3,11 +3,11 @@
         <div class="form-group" ng-class="{'has-error': field.error, 'has-warning': field.warning}">
             <label class="col-sm-3 control-label" for="{{field.id}}" ng-bind-html="field.name | to_trusted"></label>
             <div class="col-sm-9">
-                <div class="input-group" ng-if="field.calculator">
+                <div class="input-group" ng-if="field.calculatorView">
                     <custom-input field="field" values="view.values" result="view.result">
                     </custom-input>
                     <span class="input-group-btn">
-                        <button class="btn btn-default" ng-click="show({view:view, field: field})"><i class="fa fa-pencil"></i>
+                        <button class="btn btn-default" data-animation="am-fade-and-scale" data-placement="center" data-container='body' data-content-template='partials/modal.html' bs-modal="{title:field.calculatorView.name}"><i class="fa fa-pencil"></i>
                         </button>
                     </span>
                 </div>

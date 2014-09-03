@@ -14,6 +14,15 @@
             add: function(viewList) {
                 _allList = _.union(_allList, viewList);
                 _all = _.indexBy(_allList, 'id');
+                _.each(_allList, function (view) {
+                    _.each(view.fields, function (field) {
+                        if (field.calculator && _all[field.calculator])
+                        {
+                            field.calculatorView = angular.copy(_all[field.calculator]);
+                            field.calculatorView.parent = view;
+                        }
+                    });
+                });
                 _categories = _.reduce(_allList, function(memo, view) {
                     var categories = view.category ? view.category.split(/\W+/g) : ['generic'];
                     _.each(categories, function(category) {
@@ -55,7 +64,14 @@
         }
     ]).factory('init', function() {
         return function() {
-            this.values = this.values || {};
+            if (!this.parent)
+            {
+                this.values = this.values || {};
+            }
+            else
+            {
+                this.values = this.parent.values;
+            }
             _.defaults(this.values, this.defaultValues);
         };
     }).factory('reset', function() {

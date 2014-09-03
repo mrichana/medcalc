@@ -143,8 +143,7 @@
                     restrict: 'E',
                     replace: true,
                     scope: {
-                        view: '=',
-                        show: '&'
+                        view: '='
                     },
                     link: function(scope, element) {
                         if (scope.view.update) {

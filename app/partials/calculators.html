@@ -13,20 +13,6 @@
     </div>
 
     <div class="app-body scrollable">
-        <modal-dialog width="80%" height="80%" show="showModalView" on-close="hideModal()" ng-if="showModalView">
-            <div class="scrollable-content">
-                <div class="panel panel-info" view="showModalView">
-                    <div class="panel-heading">
-                        <button class="btn btn-default pull-right" ng-click="hideModal()"><i class="fa fa-times"></i>
-                        </button>
-                        <h4>{{showModalView.name}}</h4>
-                    </div>
-                    <div class="panel-body">
-                        <view view="showModalView"></view>
-                    </div>
-                </div>
-            </div>
-        </modal-dialog>
         <div class="scrollable-content scroll-spy-target">
             <div id="{{view.id}}" class="panel panel-info" view='view' ng-repeat="view in panelsList track by view.id">
                 <div class="panel-heading">
@@ -35,7 +21,7 @@
                     <h4>{{view.name}}</h4>
                 </div>
                 <div class="panel-body">
-                    <view view="view" show="show(view, field)"></view>
+                    <view view="view"></view>
                 </div>
             </div>
         </div>

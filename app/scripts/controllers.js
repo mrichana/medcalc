@@ -97,15 +97,6 @@
                     });
                     panel.reset();
                 };
-
-                $scope.show = function(view, field) {
-                    $scope.showModalView = views.all()[field.calculator];
-                    $scope.showModalView.values = view.values;
-                };
-
-                $scope.hideModal = function() {
-                    $scope.showModalView = false;
-                };
             }
         ])
         .controller('patientCtrl', ['$scope', '$route', '$routeParams', '$location', '$timeout', 'patientStorage', 'views', 'patientViews', 'internalMedicineViews', 'triplexViews',

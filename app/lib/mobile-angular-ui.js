@@ -1241,172 +1241,6 @@ angular.module("mobile-angular-ui.active-links", []).run([
   }
 ]);
 
-angular.module("mobile-angular-ui.directives.capture", [])
-
-.run([
-  "CaptureService", "$rootScope", function(CaptureService, $rootScope) {
-    $rootScope.$on('$routeChangeStart', function() {
-      CaptureService.resetAll();
-    });
-  }
-])
-
-.factory("CaptureService", [
-  "$compile", function($compile) {
-    var yielders = {};
-
-    return {
-      resetAll: function() {
-        for (name in yielders) {
-          this.resetYielder(name);
-        }
-      },
-      
-      resetYielder: function(name) {
-        var b = yielders[name];
-        this.setContentFor(name, b.defaultContent, b.defaultScope);
-      },
-
-      putYielder: function(name, element, defaultScope, defaultContent) {
-        var yielder = {};
-        yielder.name = name;
-        yielder.element = element;
-        yielder.defaultContent = defaultContent || "";
-        yielder.defaultScope = defaultScope;
-        yielders[name] = yielder;
-      },
-
-      getYielder: function(name) {
-        return yielders[name];
-      },
-
-      removeYielder: function(name) {
-        delete yielders[name];
-      },
-      
-      setContentFor: function(name, content, scope) {
-        var b = yielders[name];
-        if (!b) {
-          return;
-        }
-        b.element.html(content);
-        $compile(b.element.contents())(scope);
-      }
-
-    };
-  }
-])
-
-.directive("contentFor", [
-  "CaptureService", function(CaptureService) {
-    return {
-      link: function(scope, elem, attrs) {
-        CaptureService.setContentFor(attrs.contentFor, elem.html(), scope);
-        if (attrs.duplicate == null) {
-          elem.remove();
-        }
-      }
-    };
-  }
-])
-
-.directive("yieldTo", [
-  "$compile", "CaptureService", function($compile, CaptureService) {
-    return {
-      link: function(scope, element, attr) {
-        CaptureService.putYielder(attr.yieldTo, element, scope, element.html());
-        element.contents().remove();
-
-        scope.$on('$destroy', function(){
-          CaptureService.removeYielder(attr.yieldTo);
-        });
-      }
-    };
-  }
-]);
-
-angular.module('mobile-angular-ui.directives.carousel', [])
-
-.run(["$rootScope", function($rootScope) {
-    
-    $rootScope.carouselPrev = function(id) {
-      $rootScope.$emit("mobile-angular-ui.carousel.prev", id);
-    };
-    
-    $rootScope.carouselNext = function(id) {
-      $rootScope.$emit("mobile-angular-ui.carousel.next", id);
-    };
-    
-    var carouselItems = function(id) {
-      var elem = angular.element(document.getElementById(id));
-      var res = angular.element(elem.children()[0]).children();
-      elem = null;
-      return res;
-    };
-
-    var findActiveItemIndex = function(items) {
-      var idx = -1;
-      var found = false;
-
-      for (var _i = 0; _i < items.length; _i++) {
-        item = items[_i];
-        idx += 1;
-        if (angular.element(item).hasClass('active')) {
-          found = true;
-          break;
-        }
-      }
-
-      if (found) {
-        return idx;
-      } else {
-        return -1;
-      }
-
-    };
-
-    $rootScope.$on("mobile-angular-ui.carousel.prev", function(e, id) {
-      var items = carouselItems(id);
-      var idx = findActiveItemIndex(items);
-      var lastIdx = items.length - 1;
-
-      if (idx !== -1) {
-        angular.element(items[idx]).removeClass("active");
-      }
-
-      if (idx <= 0) {
-        angular.element(items[lastIdx]).addClass("active");
-      } else {
-        angular.element(items[idx - 1]).addClass("active");
-      }
-
-      items = null;
-      idx = null;
-      lastIdx = null;
-    });
-
-    $rootScope.$on("mobile-angular-ui.carousel.next", function(e, id) {
-      var items = carouselItems(id);
-      var idx = findActiveItemIndex(items);
-      var lastIdx = items.length - 1;
-      
-      if (idx !== -1) {
-        angular.element(items[idx]).removeClass("active");
-      }
-      
-      if (idx === lastIdx) {
-        angular.element(items[0]).addClass("active");
-      } else {
-        angular.element(items[idx + 1]).addClass("active");
-      }
-      
-      items = null;
-      idx = null;
-      lastIdx = null;
-    });
-  }
-]);
-
 // Provides touch events via fastclick.js
 angular.module('mobile-angular-ui.fastclick', [])
 
@@ -1448,109 +1282,6 @@ angular.module('mobile-angular-ui.fastclick', [])
   };
 })
 
-angular.module('mobile-angular-ui.directives.forms', [])
-
-.directive("bsFormControl", function() {
-  var bs_col_classes = {};
-  var bs_col_sizes = ['xs', 'sm', 'md', 'lg'];
-  
-  for (var i = 0; i < bs_col_sizes.length; i++) {
-    for (var j = 1; j <= 12; j++) {
-      bs_col_classes['col-' + bs_col_sizes[i] + "-" + j] = true;
-    }
-  };
-  
-  function separeBsColClasses(clss) {
-    var intersection = "";
-    var difference = "";
-
-    for (var i = 0; i < clss.length; i++) {
-        var v = clss[i];
-        if (v in bs_col_classes) { 
-          intersection += (v + " "); 
-        } else {
-          difference += (v + " ");
-        }
-    }
-
-    return {i: intersection.trim(), d: difference.trim()};
-  }
-
-  return {
-    replace: true,
-    require: "ngModel",
-    link: function(scope, elem, attrs) {
-
-      if (attrs.labelClass == null) {
-        attrs.labelClass = "";
-      }
-
-      if (attrs.id == null) {
-        attrs.id = attrs.ngModel.replace(".", "_") + "_input";
-      }
-      
-      if ((elem[0].tagName == "SELECT") || ((elem[0].tagName == "INPUT" || elem[0].tagName == "TEXTAREA") && (attrs.type != "checkbox" && attrs.type != "radio"))) {
-        elem.addClass("form-control");
-      }
-      
-      var label = angular.element("<label for=\"" + attrs.id + "\" class=\"control-label\">" + attrs.label + "</label>");
-      var w1 = angular.element("<div class=\"form-group row\"></div>"); 
-      var w2 = angular.element("<div class=\"form-control-wrapper\"></div>");
-      
-      var labelColClasses = separeBsColClasses(attrs.labelClass.split(/\s+/));
-      if (labelColClasses.i == "") {
-        label.addClass("col-xs-12");
-      }
-      label.addClass(attrs.labelClass);
-
-      var elemColClasses = separeBsColClasses(elem[0].className.split(/\s+/));
-      elem.removeClass(elemColClasses.i);
-      w2.addClass(elemColClasses.i);
-      if (elemColClasses.i == "") {
-        w2.addClass("col-xs-12");
-      }
-      elem.wrap(w1).wrap(w2);
-      elem.parent().parent().prepend(label);
-      elem.attr('id', attrs.id);
-
-      label = w1 = w2 = labelColClasses = elemColClasses = null;
-    }
-  };
-})
-
-// .directive("switch", function() {
-//   return {
-//     restrict: "EA",
-//     replace: true,
-//     scope: {
-//       model: "=ngModel",
-//       changeExpr: "@ngChange",
-//       disabled: "@"
-//     },
-//     template: "<div class='switch'><div class='switch-handle'></div></div>",
-//     link: function(scope, elem, attrs) {
-
-//       function updateClass(model) {
-//         if (model) { elem.addClass('active'); } else { elem.removeClass('active'); }
-//       }
-
-//       updateClass(scope.model);
-
-//       elem.on('click tap', function(){
-//         if (attrs.disabled == null) {
-//           scope.model = !scope.model;
-//           updateClass(scope.model);
-
-//           if (scope.changeExpr != null) {
-//             scope.$parent.$eval(scope.changeExpr);
-//           };
-//         }
-//       });
-
-//       elem.addClass('switch-transition-enabled');
-//     }
-//   };
-// });
 angular.module('mobile-angular-ui.directives.navbars', [])
 
 .directive('navbarAbsoluteTop', function() {
@@ -1572,6 +1303,7 @@ angular.module('mobile-angular-ui.directives.navbars', [])
     }
   };
 });
+
 angular.module('mobile-angular-ui.directives.overlay', []).directive('overlay', [
   "$compile", function($compile) {
     return {
@@ -1604,26 +1336,6 @@ angular.module('mobile-angular-ui.directives.overlay', []).directive('overlay', 
   }
 ]);
 
-angular.module("mobile-angular-ui.directives.panels", [])
-
-.directive("bsPanel", function() {
-  return {
-    restrict: 'EA',
-    replace: true,
-    scope: false,
-    transclude: true,
-    link: function(scope, elem, attrs) {
-      elem.removeAttr('title');
-    },
-    template: function(elems, attrs) {
-      var heading = "";
-      if (attrs.title) {
-        heading = "<div class=\"panel-heading\">\n  <h2 class=\"panel-title\">\n    " + attrs.title + "\n  </h2>\n</div>";
-      }
-      return "<div class=\"panel\">\n  " + heading + "\n  <div class=\"panel-body\">\n     <div ng-transclude></div>\n  </div>\n</div>";
-    }
-  };
-});
 angular.module('mobile-angular-ui.pointer-events', []).run([
   '$document', function($document) {
     return angular.element($document).on("click tap", function(e) {
@@ -1647,7 +1359,6 @@ angular.module('mobile-angular-ui.pointer-events', []).run([
  // basic implementation
 
 angular.module("mobile-angular-ui.scrollable", [])
-
 .directive("scrollableContent", [
   function() {
     return {
@@ -1663,8 +1374,8 @@ angular.module("mobile-angular-ui.scrollable", [])
     };
   }
 ]);
-angular.module('mobile-angular-ui.directives.sidebars', [])
 
+angular.module('mobile-angular-ui.directives.sidebars', [])
 .directive('sidebar', ['$document', '$rootScope', function($document, $rootScope) {
   return {
     replace: false,
@@ -1733,7 +1444,6 @@ angular.module('mobile-angular-ui.directives.sidebars', [])
 }]);
 
 angular.module('mobile-angular-ui.directives.toggle', [])
-
 .factory('ToggleHelper', [
   '$rootScope', function($rootScope) {
     return {
@@ -1962,11 +1672,6 @@ angular.module("mobile-angular-ui", [
   'mobile-angular-ui.fastclick',
   'mobile-angular-ui.scrollable',
   'mobile-angular-ui.directives.toggle',
-  'mobile-angular-ui.directives.overlay',
-  'mobile-angular-ui.directives.forms',
-  'mobile-angular-ui.directives.panels',
-  'mobile-angular-ui.directives.capture',
   'mobile-angular-ui.directives.sidebars',
-  'mobile-angular-ui.directives.navbars',
-  'mobile-angular-ui.directives.carousel'
+  'mobile-angular-ui.directives.navbars'
  ]);
