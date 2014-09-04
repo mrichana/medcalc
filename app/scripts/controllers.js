@@ -169,7 +169,7 @@
                         patientEdit: true
                     };
                     patientStorage.addPatient(this.result);
-                    $scope.go('/Patient/' + this.values.id);
+                    $scope.go('/Patient/' + this.result.id);
                 };
 
                 $scope.go = function(address) {

@@ -224,7 +224,7 @@
                     result: '<result result="result"></result>',
                     multiresult: '<multiresult result="result"></multiresult>',
                     'static': '<div class="form-control-static" name="{{field.id}}" ng-bind-html="values[field.id] | to_trusted"></div>',
-                    date: '<p class="input-group"><input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="values[field.id]" name="field.id" is-open="opened" ng-required="true" close-text="Close" /><span class="input-group-btn"><button class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button></span></p>',
+                    date: '<input type="text" class="form-control" ng-model="values[field.id]" name="field.id" ng-required="true" bs-datepicker data-date-format="dd-MM-yyyy" data-autoclose="true" data-max-date="today" data-start-view=2 data-icon-left="fa fa-chevron-left" data-icon-right="fa fa-chevron-right"/>',
                     multiline: '<textarea class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
                     richtext: '<textarea class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>'
                 };

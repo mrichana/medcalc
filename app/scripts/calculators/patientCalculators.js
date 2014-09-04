@@ -15,6 +15,7 @@
         function() {
             return {
                 newPatient: function(values) {
+                    
                     var ret = {
                         amka: values.amka,
                         firstname: values.firstname,

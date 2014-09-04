@@ -77,3 +77,8 @@ button[name=addPatient].ng-hide {
   -webkit-transition:all ease 0.3s;
   transition:all ease 0.3s;
 }
+
+.modal-body {
+  max-height: 500px;
+  overflow: auto;
+}

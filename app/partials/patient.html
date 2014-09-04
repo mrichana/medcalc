@@ -1,12 +1,10 @@
 <div class="app">
     <div class="navbar navbar-app navbar-absolute-top" role="navigation">
-        <div class="navbar-brand navbar-brand-center">
-            {{fullName(patient)}}
-        </div>
 
         <div class="btn-group .btn-group-lg pull-left">
             <div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
-                <i class="fa fa-bars"></i>
+                <i class="fa fa-bars"></i> <span>{{fullName(patient)}}</span>
+
             </div>
         </div>
 
