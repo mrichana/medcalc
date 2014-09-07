@@ -5,10 +5,18 @@
 (function() {
     'use strict';
 
+    var scrollFunction = function (item) {
+            item = $(item);
+            var parent = item.closest('.scrollable-content');
+            var top = parent.scrollTop() + item.offset().top - parent.offset().top;
+            parent.animate({
+                scrollTop: top
+            }, 1800);
+    }
+
     /* Directives */
     angular.module('medical.directives', [])
         .directive('scrollto', [
-
             function() {
                 return function(scope, elm, attrs) {
                     elm.bind('click', function(e) {
@@ -17,11 +25,7 @@
                             attrs.scrollto = attrs.href;
                         }
                         var item = $(attrs.scrollto);
-                        var parent = item.parentsUntil('.scrollable');
-                        var top = parent.scrollTop() + item.offset().top - parent.offset().top;
-                        parent.animate({
-                            scrollTop: top
-                        }, 1800);
+                        scrollFunction(item);
                     });
                 };
             }
@@ -89,6 +93,7 @@
                     element.on('click', function() {
                         if (focusedElement !== this) {
                             this.select();
+                            scrollFunction(this);
                             focusedElement = this;
                         }
                     });
