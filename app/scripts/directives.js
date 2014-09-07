@@ -85,20 +85,29 @@
                 };
             }
         ])
-        .directive('selectOnClick', function() {
+        .directive('selectOnFocus', function() {
             return {
                 restrict: 'A',
                 link: function(scope, element) {
                     var focusedElement;
-                    element.on('click', function() {
+                    element.on('focus', function() {
                         if (focusedElement !== this) {
                             this.select();
-                            scrollFunction(this);
                             focusedElement = this;
                         }
                     });
                     element.on('blur', function() {
                         focusedElement = null;
+                    });
+                }
+            };
+        })
+        .directive('visibleOnFocus', function() {
+            return {
+                restrict: 'A',
+                link: function(scope, element) {
+                    element.on('focus', function() {
+                        scrollFunction($(this).parent().prev('label') || this);
                     });
                 }
             };
@@ -220,8 +229,8 @@
                 var options = {
                     none: '',
                     image: '<img ng-src="{{field.url}}" class="img-responsive"/>',
-                    number: '<input select-on-click class="form-control" type="number" step="{{field.input.step}}" min="{{field.input.min}}" max="{{field.input.max}}" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]"/><span class="help-inline">{{field.description}}</span>',
-                    text: '<input select-on-click class="form-control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" maxlength="{{field.input.length || 524288}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
+                    number: '<input select-on-focus visible-on-focus class="form-control" type="number" step="{{field.input.step}}" min="{{field.input.min}}" max="{{field.input.max}}" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]"/><span class="help-inline">{{field.description}}</span>',
+                    text: '<input select-on-focus visible-on-focus class="form-control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" maxlength="{{field.input.length || 524288}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
                     select: '<select class="form-control" required ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-options="option.value as option.name for option in field.input.options"></select><span class="help-inline">{{fieldFromAnyValue(values[field.id], "value", field.input.options).description}}</span>',
                     check: '<switch ng-model="values[field.id]"></switch>',
                     radio: '<div class="btn-group" data-toggle="buttons-checkbox"><button type="button" class="btn span2" ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
@@ -230,8 +239,8 @@
                     multiresult: '<multiresult result="result"></multiresult>',
                     'static': '<div class="form-control-static" name="{{field.id}}" ng-bind-html="values[field.id] | to_trusted"></div>',
                     date: '<input type="text" class="form-control" ng-model="values[field.id]" name="field.id" ng-required="true" bs-datepicker data-date-format="dd-MM-yyyy" data-autoclose="true" data-max-date="today" data-start-view=2 data-icon-left="fa fa-chevron-left" data-icon-right="fa fa-chevron-right"/>',
-                    multiline: '<textarea class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
-                    richtext: '<textarea class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>'
+                    multiline: '<textarea visible-on-focus class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
+                    richtext: '<textarea visible-on-focus class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>'
                 };
                 return {
                     restrict: 'E',
