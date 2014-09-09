@@ -1,0 +1,27 @@
+{
+  "name": "MedCalc",
+  "description": "Ιατρικό Βοήθημα",
+  "manifest_version": 2,
+  "minimum_chrome_version": "23",
+  "version": "0.1.1",
+  "offline_enabled": true,
+  "icons": {
+    "16": "images/icon16.png",
+    "36": "images/icon36.png",
+    "48": "images/icon48.png",
+    "57": "images/icon57.png",
+    "72": "images/icon72.png",
+    "96": "images/icon96.png",
+    "114": "images/icon114.png",
+    "128": "images/icon128.png",
+    "144": "images/icon144.png"
+  },
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "permissions": [
+    "<all_urls>"
+  ]
+}

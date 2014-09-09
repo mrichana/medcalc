@@ -90,7 +90,7 @@
                 restrict: 'A',
                 link: function(scope, element) {
                     var focusedElement;
-                    element.on('focus', function() {
+                    element.on('click', function() {
                         if (focusedElement !== this) {
                             this.select();
                             focusedElement = this;
@@ -106,8 +106,16 @@
             return {
                 restrict: 'A',
                 link: function(scope, element) {
-                    element.on('focus', function() {
-                        scrollFunction($(this).parent().prev('label') || this);
+                    var focusedElement;
+                    element.on('click', function() {
+                        if (focusedElement !== this)
+                        {
+                            focusedElement = this; 
+                            scrollFunction($(this).parent().prev('label') || this);
+                        }
+                    });
+                    element.on('blur', function() {
+                        focusedElement = null; 
                     });
                 }
             };
