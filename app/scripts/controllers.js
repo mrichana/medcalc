@@ -87,6 +87,28 @@
                     });
                 };
 
+                $scope.swipeLeft = function() {
+                    switch ($scope.filters.active) {
+                        case 'Cardiology':
+                        $scope.filters.setAbsolute('Generic');
+                        break;
+                        case 'Triplex':
+                        $scope.filters.setAbsolute('Cardiology');
+                        break;
+                    };
+                };
+                
+                $scope.swipeRight = function() {
+                    switch ($scope.filters.active) {
+                        case 'Cardiology':
+                        $scope.filters.setAbsolute('Triplex');
+                        break;
+                        case 'Generic':
+                        $scope.filters.setAbsolute('Cardiology');
+                        break;
+                    }
+                };
+                
                 $scope.$on('$routeChangeSuccess', function(event, route) {
                     $scope.filters.setAbsolute(route.params.id);
                 });

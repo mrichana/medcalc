@@ -66,7 +66,7 @@
             return views.add([{
                 id: 'ArterialBloodGasses',
                 name: 'Αέρια Αίματος',
-                category: 'generic internalmed pneumonology cardiology',
+                category: 'generic',
                 template: 'calculator.basic',
                 defaultValues: {
                     'ArterialBlood_pH': 7.40,
