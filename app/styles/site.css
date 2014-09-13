@@ -82,3 +82,7 @@ button[name=addPatient].ng-hide {
   max-height: 500px;
   overflow: auto;
 }
+
+.modal {
+  overflow-y: auto;
+}

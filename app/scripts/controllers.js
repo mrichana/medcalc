@@ -87,7 +87,7 @@
                     });
                 };
 
-                $scope.swipeLeft = function() {
+                $scope.swipeRight = function() {
                     switch ($scope.filters.active) {
                         case 'Cardiology':
                         $scope.filters.setAbsolute('Generic');
@@ -98,7 +98,7 @@
                     };
                 };
                 
-                $scope.swipeRight = function() {
+                $scope.swipeLeft = function() {
                     switch ($scope.filters.active) {
                         case 'Cardiology':
                         $scope.filters.setAbsolute('Triplex');

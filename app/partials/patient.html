@@ -3,22 +3,22 @@
 
         <div class="btn-group .btn-group-lg pull-left">
             <div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
-                <i class="fa fa-bars"></i> <span>{{fullName(patient)}}</span>
+                <i class="icon-menu"></i> <span>{{fullName(patient)}}</span>
 
             </div>
         </div>
 
         <div class="btn-group btn-group-lg pull-right">
             <div verified-click="delete()" class="btn btn-navbar">
-                <i class="fa fa-trash-o"></i>
+                <i class="icon-trash"></i>
                 <span class="hidden-xs">Διαγραφή</span>
             </div>
             <div ng-click="save()" class="btn btn-navbar">
-                <i class="fa fa-floppy-o"></i>
+                <i class="icon-save"></i>
                 <span class="hidden-xs">Αποθήκευση</span>
             </div>
             <a href="#/Patients" class="btn btn-navbar">
-                <i class="fa fa-chevron-left"></i>
+                <i class="icon-left"></i>
                 <span class="hidden-xs">Επιστροφή</span>
             </a>
         </div>
@@ -32,7 +32,7 @@
             </div>
             <div id="{{view.id}}" class="panel panel-info" view="view" ng-repeat="view in panelsList track by view.id">
                 <div class="panel-heading">
-                    <button class="btn btn-default pull-right" ng-if="!view.dontRemove" verified-click="removePanel(view.id)"><i class="fa fa-trash-o"></i>
+                    <button class="btn btn-default pull-right" ng-if="!view.dontRemove" verified-click="removePanel(view.id)"><i class="icon-trash"></i>
                     </button>
                     <h4>{{view.name}}</h4>
                 </div>
