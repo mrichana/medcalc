@@ -13,7 +13,7 @@
     </div>
 
     <div class="app-body scrollable">
-        <div class="scrollable-content scroll-spy-target">
+        <div class="content scrollable-content scroll-spy-target">
             <div id="{{searchView.id}}" class="panel panel-success">
                 <div class="panel-heading">
                     <button class="btn btn-default pull-right" ng-show="searchView.reset" ng-click="clearPanel(searchView.id)"><i class="icon-reload"></i>
@@ -42,17 +42,17 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in" id="mainSidebar">
-    <h1 class="app-name">Αρχείο Ασθενών</h1>
-    <div class="scrollable">
-        <div class="scrollable-content">
-            <div class="list-group" toggle="off" bubble target="mainSidebar">
-                <nav-view class="list-group-item-success" view="searchView"></nav-view>
-                <nav-view ng-repeat="patient in values.patients track by patient.id" view="{id:patient.id, name:fullName(patient)}"></nav-view>
+        <div class="sidebar sidebar-left ng-hide" toggleable inactive-class="ng-hide" parent-active-class="sidebar-left-in" id="mainSidebar">
+            <h1 class="app-name">Αρχείο Ασθενών</h1>
+            <div class="scrollable">
+                <div class="scrollable-content">
+                    <div class="list-group" toggle="off" bubble target="mainSidebar">
+                        <nav-view class="list-group-item-success" view="searchView"></nav-view>
+                        <nav-view ng-repeat="patient in values.patients track by patient.id" view="{id:patient.id, name:fullName(patient)}"></nav-view>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
