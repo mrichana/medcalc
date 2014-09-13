@@ -467,6 +467,12 @@
   .navbar-brand-center {
     text-align: left;
   }
+  .sidebar-left.ng-hide {
+    display: block !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    -moz-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
   .sidebar-left {
     display: block;
     left: 0;
@@ -488,8 +494,7 @@
     -moz-transform: translate3d(0, 0, 0) !important;
     transform: translate3d(0, 0, 0) !important;
   }
-  .has-sidebar-left .app,
-  .sidebar-left-in .app {
+  .has-sidebar-left .content{
     width: auto;
     margin-left: 300px;
     left: 0;
@@ -521,8 +526,7 @@
   .sidebar-right {
     width: 320px;
   }
-  .has-sidebar-left .app,
-  .sidebar-left-in .app {
+  .has-sidebar-left .content {
     margin-left: 320px;
   }
   .sidebar-right-in .app {
