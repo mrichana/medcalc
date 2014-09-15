@@ -5047,7 +5047,7 @@ a.list-group-item .icon.pull-right {
 .sidebar-left {
   box-shadow: 3px 0px 5px 0px rgba(50, 50, 50, 0.75);
   background: #555555;
-  width: 170px;
+  width: 260px;
   left: 0;
   right: auto;
   transition: all 400ms ease;
@@ -5055,8 +5055,8 @@ a.list-group-item .icon.pull-right {
 
 .sidebar-left.ng-hide {
   display: block !important;
-  -webkit-transform: translate3d(-175px, 0, 0);
-  transform: translate3d(-175px, 0, 0);
+  -webkit-transform: translate3d(-265px, 0, 0);
+  transform: translate3d(-265px, 0, 0);
 }
 
 .sidebar-right {
@@ -5578,7 +5578,7 @@ form .panel-body {
 
 @media (min-width: 480px) {
   .sidebar-left {
-    width: 180px;
+    width: 280px;
   }
 
   .sidebar-right {
@@ -5586,8 +5586,8 @@ form .panel-body {
   }
 
   .sidebar-left.ng-hide {
-    -webkit-transform: translate3d(-185px, 0, 0);
-    transform: translate3d(-185px, 0, 0);
+    -webkit-transform: translate3d(-285px, 0, 0);
+    transform: translate3d(-285px, 0, 0);
   }
 
   .sidebar-right-in .app {
@@ -5598,20 +5598,20 @@ form .panel-body {
 
 @media (min-width: 768px) {
   .sidebar-left {
-    width: 200px;
+    width: 300px;
   }
 
   .sidebar-right {
-    width: 320px;
+    width: 340px;
   }
 
   .sidebar-left.ng-hide {
-    -webkit-transform: translate3d(-205px, 0, 0);
-    transform: translate3d(-205px, 0, 0);
+    -webkit-transform: translate3d(-305px, 0, 0);
+    transform: translate3d(-305px, 0, 0);
   }
 
   .sidebar-right-in .app {
-    -webkit-transform: translate3d(-320px, 0, 0);
-    transform: translate3d(-320px, 0, 0);
+    -webkit-transform: translate3d(-340px, 0, 0);
+    transform: translate3d(-340px, 0, 0);
   }
 }

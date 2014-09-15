@@ -111,7 +111,7 @@
                         if (focusedElement !== this)
                         {
                             focusedElement = this; 
-                            scrollFunction($(this).parent().prev('label') || this);
+                            scrollFunction($(this).parent().parent().prev('label') || this);
                         }
                     });
                     element.on('blur', function() {

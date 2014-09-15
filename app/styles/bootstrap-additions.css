@@ -335,7 +335,7 @@
   min-width: 320px;
   max-width: 630px;
   width: 70%;
-  height: 70%;
+  height: 90%;
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
 }
