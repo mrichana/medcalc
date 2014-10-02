@@ -1,57 +1,59 @@
 <ng-form class="form-horizontal">
-    <div class="form-group" ng-class="{'has-error': view.fields.lastname.error, 'has-warning': view.fields.lastname.warning}">
-        <label class="col-sm-3 control-label" for="{{view.fields.lastname.id}}" ng-bind-html="view.fields.lastname.name | to_trusted"></label>
-        <div class="col-sm-9">
-            <div>
-                <custom-input field="view.fields.lastname" values="view.values"></custom-input>
+    <div>
+        <div class="form-group" ng-class="{'has-error': view.fields.lastname.error, 'has-warning': view.fields.lastname.warning}">
+            <label class="col-sm-3 control-label" for="{{view.fields.lastname.id}}" ng-bind-html="view.fields.lastname.name | to_trusted"></label>
+            <div class="col-sm-9">
+                <div>
+                    <custom-input field="view.fields.lastname" values="view.values"></custom-input>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="form-group" ng-class="{'has-error': view.fields.firstname.error, 'has-warning': view.fields.firstname.warning}">
-        <label class="col-sm-3 control-label" for="{{view.fields.firstname.id}}" ng-bind-html="view.fields.firstname.name | to_trusted"></label>
-        <div class="col-sm-9">
-            <div>
-                <custom-input field="view.fields.firstname" values="view.values"></custom-input>
+        <div class="form-group" ng-class="{'has-error': view.fields.firstname.error, 'has-warning': view.fields.firstname.warning}">
+            <label class="col-sm-3 control-label" for="{{view.fields.firstname.id}}" ng-bind-html="view.fields.firstname.name | to_trusted"></label>
+            <div class="col-sm-9">
+                <div>
+                    <custom-input field="view.fields.firstname" values="view.values"></custom-input>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="form-group" ng-class="{'has-error': view.fields.amka.error, 'has-warning': view.fields.amka.warning}">
-        <label class="col-sm-3 control-label">
-            <div class="btn-group toggleable-dropdown" active-class="open" id= "myDropdown" toggleable ng-init="ddselect = 'amka'">
-              <button type="button"
-                class="btn btn-default dropdown-toggle" toggle
-                target="myDropdown">
-                {{view.fields[ddselect].name}} <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" role="menu" toggle="off" bubble target="myDropdown">
-                <li><a href ng-click="ddselect = 'amka'">Α.Μ.Κ.Α.</a></li>
-                <li><a href ng-click="ddselect = 'birthday'">Γεννέθλια</a></li>
-                <li><a href ng-click="ddselect = 'age'">Ηλικία</a></li>
-              </ul>
+        <div class="form-group" ng-class="{'has-error': view.fields.birthday.error, 'has-warning': view.fields.birthday.warning}">
+            <label class="col-sm-3 control-label">
+                <div class="btn-group toggleable-dropdown" active-class="open" id= "myDropdown" toggleable ng-init="ddselect = 'amka'">
+                  <button type="button"
+                    class="btn btn-default dropdown-toggle" toggle
+                    target="myDropdown">
+                    {{view.fields[ddselect].name}} <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" toggle="off" bubble target="myDropdown">
+                    <li><a href ng-click="ddselect = 'amka'">Α.Μ.Κ.Α.</a></li>
+                    <li><a href ng-click="ddselect = 'birthday'">Γενέθλια</a></li>
+                    <li><a href ng-click="ddselect = 'age'">Ηλικία</a></li>
+                  </ul>
+                </div>
+            </label>
+            <div class="col-sm-9" ng-show="ddselect==view.fields.amka.id">
+                <div>
+                    <custom-input field="view.fields.amka" values="view.values"></custom-input>
+                </div>
             </div>
-        </label>
-        <div class="col-sm-9" ng-show="ddselect==view.fields.amka.id">
-            <div>
-                <custom-input field="view.fields.amka" values="view.values"></custom-input>
+            <div class="col-sm-9" ng-show="ddselect==view.fields.birthday.id">
+                <div>
+                    <custom-input field="view.fields.birthday" values="view.values"></custom-input>
+                </div>
+            </div>
+            <div class="col-sm-9" ng-show="ddselect==view.fields.age.id">
+                <div>
+                    <custom-input field="view.fields.age" values="view.values"></custom-input>
+                </div>
             </div>
         </div>
-        <div class="col-sm-9" ng-show="ddselect==view.fields.birthday.id">
-            <div>
-                <custom-input field="view.fields.birthday" values="view.values"></custom-input>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <button type="button" name="addPatient" class="btn btn-block btn-primary" ng-show="addPatientReady" ng-click="view.addPatient()">
+                    <i class="icon-plus"></i>
+                    Προσθήκη
+                </button>
             </div>
-        </div>
-        <div class="col-sm-9" ng-show="ddselect==view.fields.age.id">
-            <div>
-                <custom-input field="view.fields.age" values="view.values"></custom-input>
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-9">
-            <button type="button" name="addPatient" class="btn btn-block btn-primary" ng-show="addPatientReady" ng-click="view.addPatient()">
-                <i class="icon-plus"></i>
-                Προσθήκη
-            </button>
         </div>
     </div>
 </ng-form>

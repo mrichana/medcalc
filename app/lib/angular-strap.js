@@ -1421,7 +1421,8 @@ angular.module('mgcrea.ngStrap.helpers.dateParser', []).provider('$dateParser', 
             var matches = formatRegex.exec(value);
             if (!matches)
               return false;
-            var date = baseDate || new Date(0, 0, 1);
+            baseDate = (Object.prototype.toString.call(baseDate) === "[object Date]" && !isNaN(baseDate.getTime())) && baseDate;
+            var date = baseDate || new Date();
             for (var i = 0; i < matches.length - 1; i++) {
               formatSetMap[i] && formatSetMap[i].call(date, matches[i + 1]);
             }

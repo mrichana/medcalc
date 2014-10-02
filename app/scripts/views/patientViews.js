@@ -21,7 +21,7 @@
                     amka: '',
                     lastname: '',
                     firstname: '',
-                    age: 0,
+                    age: null,
                     birthday: ''
                 },
                 fields: {
@@ -44,7 +44,10 @@
                         id: 'age',
                         name: 'Ηλικία',
                         input: {
-                            type: 'number'
+                            type: 'number',
+                            step: 1,
+                            min: 15,
+                            max: 130
                         }
                     },
                     lastname:{
@@ -69,8 +72,6 @@
                     var isValidDate = function(date) {return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime());};
                     var fieldsId = _.indexBy(scope.view.fields, 'id');
                     var regEx = /^([0-3][0-9])([01][0-9])([0-9][0-9])[0-9][0-9][0-9][0-9][0-9]$/g;
-                    fieldsId.amka.warning = !regEx.test(scope.view.values.amka);
-                    fieldsId.birthday.warning = !(isValidDate(scope.view.values.date));
 
                     if (field.id === 'amka' && scope.view.values.amka.match(/^([0-3][0-9])([01][0-9])([0-9][0-9])/g)) {
                         var date = scope.view.values.amka;
@@ -85,21 +86,40 @@
                     if (field.id === 'birthday') {
                         var date = scope.view.values.birthday;
                         if (isValidDate(date)) {
+                            var today = new Date();
+                            var age = Math.round((today - date) / 1000 / 60 / 60 / 24 / 365.25);
                             var year = date.getFullYear().toString().substring(2);
                             var month = (date.getMonth()+1);
                             month = month < 10 ? "0"+month : ""+month;
-                            var day = date.getDay();
+                            var day = date.getDate();
                             day = day<10 ? "0"+day : ""+day;
                             date = ''+day+month+year;
                             if (date != scope.view.values.amka.substring(0, 6)) {
                                 scope.view.values.amka = date;
                             }
+                            if (age != scope.view.values.age) {
+                                scope.view.values.age = age;
+                            }
                         }
                     }
+                    if (field.id === 'age') {
+                        var age = scope.view.values.age;
+                        if (age > 0) {
+                            var today = new Date();
+                            var birthday = new Date( today - (age * 365.25 * 24 * 60 * 60 * 1000) );
+                            if (!scope.view.values.birthday || birthday.getFullYear() != scope.view.values.birthday.getFullYear()) {
+                                scope.view.values.birthday = birthday;
+                            }
+                        }
+                    }
+
+                    fieldsId.amka.warning = !regEx.test(scope.view.values.amka);
+                    fieldsId.birthday.warning = !(isValidDate(scope.view.values.birthday));
+                    fieldsId.age.warnign = (scope.view.values.birthday < 15 && scope.view.values.birthday > 105);
                     fieldsId.lastname.warning = !scope.view.values.lastname;
                     fieldsId.firstname.warning = !scope.view.values.firstname;
-                    scope.addPatientReady = !(fieldsId.amka.warning
-                                           || fieldsId.birthday.warning
+
+                    scope.addPatientReady = !(fieldsId.birthday.warning
                                            || fieldsId.lastname.warning 
                                            || fieldsId.firstname.warning 
                                            || scope.view.values.patients.length);
