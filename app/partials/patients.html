@@ -24,8 +24,8 @@
                     <view view="searchView"></view>
                 </div>
             </div>
-            <div ng-repeat="patient in values.patients track by patient.id" id="{{patient.id}}" class="panel panel-info">
-                <div class="panel-heading" ng-click="go('/Patient/'+patient.id)">
+            <div ng-repeat="patient in values.patients track by patient.id" id="{{patient.id}}" class="panel panel-info" ng-click="go('/Patient/'+patient.id)">
+                <div class="panel-heading">
                     <span class="badge pull-right">{{patient.amka}}</span>
                     <h4>{{fullName(patient)}}</h4>
                 </div>

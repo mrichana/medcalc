@@ -3,7 +3,9 @@
         <div class="form-group" ng-class="{'has-error': field.error, 'has-warning': field.warning}">
             <label class="col-sm-3 control-label" for="{{field.id}}" ng-bind-html="field.name | to_trusted"></label>
             <div class="col-sm-9">
-                <custom-input field="field" values="view.values" result="view.result"></custom-input>
+            	<div>
+                	<custom-input field="field" values="view.values" result="view.result"></custom-input>
+                </div>
             </div>
         </div>
     </div>

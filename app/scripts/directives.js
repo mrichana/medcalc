@@ -246,7 +246,7 @@
                     result: '<result result="result"></result>',
                     multiresult: '<multiresult result="result"></multiresult>',
                     'static': '<div class="form-control-static" name="{{field.id}}" ng-bind-html="values[field.id] | to_trusted"></div>',
-                    date: '<input type="text" class="form-control" ng-model="values[field.id]" name="field.id" ng-required="true" bs-datepicker data-date-format="dd-MM-yyyy" data-autoclose="true" data-max-date="today" data-start-view=2 data-icon-left="icon-left" data-icon-right="icon-right"/>',
+                    date: '<input type="text" class="form-control" ng-model="values[field.id]" name="field.id" ng-required="true" bs-datepicker data-date-format="dd-MM-yyyy" data-autoclose="true" data-max-date="today" data-icon-left="icon-left" data-icon-right="icon-right"/>',
                     multiline: '<textarea visible-on-focus class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
                     richtext: '<textarea visible-on-focus class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>'
                 };

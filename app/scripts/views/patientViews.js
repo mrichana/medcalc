@@ -22,7 +22,7 @@
                     lastname: '',
                     firstname: '',
                     age: 0,
-                    birthday: '1/1/1960'
+                    birthday: ''
                 },
                 fields: {
                     amka: {
@@ -66,9 +66,12 @@
                 reset: reset,
                 update: update,
                 validate: function(newValue, scope, field) {
+                    var isValidDate = function(date) {return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime());};
                     var fieldsId = _.indexBy(scope.view.fields, 'id');
                     var regEx = /^([0-3][0-9])([01][0-9])([0-9][0-9])[0-9][0-9][0-9][0-9][0-9]$/g;
                     fieldsId.amka.warning = !regEx.test(scope.view.values.amka);
+                    fieldsId.birthday.warning = !(isValidDate(scope.view.values.date));
+
                     if (field.id === 'amka' && scope.view.values.amka.match(/^([0-3][0-9])([01][0-9])([0-9][0-9])/g)) {
                         var date = scope.view.values.amka;
                         var year = parseInt(date.substring(4, 6), 10);
@@ -79,9 +82,27 @@
                             scope.view.values.birthday = date;
                         }
                     }
+                    if (field.id === 'birthday') {
+                        var date = scope.view.values.birthday;
+                        if (isValidDate(date)) {
+                            var year = date.getFullYear().toString().substring(2);
+                            var month = (date.getMonth()+1);
+                            month = month < 10 ? "0"+month : ""+month;
+                            var day = date.getDay();
+                            day = day<10 ? "0"+day : ""+day;
+                            date = ''+day+month+year;
+                            if (date != scope.view.values.amka.substring(0, 6)) {
+                                scope.view.values.amka = date;
+                            }
+                        }
+                    }
                     fieldsId.lastname.warning = !scope.view.values.lastname;
                     fieldsId.firstname.warning = !scope.view.values.firstname;
-                    scope.addPatientReady = !(fieldsId.amka.warning || fieldsId.lastname.warning || fieldsId.firstname.warning || scope.view.values.patients.length);
+                    scope.addPatientReady = !(fieldsId.amka.warning
+                                           || fieldsId.birthday.warning
+                                           || fieldsId.lastname.warning 
+                                           || fieldsId.firstname.warning 
+                                           || scope.view.values.patients.length);
                 }
             }, {
                 id: 'patientEdit',

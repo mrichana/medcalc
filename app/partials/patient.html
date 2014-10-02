@@ -3,8 +3,7 @@
 
         <div class="btn-group .btn-group-lg pull-left">
             <div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
-                <i class="icon-menu"></i> <span>{{fullName(patient)}}</span>
-
+                <i class="icon-menu"></i> <span class="hidden-xs">{{fullName(patient)}}</span>
             </div>
         </div>
 
@@ -27,8 +26,11 @@
     <div class="app-body scrollable">
         <div class="content scrollable-content scroll-spy-target">
             <div id="addPanel" class="panel panel-info">
-                <button class="btn btn-default" ng-class="{disabled: existPanel('patientContactDetails')}" ng-click="addPanel('patientContactDetails')">Στοιχεία Επικοινωνίας...</button>
-                <button class="btn btn-default" ng-class="{disabled: existPanel('patientNotes')}" ng-click="addPanel('patientNotes')">Σημειώσεις...</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-animation="am-flip-x" bs-dropdown="dropdown">
+                        Στοιχεία Ασθενή<span class="caret"></span>
+                    </button>
+                </div>
             </div>
             <div id="{{view.id}}" class="panel panel-info" view="view" ng-repeat="view in panelsList track by view.id">
                 <div class="panel-heading">
@@ -46,7 +48,6 @@
             <div class="scrollable">
                 <div class="scrollable-content">
                     <div class="list-group" toggle="off" bubble target="mainSidebar">
-
                         <nav-view view='view' ng-repeat="view in panelsList track by view.id"></nav-view>
                     </div>
                 </div>

@@ -149,6 +149,20 @@
                     $location.path('/Patients');
                 };
 
+                $scope.dropdown = [
+                    {
+                        text:"Στοιχεία Επικοινωνίας...",
+                        disabled: "existPanel('patientContactDetails')",
+                        click: "addPanel('patientContactDetails')"
+                    },
+                    {
+                        text:"Σημειώσεις...",
+                        disabled: "existPanel('patientNotes')",
+                        click: "addPanel('patientNotes')"
+                    }
+                ];
+
+
                 $scope.existPanel = function(panelId) {
                     return _.contains(_.keys($scope.patient.calculatorsActive), panelId);
                 };
