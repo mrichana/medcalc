@@ -69,3 +69,12 @@ button[name=addPatient].ng-hide {
 .modal-body-content {
   padding-bottom: 25px;
 }
+
+.ta-editor {
+    min-height: 32px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+    margin:20px 0;
+}

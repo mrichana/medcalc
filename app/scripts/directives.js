@@ -16,6 +16,24 @@
 
     /* Directives */
     angular.module('medical.directives', [])
+        .directive('autosize', [
+            function() {
+                return {
+                    restrict: 'A',
+                    link: function(scope, element, attrs) {
+                        element.css('resize', 'none');
+                        var update = function () {
+                            element.height(0).height(element[0].scrollHeight);
+                        };
+                        element.on( 'change keyup keydown paste cut', function (){
+                            update();
+                        });
+                        setTimeout( update, 0);
+                    }
+
+                };
+            }
+        ])
         .directive('scrollto', [
             function() {
                 return function(scope, elm, attrs) {
@@ -252,9 +270,10 @@
                     result: '<result result="result"></result>',
                     multiresult: '<multiresult result="result"></multiresult>',
                     'static': '<div class="form-control-static" name="{{field.id}}" ng-bind-html="values[field.id] | to_trusted"></div>',
+                    staticmultiline: '<textarea class="form-control" ng-disabled="true" ng-class="{disabled: true}" name="{{field.id}}" ng-model="values[field.id]" />',
                     date: '<input type="text" class="form-control" ng-model="values[field.id]" name="field.id" ng-required="true" bs-datepicker data-date-format="dd-MM-yyyy" data-autoclose="true" data-max-date="today" data-icon-left="icon-left" data-icon-right="icon-right" data-use-native="true" data-start-view=2 />',
-                    multiline: '<textarea visible-on-focus class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
-                    richtext: '<textarea visible-on-focus class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>'
+                    multiline: '<textarea autosize visible-on-focus class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
+                    richtext: '<textarea ui-tinymce="{language : \'el\', menubar : false, statusbar : false, resize: false, plugins: \'autoresize\'}" autosize visible-on-focus class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>'
                 };
                 return {
                     restrict: 'E',

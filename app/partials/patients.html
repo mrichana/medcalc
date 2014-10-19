@@ -34,8 +34,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="notes">Σημειώσεις</label>
                                 <div class="col-sm-9">
-                                    <div class="form-control-static" name="notes" ng-bind-html="patient.notes | to_trusted"></div>
-                                </div>
+                                <div ng-bind-html="patient.notes | to_trusted"></div>
                             </div>
                         </div>
                     </ng-form>
