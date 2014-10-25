@@ -213,7 +213,7 @@
                 };
                 $scope.$watch('values', function() {
                     $scope.values.patients = patientStorage.filterPatients({
-                        amka: values.amka,
+                        amka: values.amka.substring(0, values.amka.indexOf('#')),
                         firstname: values.firstname,
                         lastname: values.lastname
                     });

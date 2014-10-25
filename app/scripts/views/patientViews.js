@@ -71,14 +71,14 @@
                 validate: function(newValue, scope, field) {
                     var isValidDate = function(date) {return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime());};
                     var fieldsId = _.indexBy(scope.view.fields, 'id');
-                    var regEx = /^([0-3][0-9])([01][0-9])([0-9][0-9])[0-9][0-9][0-9][0-9][0-9]$/g;
+                    var regEx = /^([0-3][0-9])([01][0-9])([0-9][0-9])([0-9#][0-9#][0-9#][0-9#][0-9#])?$/g;
+                    var regExAmka = regEx.exec(scope.view.values.amka);
 
-                    if (field.id === 'amka' && scope.view.values.amka.match(/^([0-3][0-9])([01][0-9])([0-9][0-9])/g)) {
-                        var date = scope.view.values.amka;
-                        var year = parseInt(date.substring(4, 6), 10);
-                        var month = parseInt(date.substring(2, 4) - 1, 10);
-                        var day = parseInt(date.substring(0, 2), 10);
-                        date = new Date(year, month, day);
+                    if (field.id === 'amka' && regExAmka) {
+                        var year = parseInt(regExAmka[2], 10);
+                        var month = parseInt(regExAmka[1], 10);
+                        var day = parseInt(regExAmka[0], 10);
+                        var date = new Date(year, month, day);
                         if (+date !== +scope.view.values.birthday) {
                             scope.view.values.birthday = date;
                         }
@@ -115,14 +115,15 @@
 
                     fieldsId.amka.warning = !regEx.test(scope.view.values.amka);
                     fieldsId.birthday.warning = !(isValidDate(scope.view.values.birthday));
-                    fieldsId.age.warnign = (scope.view.values.birthday < 15 && scope.view.values.birthday > 105);
+                    fieldsId.age.warning = (scope.view.values.birthday < 15 && scope.view.values.birthday > 105);
                     fieldsId.lastname.warning = !scope.view.values.lastname;
                     fieldsId.firstname.warning = !scope.view.values.firstname;
 
                     scope.addPatientReady = !(fieldsId.birthday.warning
-                                           || fieldsId.lastname.warning 
-                                           || fieldsId.firstname.warning 
-                                           || scope.view.values.patients.length);
+                                            || fieldsId.amka.warning
+                                            || fieldsId.lastname.warning 
+                                            || fieldsId.firstname.warning 
+                                            || scope.view.values.patients.length);
                 }
             }, {
                 id: 'patientEdit',
@@ -185,14 +186,14 @@
                 validate: function(newValue, scope, field) {
                     var isValidDate = function(date) {return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime());};
                     var fieldsId = _.indexBy(scope.view.fields, 'id');
-                    var regEx = /^([0-3][0-9])([01][0-9])([0-9][0-9])[0-9][0-9][0-9][0-9][0-9]$/g;
+                    var regEx = /^([0-3][0-9])([01][0-9])([0-9][0-9])([0-9#][0-9#][0-9#][0-9#][0-9#])?$/g;
+                    var regExAmka = regEx.exec(scope.view.values.amka);
 
-                    if (field.id === 'amka' && scope.view.values.amka.match(/^([0-3][0-9])([01][0-9])([0-9][0-9])/g)) {
-                        var date = scope.view.values.amka;
-                        var year = parseInt(date.substring(4, 6), 10);
-                        var month = parseInt(date.substring(2, 4) - 1, 10);
-                        var day = parseInt(date.substring(0, 2), 10);
-                        date = new Date(year, month, day);
+                    if (field.id === 'amka' && regExAmka) {
+                        var year = parseInt(regExAmka[2], 10);
+                        var month = parseInt(regExAmka[1], 10);
+                        var day = parseInt(regExAmka[0], 10);
+                        var date = new Date(year, month, day);
                         if (+date !== +scope.view.values.birthday) {
                             scope.view.values.birthday = date;
                         }
@@ -229,7 +230,7 @@
 
                     fieldsId.amka.warning = !regEx.test(scope.view.values.amka);
                     fieldsId.birthday.warning = !(isValidDate(scope.view.values.birthday));
-                    fieldsId.age.warnign = (scope.view.values.birthday < 15 && scope.view.values.birthday > 105);
+                    fieldsId.age.warning = (scope.view.values.birthday < 15 && scope.view.values.birthday > 105);
                     fieldsId.lastname.warning = !scope.view.values.lastname;
                     fieldsId.firstname.warning = !scope.view.values.firstname;
                 }
