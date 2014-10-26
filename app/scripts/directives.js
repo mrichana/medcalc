@@ -2,42 +2,42 @@
 /*global _: true */
 /*global $: true */
 
-(function() {
+(function () {
     'use strict';
 
     var scrollFunction = function (item) {
-            item = $(item);
-            var parent = item.closest('.scrollable-content');
-            var top = parent.scrollTop() + item.offset().top - parent.offset().top;
-            parent.animate({
-                scrollTop: top
-            }, 1800);
-    }
+        item = $(item);
+        var parent = item.closest('.scrollable-content');
+        var top = parent.scrollTop() + item.offset().top - parent.offset().top;
+        parent.animate({
+            scrollTop: top
+        }, 1800);
+    };
 
     /* Directives */
     angular.module('medical.directives', [])
         .directive('autosize', [
-            function() {
+            function () {
                 return {
                     restrict: 'A',
-                    link: function(scope, element, attrs) {
+                    link: function (scope, element) {
                         element.css('resize', 'none');
                         var update = function () {
                             element.height(0).height(element[0].scrollHeight);
                         };
-                        element.on( 'change keyup keydown paste cut', function (){
+                        element.on('change keyup keydown paste cut', function () {
                             update();
                         });
-                        setTimeout( update, 0);
+                        setTimeout(update, 0);
                     }
 
                 };
             }
         ])
         .directive('scrollto', [
-            function() {
-                return function(scope, elm, attrs) {
-                    elm.bind('click', function(e) {
+            function () {
+                return function (scope, elm, attrs) {
+                    elm.bind('click', function (e) {
                         e.preventDefault();
                         if (attrs.href) {
                             attrs.scrollto = attrs.href;
@@ -49,11 +49,11 @@
             }
         ])
         .directive('affix', ['$window',
-            function($window) {
+            function ($window) {
                 return {
                     restrict: 'A',
-                    link: function($scope, elem, attrs) {
-                        $($window).scroll(function() {
+                    link: function ($scope, elem, attrs) {
+                        $($window).scroll(function () {
                             var scroll = $window.scrollY;
                             var $body, offset, padding;
                             if (scroll > elem.offset().top) {
@@ -78,12 +78,12 @@
         ])
         .directive('scrollSpy', [
 
-            function() {
+            function () {
                 return {
                     restrict: 'A',
-                    link: function($scope, elem, attrs) {
+                    link: function ($scope, elem, attrs) {
                         var parent = $('.scroll-spy-target');
-                        var scrollHandler = function() {
+                        var scrollHandler = function () {
                             var element = $(attrs.scrollSpy);
                             var parent = $('.scroll-spy-target');
                             if (!element.length) {
@@ -103,48 +103,56 @@
                 };
             }
         ])
-        .directive('selectOnFocus', function() {
+        .directive('selectOnFocus', function () {
             return {
                 restrict: 'A',
-                link: function(scope, element) {
+                link: function (scope, element, attrs) {
                     var focusedElement;
-                    element.on('click', function() {
+                    element.on('click', function () {
                         if (focusedElement !== this) {
-                            this.select();
+                            var position = this.value.search(attrs.selectOnFocus);
+                            if (attrs.type !== 'number') {
+                                this.setSelectionRange(position, this.value.length);
+                            } else {
+                                this.select();
+                            }
                             focusedElement = this;
                         }
                     });
-                    element.on('blur', function() {
+                    element.on('blur', function () {
                         focusedElement = null;
                     });
                 }
             };
         })
-        .directive('visibleOnFocus', function() {
+        .directive('visibleOnFocus', function () {
             return {
                 restrict: 'A',
-                link: function(scope, element) {
+                link: function (scope, element) {
                     var focusedElement;
-                    element.on('click', function() {
-                        if (focusedElement !== this)
-                        {
-                            focusedElement = this; 
+                    element.on('click', function () {
+                        if (focusedElement !== this) {
+                            focusedElement = this;
                             var siblings = $(this).parent().parent().prevUntil('label');
                             var target;
-                            if (siblings.length) {target = $(siblings[siblings.length - 1]).prev('label');}
-                            else if ($(this).parent().parent().prev('label').length) { target = $(this).parent().parent().prev('label');}
-                            else target = this; 
+                            if (siblings.length) {
+                                target = $(siblings[siblings.length - 1]).prev('label');
+                            } else if ($(this).parent().parent().prev('label').length) {
+                                target = $(this).parent().parent().prev('label');
+                            } else {
+                                target = this;
+                            }
 
-                            scrollFunction( target);
+                            scrollFunction(target);
                         }
                     });
-                    element.on('blur', function() {
-                        focusedElement = null; 
+                    element.on('blur', function () {
+                        focusedElement = null;
                     });
                 }
             };
         })
-        .directive('navView', function() {
+        .directive('navView', function () {
             return {
                 restrict: 'E',
                 replace: true,
@@ -154,7 +162,7 @@
                 template: '<a class="list-group-item" scrollto="#{{view.id}}" scroll-spy="#{{view.id}}" href>{{view.name}} <i class="icon-right pull-right"></i></a>'
             };
         })
-        .directive('result', function() {
+        .directive('result', function () {
             return {
                 restrict: 'E',
                 replace: true,
@@ -164,17 +172,17 @@
                 template: '<div ng-class="{\'alert\': result.resultlevel!=null, \'alert-danger\': result.resultlevel==3, \'alert-warning\': result.resultlevel==2, \'alert-info\': result.resultlevel==1, \'alert-success\': result.resultlevel==0}"><h3 ng-bind-html="result.result | to_trusted"></h3><h4 ng-bind-html="result.explanation | to_trusted"></h4></div>'
             };
         })
-        .directive('multiresult', function() {
+        .directive('multiresult', function () {
             return {
                 restrict: 'E',
                 replace: true,
                 scope: {
                     result: '='
                 },
-                link: function(scope) {
-                    scope.$watchCollection('result', function(newValue, oldValue, scope) {
+                link: function (scope) {
+                    scope.$watchCollection('result', function (newValue, oldValue, scope) {
                         scope.resultlevel = Math.round(
-                            _.reduce(scope.result, function(
+                            _.reduce(scope.result, function (
                                 memo, item) {
                                 return memo + item.resultlevel;
                             }, 0) / scope.result.length);
@@ -184,34 +192,34 @@
             };
         })
         .directive('view', ['$compile', '$http', '$templateCache',
-            function($compile, $http, $templateCache) {
+            function ($compile, $http, $templateCache) {
                 return {
                     restrict: 'E',
                     replace: true,
                     scope: {
                         view: '='
                     },
-                    link: function(scope, element) {
+                    link: function (scope, element) {
                         if (scope.view.update) {
                             if (scope.view.init) {
                                 scope.view.init();
                             }
-                            _.each(scope.view.fields, function(field) {
-                                scope.$watch('view.values.' + field.id, function(newValue, oldValue, scope) {
+                            _.each(scope.view.fields, function (field) {
+                                scope.$watch('view.values.' + field.id, function (newValue, oldValue, scope) {
                                     if (scope.view.update) {
                                         scope.view.result = scope.view.update(newValue, oldValue, scope, field);
                                     }
                                 });
                             });
-                            _.each(scope.view.external, function(field) {
-                                scope.$watch('view.values.' + field, function(newValue, oldValue, scope) {
+                            _.each(scope.view.external, function (field) {
+                                scope.$watch('view.values.' + field, function (newValue, oldValue, scope) {
                                     if (scope.view.update) {
                                         scope.view.result = scope.view.update(newValue, oldValue, scope, null);
                                     }
                                 });
                             });
-                            scope.$watchCollection('view.values.calculatorsActive', function() {
-                                _.each(scope.view.fields, function(field) {
+                            scope.$watchCollection('view.values.calculatorsActive', function () {
+                                _.each(scope.view.fields, function (field) {
                                     field.input.disabled = _.contains(_.keys(scope.view.values.calculatorsActive), field.id);
                                 });
                             });
@@ -222,30 +230,30 @@
                             cache: $templateCache
                         });
 
-                        loader.success(function(html) {
+                        loader.success(function (html) {
                             element.html(html);
                         }).
-                        then(function() {
+                        then(function () {
                             element.replaceWith($compile(element.html())(scope));
                         });
                     }
                 };
             }
         ])
-        .directive('switch', function() {
+        .directive('switch', function () {
             return {
                 restrict: 'E',
                 require: '^ngModel',
                 replace: true,
                 scope: {},
                 template: '<div class="switch"><div class="switch-handle"></div></div>',
-                link: function(scope, elem, attrs, ngModelController) {
+                link: function (scope, elem, attrs, ngModelController) {
 
-                    ngModelController.$render = function() {
+                    ngModelController.$render = function () {
                         elem.toggleClass('active', ngModelController.$viewValue);
                     };
 
-                    elem.on('click tap', function() {
+                    elem.on('click tap', function () {
                         if (!attrs.disabled) {
                             scope.$apply(ngModelController.$setViewValue(!ngModelController.$viewValue));
                             ngModelController.$render();
@@ -257,12 +265,14 @@
             };
         })
         .directive('customInput', ['$compile',
-            function($compile) {
+            function ($compile) {
                 var options = {
                     none: '',
                     image: '<img ng-src="{{field.url}}" class="img-responsive"/>',
                     number: '<input select-on-focus visible-on-focus class="form-control" type="number" step="{{field.input.step}}" min="{{field.input.min}}" max="{{field.input.max}}" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]"/><span class="help-inline">{{field.description}}</span>',
                     text: '<input select-on-focus visible-on-focus class="form-control" type="text" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" maxlength="{{field.input.length || 524288}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
+                    telephone: '<div class="input-group"><input select-on-focus visible-on-focus class="form-control" type="tel" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" maxlength="10" ng-model="values[field.id]" /><span class="input-group-btn"><a class="btn btn-default" href="tel:{{values[field.id]}}">Κλήση</a></span></div><span class="help-inline">{{field.description}}</span>',
+                    amka: '<input select-on-focus="#" visible-on-focus class="form-control" type="tel" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" maxlength="11" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
                     select: '<select class="form-control" required ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-options="option.value as option.name for option in field.input.options"></select><span class="help-inline">{{fieldFromAnyValue(values[field.id], "value", field.input.options).description}}</span>',
                     check: '<switch ng-model="values[field.id]"></switch>',
                     radio: '<div class="btn-group" data-toggle="buttons-checkbox"><button type="button" class="btn span2" ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
@@ -273,7 +283,7 @@
                     staticmultiline: '<textarea class="form-control" ng-disabled="true" ng-class="{disabled: true}" name="{{field.id}}" ng-model="values[field.id]" />',
                     date: '<input type="text" class="form-control" ng-model="values[field.id]" name="field.id" ng-required="true" bs-datepicker data-date-format="dd-MM-yyyy" data-autoclose="true" data-max-date="today" data-icon-left="icon-left" data-icon-right="icon-right" data-use-native="true" data-start-view=2 />',
                     multiline: '<textarea autosize visible-on-focus class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>',
-                    richtext: '<textarea ui-tinymce="{language : \'el\', menubar : false, statusbar : false, resize: false, plugins: \'autoresize\'}" autosize visible-on-focus class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>'
+                    richtext: '<textarea ui-tinymce="{language : \'el\', menubar : false, statusbar : false, resize: false, toolbar: [ \'undo redo paste | searchreplace | styleselect bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | insertdatetime\'], insertdatetime_formats:[\'%d/%m/%Y\', \'%H:%M\', \'%d/%m/%Y %H:%M\'], plugins: \'autoresize paste insertdatetime lists searchreplace\'}" autosize visible-on-focus class="form-control" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" name="{{field.id}}" ng-model="values[field.id]" /><span class="help-inline">{{field.description}}</span>'
                 };
                 return {
                     restrict: 'E',
@@ -283,7 +293,7 @@
                         values: '=',
                         result: '='
                     },
-                    link: function(scope, element) {
+                    link: function (scope, element) {
                         var html = options[scope.field.input.type];
                         element.html(html);
                         element.replaceWith($compile(html)(scope));
@@ -292,19 +302,19 @@
             }
         ])
         .directive('verifiedClick', ['$timeout', '$animate',
-            function($timeout, $animate) {
+            function ($timeout, $animate) {
                 return {
                     restrict: 'A',
                     scope: {
                         verifiedClick: '&'
                     },
-                    link: function($scope, elem, attrs) {
-                        elem.on('tap click', function() {
-                            $scope.$apply(function() {
+                    link: function ($scope, elem, attrs) {
+                        elem.on('tap click', function () {
+                            $scope.$apply(function () {
                                 var waitTime = attrs.verifyWait || 1500;
                                 if (!$scope.timer) {
                                     $animate.addClass(elem, 'verify');
-                                    $scope.timer = $timeout(function() {
+                                    $scope.timer = $timeout(function () {
                                         $scope.timer = false;
                                         $animate.removeClass(elem, 'verify');
                                     }, waitTime);

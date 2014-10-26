@@ -1,31 +1,30 @@
 /*global angular: true */
 /*global _: true */
 
-(function() {
+(function () {
     'use strict';
 
     angular.module('medical.views', ['medical.calculators']).
-    factory('views', function() {
+    factory('views', function () {
         var _allList = [];
         var _categories = {};
         var _all = {};
 
         return {
-            add: function(viewList) {
+            add: function (viewList) {
                 _allList = _.union(_allList, viewList);
                 _all = _.indexBy(_allList, 'id');
                 _.each(_allList, function (view) {
                     _.each(view.fields, function (field) {
-                        if (field.calculator && _all[field.calculator])
-                        {
+                        if (field.calculator && _all[field.calculator]) {
                             field.calculatorView = angular.copy(_all[field.calculator]);
                             field.calculatorView.parent = view;
                         }
                     });
                 });
-                _categories = _.reduce(_allList, function(memo, view) {
+                _categories = _.reduce(_allList, function (memo, view) {
                     var categories = view.category ? view.category.split(/\W+/g) : ['generic'];
-                    _.each(categories, function(category) {
+                    _.each(categories, function (category) {
                         memo[category] = memo[category] || {};
                         memo[category][view.id] = view;
                     });
@@ -34,22 +33,22 @@
 
                 return viewList;
             },
-            all: function() {
+            all: function () {
                 return _all;
             },
-            allList: function() {
+            allList: function () {
                 return _allList;
             },
-            categories: function() {
+            categories: function () {
                 return _categories;
             }
         };
     }).factory('update', ['calculators',
-        function(calculators) {
-            return function(newValue, oldValue, scope, field) {
+        function (calculators) {
+            return function (newValue, oldValue, scope, field) {
                 var result = {};
                 if (scope.view && scope.view.validate) {
-                    scope.view.validate(newValue, scope, field);
+                    scope.view.validate(newValue, oldValue, scope, field);
                 }
                 if (!this.calculator) {
                     this.calculator = calculators[this.id];
@@ -61,20 +60,17 @@
                 return result;
             };
         }
-    ]).factory('init', function() {
-        return function() {
-            if (!this.parent)
-            {
+    ]).factory('init', function () {
+        return function () {
+            if (!this.parent) {
                 this.values = this.values || {};
-            }
-            else
-            {
+            } else {
                 this.values = this.parent.values;
             }
             _.defaults(this.values, this.defaultValues);
         };
-    }).factory('reset', function() {
-        return function() {
+    }).factory('reset', function () {
+        return function () {
             _.extend(this.values, this.defaultValues);
         };
     });

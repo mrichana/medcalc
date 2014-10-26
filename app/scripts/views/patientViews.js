@@ -1,7 +1,8 @@
 /*global angular: true */
 /*global _: true */
+/*global moment:true */
 
-(function() {
+(function () {
     'use strict';
     /**
      * calculators Module
@@ -10,7 +11,7 @@
      */
     angular.module('medical.views').
     factory('patientViews', ['views', 'update', 'init', 'reset',
-        function(views, update, init, reset) {
+        function (views, update, init, reset) {
             return views.add([{
                 id: 'newPatient',
                 name: 'Αναζήτηση/Νέος Ασθενής',
@@ -18,24 +19,23 @@
                 type: 'basic',
                 template: 'patient.search',
                 defaultValues: {
-                    amka: '',
                     lastname: '',
                     firstname: '',
+                    amka: '',
                     age: null,
-                    birthday: ''
+                    birthday: null
                 },
                 fields: {
                     amka: {
                         id: 'amka',
                         name: 'Α.Μ.Κ.Α.',
                         input: {
-                            type: 'text',
-                            length: '11'
+                            type: 'amka',
                         }
-                    }, 
+                    },
                     birthday: {
                         id: 'birthday',
-                        name: 'Γεννέθλια',
+                        name: 'Γενέθλια',
                         input: {
                             type: 'date'
                         }
@@ -46,18 +46,18 @@
                         input: {
                             type: 'number',
                             step: 1,
-                            min: 15,
-                            max: 130
+                            min: 1,
+                            max: 114
                         }
                     },
-                    lastname:{
+                    lastname: {
                         id: 'lastname',
                         name: 'Επώνυμο',
                         input: {
                             type: 'text'
                         }
                     },
-                    firstname:{
+                    firstname: {
                         id: 'firstname',
                         name: 'Όνομα',
                         input: {
@@ -68,62 +68,59 @@
                 init: init,
                 reset: reset,
                 update: update,
-                validate: function(newValue, scope, field) {
-                    var isValidDate = function(date) {return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime());};
+                validate: function (newValue, oldValue, scope, field) {
                     var fieldsId = _.indexBy(scope.view.fields, 'id');
                     var regEx = /^([0-3][0-9])([01][0-9])([0-9][0-9])([0-9#][0-9#][0-9#][0-9#][0-9#])?$/g;
                     var regExAmka = regEx.exec(scope.view.values.amka);
+                    var date;
 
-                    if (field.id === 'amka' && regExAmka) {
-                        var year = parseInt(regExAmka[2], 10);
-                        var month = parseInt(regExAmka[1], 10);
-                        var day = parseInt(regExAmka[0], 10);
-                        var date = new Date(year, month, day);
-                        if (+date !== +scope.view.values.birthday) {
-                            scope.view.values.birthday = date;
-                        }
-                    }
-                    if (field.id === 'birthday') {
-                        var date = scope.view.values.birthday;
-                        if (isValidDate(date)) {
-                            var today = new Date();
-                            var age = Math.round((today - date) / 1000 / 60 / 60 / 24 / 365.25);
-                            var year = date.getFullYear().toString().substring(2);
-                            var month = (date.getMonth()+1);
-                            month = month < 10 ? "0"+month : ""+month;
-                            var day = date.getDate();
-                            day = day<10 ? "0"+day : ""+day;
-                            date = ''+day+month+year;
-                            if (date != scope.view.values.amka.substring(0, 6)) {
-                                scope.view.values.amka = date + "#####";
-                            }
-                            if (age != scope.view.values.age) {
-                                scope.view.values.age = age;
+                    if (newValue !== oldValue) {
+                        if (field.id === 'amka' && regExAmka) {
+                            date = moment(regExAmka[1] + regExAmka[2] + '19' + regExAmka[3], 'DDMMYYYY'); //1900 dates.
+                            var date21century = moment(regExAmka[1] + regExAmka[2] + '20' + regExAmka[3], 'DDMMYYYY'); //2000 dates
+                            if (date.isValid()) {
+                                if (!(date.isSame(scope.view.values.birthday, 'day')) && !(date21century.isSame(scope.view.values.birthday, 'day'))) {
+                                    scope.view.values.birthday = date.toDate();
+                                }
                             }
                         }
-                    }
-                    if (field.id === 'age') {
-                        var age = scope.view.values.age;
-                        if (age > 0) {
-                            var today = new Date();
-                            var birthday = new Date( today - (age * 365.25 * 24 * 60 * 60 * 1000) );
-                            if (!scope.view.values.birthday || birthday.getFullYear() != scope.view.values.birthday.getFullYear()) {
-                                scope.view.values.birthday = birthday;
+                        if (field.id === 'birthday') {
+                            if (scope.view.values.birthday) {
+                                date = moment(scope.view.values.birthday);
+                                if (date.isValid()) {
+                                    if (date.format('DDMMYY') !== scope.view.values.amka.substring(0, 6)) {
+                                        scope.view.values.amka = date.format('DDMMYY') + '#####';
+                                    }
+                                    scope.view.values.age = moment().diff(date, 'years');
+                                } else {
+                                    scope.view.values.amka = '';
+                                }
+                            }
+                        }
+                        if (field.id === 'age') {
+                            var age = scope.view.values.age;
+                            if (age !== moment().diff(scope.view.values.birthday, 'years')) {
+                                if (angular.isNumber(age)) {
+                                    scope.view.values.birthday = moment().subtract(age, 'years').toDate();
+                                } else {
+                                    scope.view.values.birthday = null;
+                                    scope.view.values.amka = '';
+                                }
                             }
                         }
                     }
 
                     fieldsId.amka.warning = !regEx.test(scope.view.values.amka);
-                    fieldsId.birthday.warning = !(isValidDate(scope.view.values.birthday));
-                    fieldsId.age.warning = (scope.view.values.birthday < 15 && scope.view.values.birthday > 105);
+                    fieldsId.birthday.warning = !scope.view.values.birthday || !(moment(scope.view.values.birthday).isValid());
+                    fieldsId.age.warning = !scope.view.values.age;
                     fieldsId.lastname.warning = !scope.view.values.lastname;
                     fieldsId.firstname.warning = !scope.view.values.firstname;
 
-                    scope.addPatientReady = !(fieldsId.birthday.warning
-                                            || fieldsId.amka.warning
-                                            || fieldsId.lastname.warning 
-                                            || fieldsId.firstname.warning 
-                                            || scope.view.values.patients.length);
+                    scope.addPatientReady = !(fieldsId.birthday.warning ||
+                        //    fieldsId.amka.warning ||
+                        fieldsId.lastname.warning ||
+                        fieldsId.firstname.warning ||
+                        scope.view.values.patients.length);
                 }
             }, {
                 id: 'patientEdit',
@@ -137,20 +134,19 @@
                     lastname: '',
                     firstname: '',
                     age: null,
-                    birthday: ''
+                    birthday: null
                 },
                 fields: {
                     amka: {
                         id: 'amka',
                         name: 'Α.Μ.Κ.Α.',
                         input: {
-                            type: 'text',
-                            length: '11'
+                            type: 'amka',
                         }
-                    }, 
+                    },
                     birthday: {
                         id: 'birthday',
-                        name: 'Γεννέθλια',
+                        name: 'Γενέθλια',
                         input: {
                             type: 'date'
                         }
@@ -161,18 +157,18 @@
                         input: {
                             type: 'number',
                             step: 1,
-                            min: 15,
-                            max: 130
+                            min: 1,
+                            max: 114
                         }
                     },
-                    lastname:{
+                    lastname: {
                         id: 'lastname',
                         name: 'Επώνυμο',
                         input: {
                             type: 'text'
                         }
                     },
-                    firstname:{
+                    firstname: {
                         id: 'firstname',
                         name: 'Όνομα',
                         input: {
@@ -183,54 +179,51 @@
                 dontRemove: true,
                 init: init,
                 update: update,
-                validate: function(newValue, scope, field) {
-                    var isValidDate = function(date) {return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime());};
+                validate: function (newValue, oldValue, scope, field) {
                     var fieldsId = _.indexBy(scope.view.fields, 'id');
                     var regEx = /^([0-3][0-9])([01][0-9])([0-9][0-9])([0-9#][0-9#][0-9#][0-9#][0-9#])?$/g;
                     var regExAmka = regEx.exec(scope.view.values.amka);
+                    var date;
 
-                    if (field.id === 'amka' && regExAmka) {
-                        var year = parseInt(regExAmka[2], 10);
-                        var month = parseInt(regExAmka[1], 10);
-                        var day = parseInt(regExAmka[0], 10);
-                        var date = new Date(year, month, day);
-                        if (+date !== +scope.view.values.birthday) {
-                            scope.view.values.birthday = date;
-                        }
-                    }
-                    if (field.id === 'birthday') {
-                        var date = scope.view.values.birthday;
-                        if (isValidDate(date)) {
-                            var today = new Date();
-                            var age = Math.round((today - date) / 1000 / 60 / 60 / 24 / 365.25);
-                            var year = date.getFullYear().toString().substring(2);
-                            var month = (date.getMonth()+1);
-                            month = month < 10 ? "0"+month : ""+month;
-                            var day = date.getDate();
-                            day = day<10 ? "0"+day : ""+day;
-                            date = ''+day+month+year;
-                            if (date != scope.view.values.amka.substring(0, 6)) {
-                                scope.view.values.amka = date+'#####';
-                            }
-                            if (age != scope.view.values.age) {
-                                scope.view.values.age = age;
+                    if (newValue !== oldValue) {
+                        if (field.id === 'amka' && regExAmka) {
+                            date = moment(regExAmka[1] + regExAmka[2] + '19' + regExAmka[3], 'DDMMYYYY'); //1900 dates.
+                            var date21century = moment(regExAmka[1] + regExAmka[2] + '20' + regExAmka[3], 'DDMMYYYY'); //2000 dates
+                            if (date.isValid()) {
+                                if (!(date.isSame(scope.view.values.birthday, 'day')) && !(date21century.isSame(scope.view.values.birthday, 'day'))) {
+                                    scope.view.values.birthday = date.toDate();
+                                }
                             }
                         }
-                    }
-                    if (field.id === 'age') {
-                        var age = scope.view.values.age;
-                        if (age > 0) {
-                            var today = new Date();
-                            var birthday = new Date( today - (age * 365.25 * 24 * 60 * 60 * 1000) );
-                            if (!scope.view.values.birthday || birthday.getFullYear() != scope.view.values.birthday.getFullYear()) {
-                                scope.view.values.birthday = birthday;
+                        if (field.id === 'birthday') {
+                            if (scope.view.values.birthday) {
+                                date = moment(scope.view.values.birthday);
+                                if (date.isValid()) {
+                                    if (date.format('DDMMYY') !== scope.view.values.amka.substring(0, 6)) {
+                                        scope.view.values.amka = date.format('DDMMYY') + '#####';
+                                    }
+                                    scope.view.values.age = moment().diff(date, 'years');
+                                } else {
+                                    scope.view.values.amka = '';
+                                }
+                            }
+                        }
+                        if (field.id === 'age') {
+                            var age = scope.view.values.age;
+                            if (age !== moment().diff(scope.view.values.birthday, 'years')) {
+                                if (angular.isNumber(age)) {
+                                    scope.view.values.birthday = moment().subtract(age, 'years').toDate();
+                                } else {
+                                    scope.view.values.birthday = null;
+                                    scope.view.values.amka = '';
+                                }
                             }
                         }
                     }
 
                     fieldsId.amka.warning = !regEx.test(scope.view.values.amka);
-                    fieldsId.birthday.warning = !(isValidDate(scope.view.values.birthday));
-                    fieldsId.age.warning = (scope.view.values.birthday < 15 && scope.view.values.birthday > 105);
+                    fieldsId.birthday.warning = !scope.view.values.birthday || !(moment(scope.view.values.birthday).isValid());
+                    fieldsId.age.warning = !scope.view.values.age;
                     fieldsId.lastname.warning = !scope.view.values.lastname;
                     fieldsId.firstname.warning = !scope.view.values.firstname;
                 }
@@ -287,15 +280,13 @@
                     id: 'telNo',
                     name: 'Τηλέφωνο',
                     input: {
-                        type: 'text',
-                        length: '10'
+                        type: 'telephone'
                     }
                 }, {
                     id: 'mobileNo',
                     name: 'Κινητό',
                     input: {
-                        type: 'text',
-                        length: '10'
+                        type: 'telephone'
                     }
                 }, {
                     id: 'address',

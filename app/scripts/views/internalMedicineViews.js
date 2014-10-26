@@ -1,7 +1,7 @@
 /*global angular: true */
 /*global _: true */
 
-(function() {
+(function () {
     'use strict';
     /**
      * calculators Module
@@ -10,7 +10,7 @@
      */
     angular.module('medical.views').
     factory('internalMedicineViews', ['views', 'update', 'init', 'reset',
-        function(views, update, init, reset) {
+        function (views, update, init, reset) {
             var generalFields = {
                 Result: {
                     id: 'result',
@@ -470,7 +470,7 @@
                 init: init,
                 reset: reset,
                 update: update,
-                validate: function(newValue, scope, field) {
+                validate: function (newValue, oldValue, scope, field) {
                     if (field.id === 'aorta' && this.values.aorta === true) {
                         this.values.cabg = false;
                     }
@@ -761,9 +761,9 @@
                 init: init,
                 reset: reset,
                 update: update,
-                validate: function(newValue, scope, field) {
+                validate: function (newValue, oldValue, scope, field) {
                     if (field.id === 'HASBLED_RenalFailure') {
-                        var creatField = _.find(this.fields, function(field) {
+                        var creatField = _.find(this.fields, function (field) {
                             return field.id === 'Plasma_Creatinine';
                         });
                         creatField.input.disabled = newValue;

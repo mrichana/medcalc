@@ -18,17 +18,19 @@
         </div>
         <div class="form-group" ng-class="{'has-error': view.fields.birthday.error, 'has-warning': view.fields.birthday.warning}">
             <label class="col-sm-3 control-label">
-                <div class="btn-group toggleable-dropdown" active-class="open" id= "myDropdown" toggleable ng-init="ddselect = 'amka'">
-                  <button type="button"
-                    class="btn btn-default dropdown-toggle" toggle
-                    target="myDropdown">
-                    {{view.fields[ddselect].name}} <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu" toggle="off" bubble target="myDropdown">
-                    <li><a href ng-click="ddselect = 'amka'">Α.Μ.Κ.Α.</a></li>
-                    <li><a href ng-click="ddselect = 'birthday'">Γενέθλια</a></li>
-                    <li><a href ng-click="ddselect = 'age'">Ηλικία</a></li>
-                  </ul>
+                <div class="btn-group toggleable-dropdown" active-class="open" id="myDropdown" toggleable ng-init="ddselect = 'amka'">
+                    <button type="button" class="btn btn-default dropdown-toggle" toggle target="myDropdown">
+                        {{view.fields[ddselect].name}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" toggle="off" bubble target="myDropdown">
+                        <li><a href ng-click="ddselect = 'amka'">Α.Μ.Κ.Α.</a>
+                        </li>
+                        <li><a href ng-click="ddselect = 'birthday'">Γενέθλια</a>
+                        </li>
+                        <li><a href ng-click="ddselect = 'age'">Ηλικία</a>
+                        </li>
+                    </ul>
                 </div>
             </label>
             <div class="col-sm-9" ng-show="ddselect==view.fields.amka.id">

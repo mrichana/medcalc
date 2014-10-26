@@ -26,14 +26,35 @@
             </div>
             <div ng-repeat="patient in values.patients track by patient.id" id="{{patient.id}}" class="panel panel-info" ng-click="go('/Patient/'+patient.id)">
                 <div class="panel-heading">
-                    <span class="badge pull-right">{{patient.amka}}</span>
+                    <span class="badge pull-right" ng-if="patient.amka && patient.amka.indexOf('#')===-1">Α.Μ.Κ.Α.: {{patient.amka}}</span>
+                    <span class="badge pull-right" ng-if="!(patient.amka && patient.amka.indexOf('#')===-1)">Ετών: {{patient.age}}</span>
                     <h4>{{fullName(patient)}}</h4>
                 </div>
                 <div class="panel-body">
                     <ng-form class="form-horizontal">
-                        <div class="form-group">
+                        <div class="form-group" ng-if="patient.telNo">
+                            <label class="col-sm-3 control-label" for="telNo">Τηλέφωνο</label>
+                            <div class="col-sm-9">
+                                <div class="form-control-static" name="telNo"><a href="tel:{{patient.telNo | to_trusted}}">{{patient.telNo | to_trusted}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="patient.mobileNo">
+                            <label class="col-sm-3 control-label" for="mobileNo">Κινητό</label>
+                            <div class="col-sm-9">
+                                <div class="form-control-static" name="mobileNo"><a href="tel:{{patient.mobileNo | to_trusted}}">{{patient.mobileNo | to_trusted}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="patient.address">
+                            <label class="col-sm-3 control-label" for="address">Διεύθυνση</label>
+                            <div class="col-sm-9">
+                                <div class="form-control-static" name="address">{{patient.address | to_trusted}}</div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="patient.notes">
                             <label class="col-sm-3 control-label" for="notes">Σημειώσεις</label>
-                                <div class="col-sm-9">
+                            <div class="col-sm-9">
                                 <div ng-bind-html="patient.notes | to_trusted"></div>
                             </div>
                         </div>
@@ -54,4 +75,3 @@
         </div>
     </div>
 </div>
-
