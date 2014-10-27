@@ -1,7 +1,7 @@
 /*global angular: true */
 /*global _: true */
 
-(function () {
+(function() {
     'use strict';
     /**
      * calculators Module
@@ -10,7 +10,7 @@
      */
     angular.module('medical.views').
     factory('internalMedicineViews', ['views', 'update', 'init', 'reset',
-        function (views, update, init, reset) {
+        function(views, update, init, reset) {
             var generalFields = {
                 Result: {
                     id: 'result',
@@ -297,7 +297,7 @@
                         }
                     }, {
                         id: 'HeartRate',
-                        name: 'Σφίξεις κατά την εισαγωγή',
+                        name: 'Σφύξεις κατά την εισαγωγή',
                         input: {
                             type: 'number',
                             step: 1,
@@ -470,7 +470,7 @@
                 init: init,
                 reset: reset,
                 update: update,
-                validate: function (newValue, oldValue, scope, field) {
+                validate: function(newValue, oldValue, scope, field) {
                     if (field.id === 'aorta' && this.values.aorta === true) {
                         this.values.cabg = false;
                     }
@@ -761,9 +761,9 @@
                 init: init,
                 reset: reset,
                 update: update,
-                validate: function (newValue, oldValue, scope, field) {
+                validate: function(newValue, oldValue, scope, field) {
                     if (field.id === 'HASBLED_RenalFailure') {
-                        var creatField = _.find(this.fields, function (field) {
+                        var creatField = _.find(this.fields, function(field) {
                             return field.id === 'Plasma_Creatinine';
                         });
                         creatField.input.disabled = newValue;
@@ -837,6 +837,39 @@
                                 name: 'Class IV',
                                 description: 'Έντονος περιορισμός δραστηριότητας λόγω συμπτωμάτων. Παρουσία συμπτωμάτων κατά την ανάπαυση'
                             }]
+                        }
+                    },
+                    generalFields.Result
+                ],
+                init: init,
+                reset: reset,
+                update: update
+            }, {
+                id: 'QTc',
+                name: 'Διορθωμένο QT (Bazett)',
+                category: 'cardiology',
+                template: 'calculator.basic',
+                defaultValues: {
+                    HeartRate: 70,
+                    QT: 400
+                },
+                fields: [{
+                        id: 'QT',
+                        name: 'Διάστημα QT',
+                        input: {
+                            type: 'number',
+                            step: 10,
+                            min: 200,
+                            max: 1000
+                        }
+                    }, {
+                        id: 'HeartRate',
+                        name: 'Σφύξεις',
+                        input: {
+                            type: 'number',
+                            step: 1,
+                            min: 20,
+                            max: 280
                         }
                     },
                     generalFields.Result

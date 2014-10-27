@@ -816,6 +816,38 @@
                         explanation: explanation,
                         resultlevel: resultlevel
                     };
+                },
+                QTc: function(values) {
+                    var result;
+                    var explanation;
+                    var resultlevel;
+                    var ret = {};
+                    ret.formula = 'QT / sqrt(60 / HeartRate)';
+                    ret.result = roundNum(evaluator(values, ret.formula));
+
+                    if (ret.result >= 480) {
+                        ret.explanation = 'Έντονα παρατεταμένο QT';
+                        ret.resultlevel = 3;
+                    } else if (ret.result >= 460) {
+                        ret.explanation = 'Παρατεταμένο QT';
+                        ret.resultlevel = 2;
+                    } else if (ret.result >= 440) {
+                        ret.explanation = 'Μικρή παράταση QT';
+                        ret.resultlevel = 1;
+                    } else if (ret.result <= 330) {
+                        ret.explanation = 'Έντονη βράχυνση QT';
+                        ret.resultlevel = 3;
+                    } else if (ret.result <= 350) {
+                        ret.explanation = 'Βραχύ QT';
+                        ret.resultlevel = 2;
+                    } else if (ret.result <= 370) {
+                        ret.explanation = 'Μικρή βράχυνση QT';
+                        ret.resultlevel = 1;
+                    } else {
+                        ret.explanation = 'Φυσιολογικό QT';
+                        ret.resultlevel = 0;
+                    }
+                    return ret;
                 }
             };
         }

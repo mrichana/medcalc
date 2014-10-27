@@ -90,25 +90,25 @@
                 $scope.swipeRight = function() {
                     switch ($scope.filters.active) {
                         case 'Cardiology':
-                        $scope.filters.setAbsolute('Generic');
-                        break;
+                            $scope.filters.setAbsolute('Generic');
+                            break;
                         case 'Triplex':
-                        $scope.filters.setAbsolute('Cardiology');
-                        break;
-                    };
+                            $scope.filters.setAbsolute('Cardiology');
+                            break;
+                    }
                 };
-                
+
                 $scope.swipeLeft = function() {
                     switch ($scope.filters.active) {
                         case 'Cardiology':
-                        $scope.filters.setAbsolute('Triplex');
-                        break;
+                            $scope.filters.setAbsolute('Triplex');
+                            break;
                         case 'Generic':
-                        $scope.filters.setAbsolute('Cardiology');
-                        break;
+                            $scope.filters.setAbsolute('Cardiology');
+                            break;
                     }
                 };
-                
+
                 $scope.$on('$routeChangeSuccess', function(event, route) {
                     $scope.filters.setAbsolute(route.params.id);
                 });
@@ -131,7 +131,7 @@
                     });
                 });
 
-                var updatePanelsList = function () {
+                var updatePanelsList = function() {
                     $scope.panelsList = angular.copy(_.sortBy(_.filter(views.all(), function(view) {
                         return _.contains(_.keys($scope.patient.calculatorsActive), view.id);
                     }), 'order'));
@@ -149,18 +149,15 @@
                     $location.path('/Patients');
                 };
 
-                $scope.dropdown = [
-                    {
-                        text:"Στοιχεία Επικοινωνίας...",
-                        disabled: "existPanel('patientContactDetails')",
-                        click: "addPanel('patientContactDetails')"
-                    },
-                    {
-                        text:"Σημειώσεις...",
-                        disabled: "existPanel('patientNotes')",
-                        click: "addPanel('patientNotes')"
-                    }
-                ];
+                $scope.dropdown = [{
+                    text: 'Στοιχεία Επικοινωνίας...',
+                    disabled: 'existPanel(\'patientContactDetails\')',
+                    click: 'addPanel(\'patientContactDetails\')'
+                }, {
+                    text: 'Σημειώσεις...',
+                    disabled: 'existPanel(\'patientNotes\')',
+                    click: 'addPanel(\'patientNotes\')'
+                }];
 
 
                 $scope.existPanel = function(panelId) {
@@ -214,6 +211,7 @@
                 $scope.$watch('values', function() {
                     $scope.values.patients = patientStorage.filterPatients({
                         amka: values.amka.substring(0, values.amka.indexOf('#')),
+                        age: values.age,
                         firstname: values.firstname,
                         lastname: values.lastname
                     });
