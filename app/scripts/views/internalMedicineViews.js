@@ -846,7 +846,7 @@
                 update: update
             }, {
                 id: 'QTc',
-                name: 'Διορθωμένο QT (Bazett)',
+                name: 'Διορθωμένο QT',
                 category: 'cardiology',
                 template: 'calculator.basic',
                 defaultValues: {

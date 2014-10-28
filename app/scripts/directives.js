@@ -130,7 +130,7 @@
                 restrict: 'A',
                 link: function (scope, element) {
                     var focusedElement;
-                    element.on('click', function () {
+                    element.on('click', function() {
                         if (focusedElement !== this) {
                             focusedElement = this;
                             var siblings = $(this).parent().parent().prevUntil('label');
@@ -146,7 +146,7 @@
                             scrollFunction(target);
                         }
                     });
-                    element.on('blur', function () {
+                    element.on('blur', function() {
                         focusedElement = null;
                     });
                 }
