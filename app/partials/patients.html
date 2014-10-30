@@ -24,7 +24,7 @@
                     <view view="searchView"></view>
                 </div>
             </div>
-            <div ng-repeat="patient in values.patients track by patient.id" id="{{patient.id}}" class="panel panel-info" ng-click="go('/Patient/'+patient.id)">
+            <div ng-repeat="patient in values.filteredPatients track by patient.id" id="{{patient.id}}" class="panel panel-info" ng-click="go('/Patient/'+patient.id)">
                 <div class="panel-heading">
                     <span class="badge pull-right" ng-if="patient.amka && patient.amka.indexOf('#')===-1">Α.Μ.Κ.Α.: {{patient.amka}}</span>
                     <span class="badge pull-right" ng-if="!(patient.amka && patient.amka.indexOf('#')===-1)">Ετών: {{patient.age}}</span>
@@ -68,7 +68,7 @@
                 <div class="scrollable-content">
                     <div class="list-group" toggle="off" bubble target="mainSidebar">
                         <nav-view class="list-group-item-success" view="searchView"></nav-view>
-                        <nav-view ng-repeat="patient in values.patients track by patient.id" view="{id:patient.id, name:fullName(patient)}"></nav-view>
+                        <nav-view ng-repeat="patient in values.filteredPatients track by patient.id" view="{id:patient.id, name:fullName(patient)}"></nav-view>
                     </div>
                 </div>
             </div>

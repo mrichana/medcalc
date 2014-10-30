@@ -121,7 +121,7 @@
                 };
             }
         ])
-        .controller('patientCtrl', ['$scope', '$route', '$routeParams', '$location', '$timeout', 'patientStorage', 'views', 'patientViews', 'internalMedicineViews', 'triplexViews',
+        .controller('patientCtrl', ['$scope', '$route', '$routeParams', '$location', '$timeout', 'patientLocalStorage', 'views', 'patientViews', 'internalMedicineViews', 'triplexViews',
             function($scope, $route, $routeParams, $location, $timeout, patientStorage, views, patientViews, internalMedicineViews, triplexViews) {
                 $scope.$on('$routeChangeSuccess', function(event, route) {
                     $scope.patient = angular.copy(patientStorage.patient(route.params.id));
@@ -189,14 +189,17 @@
                 };
             }
         ])
-        .controller('patientsCtrl', ['$scope', '$location', 'views', 'patientStorage', 'patientViews',
+        .controller('patientsCtrl', ['$scope', '$location', 'views', 'patientLocalStorage', 'patientViews',
             function($scope, $location, views, patientStorage, patientViews) {
+
                 var values = {};
                 $scope.patientStorage = patientStorage;
                 $scope.searchView = views.all().newPatient;
                 $scope.patientView = views.all().patientView;
                 $scope.searchView.values = $scope.values = values;
 
+                // For 3-way data bindings, bind it to the scope instead
+                patientStorage.bindPatients($scope, 'values.patients');
                 $scope.searchView.addPatient = function() {
                     this.result.calculatorsActive = {
                         patientEdit: true
@@ -209,11 +212,12 @@
                     $location.path(address);
                 };
                 $scope.$watch('values', function() {
-                    $scope.values.patients = patientStorage.filterPatients({
+                    $scope.values.filteredPatients = patientStorage.filterPatients({
                         amka: values.amka,
                         firstname: values.firstname,
                         lastname: values.lastname
                     });
+
                     $scope.patients = _.map($scope.values.patients, function(patient) {
                         var view = views.all().patientView;
                         view.values = patient;
@@ -226,7 +230,7 @@
                 };
 
                 $scope.fullName = function(patient) {
-                    return patient.lastname + ', ' + patient.firstname;
+                    return patient && patient.lastname + ', ' + patient.firstname;
                 };
             }
         ]);

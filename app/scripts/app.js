@@ -1,6 +1,6 @@
 /*global angular: true */
 
-(function () {
+(function() {
     'use strict';
 
     // Declare app level module which depends on filters, and services
@@ -15,6 +15,7 @@
         'ngSanitize',
         'mobile-angular-ui',
         'mgcrea.ngStrap',
-        'ui.tinymce'
+        'ui.tinymce',
+        'firebase'
     ]);
 })();
