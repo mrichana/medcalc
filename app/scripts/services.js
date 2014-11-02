@@ -60,7 +60,8 @@
             }
         };
     }]).
-    factory('patientWebStorage', ['$firebase', 'uuid', function($firebase, uuid) {
+    factory('patientWebStorage', ['$firebase', '$FirebaseObject', 'uuid', function($firebase, $FirebaseObject, uuid) {
+
         var obj = $firebase(new Firebase('https://medrichana.firebaseio.com/backend')).$asObject();
         obj.$loaded().then(function() {
             console.log('loaded record', obj.$id);
@@ -82,9 +83,11 @@
             addPatient: function(patient) {
                 patient.id = patient.id || uuid.generate();
                 this.patients[patient.id] = patient;
+                this.patients.$save();
             },
             removePatient: function(patient) {
                 delete this.patients[patient.id];
+                this.patients.$save();
             },
             filterPatients: function(patienttempl) {
                 var filterfunc = function(patient, template) {

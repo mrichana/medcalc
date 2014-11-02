@@ -2,7 +2,7 @@
 /*global _: true */
 /*global moment:true */
 
-(function () {
+(function() {
     'use strict';
     /**
      * calculators Module
@@ -11,7 +11,7 @@
      */
     angular.module('medical.views').
     factory('patientViews', ['views', 'update', 'init', 'reset',
-        function (views, update, init, reset) {
+        function(views, update, init, reset) {
             return views.add([{
                 id: 'newPatient',
                 name: 'Αναζήτηση/Νέος Ασθενής',
@@ -68,7 +68,7 @@
                 init: init,
                 reset: reset,
                 update: update,
-                validate: function (newValue, oldValue, scope, field) {
+                validate: function(newValue, oldValue, scope, field) {
                     var fieldsId = _.indexBy(scope.view.fields, 'id');
                     var regEx = /^([0-3][0-9])([01][0-9])([0-9][0-9])([0-9#][0-9#][0-9#][0-9#][0-9#])?$/g;
                     var regExAmka = regEx.exec(scope.view.values.amka);
@@ -80,7 +80,7 @@
                             var date21century = moment(regExAmka[1] + regExAmka[2] + '20' + regExAmka[3], 'DDMMYYYY'); //2000 dates
                             if (date.isValid()) {
                                 if (!(date.isSame(scope.view.values.birthday, 'day')) && !(date21century.isSame(scope.view.values.birthday, 'day'))) {
-                                    scope.view.values.birthday = date.toDate();
+                                    scope.view.values.birthday = date.toJSON();
                                 }
                             }
                         }
@@ -101,7 +101,7 @@
                             var age = scope.view.values.age;
                             if (age !== moment().diff(scope.view.values.birthday, 'years')) {
                                 if (angular.isNumber(age)) {
-                                    scope.view.values.birthday = moment().subtract(age, 'years').toDate();
+                                    scope.view.values.birthday = moment().subtract(age, 'years').toJSON();
                                 } else {
                                     scope.view.values.birthday = null;
                                     scope.view.values.amka = '';
@@ -179,7 +179,7 @@
                 dontRemove: true,
                 init: init,
                 update: update,
-                validate: function (newValue, oldValue, scope, field) {
+                validate: function(newValue, oldValue, scope, field) {
                     var fieldsId = _.indexBy(scope.view.fields, 'id');
                     var regEx = /^([0-3][0-9])([01][0-9])([0-9][0-9])([0-9#][0-9#][0-9#][0-9#][0-9#])?$/g;
                     var regExAmka = regEx.exec(scope.view.values.amka);
@@ -191,7 +191,7 @@
                             var date21century = moment(regExAmka[1] + regExAmka[2] + '20' + regExAmka[3], 'DDMMYYYY'); //2000 dates
                             if (date.isValid()) {
                                 if (!(date.isSame(scope.view.values.birthday, 'day')) && !(date21century.isSame(scope.view.values.birthday, 'day'))) {
-                                    scope.view.values.birthday = date.toDate();
+                                    scope.view.values.birthday = date.toJSON();
                                 }
                             }
                         }
@@ -212,7 +212,7 @@
                             var age = scope.view.values.age;
                             if (age !== moment().diff(scope.view.values.birthday, 'years')) {
                                 if (angular.isNumber(age)) {
-                                    scope.view.values.birthday = moment().subtract(age, 'years').toDate();
+                                    scope.view.values.birthday = moment().subtract(age, 'years').toJSON();
                                 } else {
                                     scope.view.values.birthday = null;
                                     scope.view.values.amka = '';

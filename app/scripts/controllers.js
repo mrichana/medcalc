@@ -4,6 +4,8 @@
 (function() {
     'use strict';
 
+    var patientStorageService = 'patientWebStorage';
+
     /* Controllers */
 
     angular.module('medical.controllers', ['ngRoute', 'medical.views'])
@@ -121,10 +123,10 @@
                 };
             }
         ])
-        .controller('patientCtrl', ['$scope', '$route', '$routeParams', '$location', '$timeout', 'patientLocalStorage', 'views', 'patientViews', 'internalMedicineViews', 'triplexViews',
+        .controller('patientCtrl', ['$scope', '$route', '$routeParams', '$location', '$timeout', patientStorageService, 'views', 'patientViews', 'internalMedicineViews', 'triplexViews',
             function($scope, $route, $routeParams, $location, $timeout, patientStorage, views, patientViews, internalMedicineViews, triplexViews) {
                 $scope.$on('$routeChangeSuccess', function(event, route) {
-                    $scope.patient = angular.copy(patientStorage.patient(route.params.id));
+                    $scope.patient = patientStorage.patient(route.params.id);
                     updatePanelsList();
                     _.each($scope.panelsList, function(panel) {
                         panel.values = $scope.patient;
@@ -189,7 +191,7 @@
                 };
             }
         ])
-        .controller('patientsCtrl', ['$scope', '$location', 'views', 'patientLocalStorage', 'patientViews',
+        .controller('patientsCtrl', ['$scope', '$location', 'views', patientStorageService, 'patientViews',
             function($scope, $location, views, patientStorage, patientViews) {
 
                 var values = {};
@@ -212,7 +214,7 @@
                     $location.path(address);
                 };
                 $scope.$watch('values', function() {
-                    $scope.values.filteredPatients = patientStorage.filterPatients({
+                    $scope.filteredPatients = patientStorage.filterPatients({
                         amka: values.amka,
                         firstname: values.firstname,
                         lastname: values.lastname

@@ -1,6 +1,6 @@
 /*global angular: true */
 
-(function () {
+(function() {
     'use strict';
 
     /* Services */
@@ -12,9 +12,9 @@
      */
     angular.module('medical.calculators').
     factory('patientCalculators', [
-        function () {
+        function() {
             return {
-                newPatient: function (values) {
+                newPatient: function(values) {
 
                     var ret = {
                         amka: values.amka,
