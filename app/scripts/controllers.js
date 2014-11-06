@@ -18,11 +18,21 @@
                     })
                     .when('/Patient/:id', {
                         templateUrl: 'partials/patient.html',
-                        controller: 'patientCtrl'
+                        controller: 'patientCtrl',
+                        resolve: {
+                            patients: function($route, patientWebStorage) {
+                                return patientWebStorage.patients;
+                            }
+                        }
                     })
                     .when('/Patients', {
                         templateUrl: 'partials/patients.html',
-                        controller: 'patientsCtrl'
+                        controller: 'patientsCtrl',
+                        resolve: {
+                            patients: function(patientWebStorage) {
+                                return patientWebStorage.patients;
+                            }
+                        }
                     })
                     .otherwise({
                         redirectTo: '/Calculators/Generic'
@@ -89,28 +99,6 @@
                     });
                 };
 
-                $scope.swipeRight = function() {
-                    switch ($scope.filters.active) {
-                        case 'Cardiology':
-                            $scope.filters.setAbsolute('Generic');
-                            break;
-                        case 'Triplex':
-                            $scope.filters.setAbsolute('Cardiology');
-                            break;
-                    }
-                };
-
-                $scope.swipeLeft = function() {
-                    switch ($scope.filters.active) {
-                        case 'Cardiology':
-                            $scope.filters.setAbsolute('Triplex');
-                            break;
-                        case 'Generic':
-                            $scope.filters.setAbsolute('Cardiology');
-                            break;
-                    }
-                };
-
                 $scope.$on('$routeChangeSuccess', function(event, route) {
                     $scope.filters.setAbsolute(route.params.id);
                 });
@@ -123,15 +111,24 @@
                 };
             }
         ])
-        .controller('patientCtrl', ['$scope', '$route', '$routeParams', '$location', '$timeout', patientStorageService, 'views', 'patientViews', 'internalMedicineViews', 'triplexViews',
-            function($scope, $route, $routeParams, $location, $timeout, patientStorage, views, patientViews, internalMedicineViews, triplexViews) {
-                $scope.$on('$routeChangeSuccess', function(event, route) {
+        .controller('patientCtrl', ['$scope', '$route', '$routeParams', '$location', '$timeout', patientStorageService, 'patients', 'views', 'patientViews', 'internalMedicineViews', 'triplexViews',
+            function($scope, $route, $routeParams, $location, $timeout, patientStorage, patients, views, patientViews, internalMedicineViews, triplexViews) {
+                // $scope.$on('$routeChangeSuccess', function(event, route) {
+                //     $scope.patient = patientStorage.patient(route.params.id);
+                //     updatePanelsList();
+                //     _.each($scope.panelsList, function(panel) {
+                //         panel.values = $scope.patient;
+                //     });
+                // });
+
+                patientStorage.patients.$loaded().then(function() {
                     $scope.patient = patientStorage.patient(route.params.id);
                     updatePanelsList();
                     _.each($scope.panelsList, function(panel) {
                         panel.values = $scope.patient;
                     });
                 });
+
 
                 var updatePanelsList = function() {
                     $scope.panelsList = angular.copy(_.sortBy(_.filter(views.all(), function(view) {
@@ -140,7 +137,7 @@
                 };
 
                 $scope.fullName = function(patient) {
-                    return patient.lastname + ', ' + patient.firstname;
+                    return patient && patient.lastname + ', ' + patient.firstname;
                 };
                 $scope.save = function() {
                     patientStorage.addPatient($scope.patient);
@@ -191,42 +188,46 @@
                 };
             }
         ])
-        .controller('patientsCtrl', ['$scope', '$location', 'views', patientStorageService, 'patientViews',
-            function($scope, $location, views, patientStorage, patientViews) {
+        .controller('patientsCtrl', ['$scope', '$location', 'views', 'patients', 'patientViews',
+            function($scope, $location, views, patients, patientViews) {
 
                 var values = {};
-                $scope.patientStorage = patientStorage;
                 $scope.searchView = views.all().newPatient;
                 $scope.patientView = views.all().patientView;
                 $scope.searchView.values = $scope.values = values;
 
-                // For 3-way data bindings, bind it to the scope instead
-                patientStorage.bindPatients($scope, 'values.patients');
+                $scope.values.patients = patients.list;
+
                 $scope.searchView.addPatient = function() {
                     this.result.calculatorsActive = {
                         patientEdit: true
                     };
-                    patientStorage.addPatient(this.result);
+                    patients.add(this.result);
                     $scope.go('/Patient/' + this.result.id);
                 };
 
                 $scope.go = function(address) {
                     $location.path(address);
                 };
+
                 $scope.$watch('values', function() {
-                    $scope.filteredPatients = patientStorage.filterPatients({
+                    $scope.patientTemplate = {
                         amka: values.amka,
                         firstname: values.firstname,
                         lastname: values.lastname
-                    });
+                    };
+                    //     // $scope.values.filteredPatients = patientStorage.filterPatients({
+                    //     //     amka: values.amka,
+                    //     //     firstname: values.firstname,
+                    //     //     lastname: values.lastname
+                    //     // });
 
-                    $scope.patients = _.map($scope.values.patients, function(patient) {
-                        var view = views.all().patientView;
-                        view.values = patient;
-                        return view;
-                    });
+                    //     // $scope.patients = _.map($scope.values.patients, function(patient) {
+                    //     //     var view = views.all().patientView;
+                    //     //     view.values = patient;
+                    //     //     return view;
+                    //     // });
                 }, true);
-
                 $scope.clearPanel = function(id) {
                     views.all()[id].reset();
                 };

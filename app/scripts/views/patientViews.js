@@ -10,8 +10,8 @@
      * Available calculators
      */
     angular.module('medical.views').
-    factory('patientViews', ['views', 'update', 'init', 'reset',
-        function(views, update, init, reset) {
+    factory('patientViews', ['views', 'update', 'init', 'reset', 'patientTemplateTest',
+        function(views, update, init, reset, patientTemplateTest) {
             return views.add([{
                 id: 'newPatient',
                 name: 'Αναζήτηση/Νέος Ασθενής',
@@ -80,7 +80,7 @@
                             var date21century = moment(regExAmka[1] + regExAmka[2] + '20' + regExAmka[3], 'DDMMYYYY'); //2000 dates
                             if (date.isValid()) {
                                 if (!(date.isSame(scope.view.values.birthday, 'day')) && !(date21century.isSame(scope.view.values.birthday, 'day'))) {
-                                    scope.view.values.birthday = date.toJSON();
+                                    scope.view.values.birthday = date.toDate();
                                 }
                             }
                         }
@@ -101,7 +101,7 @@
                             var age = scope.view.values.age;
                             if (age !== moment().diff(scope.view.values.birthday, 'years')) {
                                 if (angular.isNumber(age)) {
-                                    scope.view.values.birthday = moment().subtract(age, 'years').toJSON();
+                                    scope.view.values.birthday = moment().subtract(age, 'years').toDate();
                                 } else {
                                     scope.view.values.birthday = null;
                                     scope.view.values.amka = '';
@@ -120,7 +120,9 @@
                         //    fieldsId.amka.warning ||
                         fieldsId.lastname.warning ||
                         fieldsId.firstname.warning ||
-                        scope.view.values.patients.length);
+                        patientTemplateTest(scope.view.values.patients, scope.view.result)
+                        // scope.view.values.filteredPatients.length
+                    );
                 }
             }, {
                 id: 'patientEdit',
@@ -191,7 +193,7 @@
                             var date21century = moment(regExAmka[1] + regExAmka[2] + '20' + regExAmka[3], 'DDMMYYYY'); //2000 dates
                             if (date.isValid()) {
                                 if (!(date.isSame(scope.view.values.birthday, 'day')) && !(date21century.isSame(scope.view.values.birthday, 'day'))) {
-                                    scope.view.values.birthday = date.toJSON();
+                                    scope.view.values.birthday = date.toDate();
                                 }
                             }
                         }
@@ -212,7 +214,7 @@
                             var age = scope.view.values.age;
                             if (age !== moment().diff(scope.view.values.birthday, 'years')) {
                                 if (angular.isNumber(age)) {
-                                    scope.view.values.birthday = moment().subtract(age, 'years').toJSON();
+                                    scope.view.values.birthday = moment().subtract(age, 'years').toDate();
                                 } else {
                                     scope.view.values.birthday = null;
                                     scope.view.values.amka = '';

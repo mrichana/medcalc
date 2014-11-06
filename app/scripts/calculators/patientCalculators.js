@@ -15,7 +15,6 @@
         function() {
             return {
                 newPatient: function(values) {
-
                     var ret = {
                         amka: values.amka,
                         birthday: values.birthday,
