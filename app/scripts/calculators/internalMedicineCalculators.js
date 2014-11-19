@@ -388,6 +388,77 @@
                         resultlevel: resultlevel
                     };
                 },
+                EuroSCOREII: function(values) {
+                    var result;
+                    var explanation;
+                    var resultlevel;
+
+                    var calc = [];
+                    calc.push(0.0285181 * (values.Age < 60 ? 1 : values.Age - 59));
+                    calc.push(values.Sex * 0.2196434);
+                    var renal = 0;
+                    if (values.GFR < 85) renal = 0.303553;
+                    if (values.GFR < 50) renal = 0.8592256;
+                    if (values.GFR == 0) renal = 0.6421508;
+                    calc.push(renal);
+                    calc.push(values.HistoryOf_VascularDisease * 0.5360268);
+                    calc.push(values.HistoryOf_PoorMobility * 0.2407181);
+                    calc.push(values.HistoryOf_CardiacSurgery * 1.118599);
+                    calc.push(values.HistoryOf_PulmonaryDisease * 0.1886564);
+                    calc.push(values.EuroSCORE_ActiveEndocarditis * 0.6194522);
+                    calc.push(values.EuroSCORE_CriticalState * 1.086517);
+                    calc.push(values.HistoryOf_Diabetes * 0.3542749);
+                    var hf = 0;
+                    if (values.NYHAClass == 'II') hf = 0.1070545;
+                    if (values.NYHAClass == 'III') hf = 0.2958358;
+                    if (values.NYHAClass == 'IV') hf = 0.5597929;
+                    calc.push(hf);
+                    calc.push(values.AnginaAtRest * 0.2226147);
+                    var ef = 0;
+                    if (values.LVEF < 50) ef = 0.3150652;
+                    if (values.LVEF < 30) ef = 0.8084096;
+                    if (values.LVEF < 20) ef = 0.9346919;
+                    calc.push(ef);
+                    calc.push(values.EuroSCORE_MIinTheLast90Days * 0.1528943);
+                    var phyper = 0;
+                    if (values.PASP > 30) phyper = 0.1788899;
+                    if (values.PASP > 55) phyper = 0.3491475;
+                    calc.push(phyper);
+                    var emerg = 0;
+                    if (values.EuroSCOREII_Emergency == 1) emerg = 0.3174673;
+                    if (values.EuroSCOREII_Emergency == 2) emerg = 0.7039121;
+                    if (values.EuroSCOREII_Emergency == 3) emerg = 1.362947;
+                    calc.push(emerg);
+                    var opweight = 0;
+                    if (values.EuroSCOREII_OperationWeight == 1) opweight = 0.0062118;
+                    if (values.EuroSCOREII_OperationWeight == 2) opweight = 0.5521478;
+                    if (values.EuroSCOREII_OperationWeight == 3) opweight = 0.9724533;
+                    calc.push(opweight);
+                    calc.push(values.EuroSCORE_ThoracicAorta * 0.6527205);
+
+                    var sup = _(calc).reduce(function(memo, value) {
+                        return (memo += value);
+                    }, -5.324537);
+                    result = 100 * Math.exp(sup) / (1 + Math.exp(sup));
+                    result = Math.round(result * 100) / 100;
+
+                    if (result > 8) {
+                        explanation = 'Υψηλού Κινδύνου';
+                        resultlevel = 3;
+                    } else if (result > 4) {
+                        explanation = 'Μετρίου Κινδύνου';
+                        resultlevel = 2;
+                    } else {
+                        explanation = 'Μικρού Κινδύνου';
+                        resultlevel = 1;
+                    }
+
+                    return {
+                        result: 'Υπολογιζόμενη Θνητότητα Χειρουργείου ' + result + '%',
+                        explanation: explanation,
+                        resultlevel: resultlevel
+                    };
+                },
                 GFR: function(values) {
                     var ret = {};
                     if (values.Sex === 0) {
