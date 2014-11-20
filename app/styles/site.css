@@ -59,3 +59,6 @@ button[name=addPatient].ng-hide {
     font-size: 100%;
     margin: 20px 0;
 }
+.content {
+    padding-bottom: 200px;
+}
