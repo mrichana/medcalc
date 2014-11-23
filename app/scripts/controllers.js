@@ -4,8 +4,6 @@
 (function() {
     'use strict';
 
-    var patientStorageService = 'patientWebStorage';
-
     /* Controllers */
 
     angular.module('medical.controllers', ['ngRoute', 'medical.views'])
@@ -20,8 +18,8 @@
                         templateUrl: 'partials/patient.html',
                         controller: 'patientCtrl',
                         resolve: {
-                            patients: function($route, patientWebStorage) {
-                                return patientWebStorage.patients;
+                            patient: function($route, patientWebStorage) {
+                                return patientWebStorage.patient($route.current.params.id);
                             }
                         }
                     })
@@ -30,7 +28,7 @@
                         controller: 'patientsCtrl',
                         resolve: {
                             patients: function(patientWebStorage) {
-                                return patientWebStorage.patients;
+                                return patientWebStorage.patients();
                             }
                         }
                     })
@@ -111,40 +109,29 @@
                 };
             }
         ])
-        .controller('patientCtrl', ['$scope', '$route', '$routeParams', '$location', '$timeout', patientStorageService, 'patients', 'views', 'patientViews', 'internalMedicineViews', 'triplexViews',
-            function($scope, $route, $routeParams, $location, $timeout, patientStorage, patients, views, patientViews, internalMedicineViews, triplexViews) {
-                // $scope.$on('$routeChangeSuccess', function(event, route) {
-                //     $scope.patient = patientStorage.patient(route.params.id);
-                //     updatePanelsList();
-                //     _.each($scope.panelsList, function(panel) {
-                //         panel.values = $scope.patient;
-                //     });
-                // });
-
-                patientStorage.patients.$loaded().then(function() {
-                    $scope.patient = patientStorage.patient(route.params.id);
-                    updatePanelsList();
-                    _.each($scope.panelsList, function(panel) {
-                        panel.values = $scope.patient;
-                    });
-                });
-
-
+        .controller('patientCtrl', ['$scope', '$location', 'patient', 'views', 'patientViews', 'internalMedicineViews', 'triplexViews',
+            function($scope, $location, patient, views, patientViews, internalMedicineViews, triplexViews) {
                 var updatePanelsList = function() {
                     $scope.panelsList = angular.copy(_.sortBy(_.filter(views.all(), function(view) {
                         return _.contains(_.keys($scope.patient.calculatorsActive), view.id);
                     }), 'order'));
                 };
 
+                $scope.patient = patient.value;
+                updatePanelsList();
+                _.each($scope.panelsList, function(panel) {
+                    panel.values = $scope.patient;
+                });
+
                 $scope.fullName = function(patient) {
                     return patient && patient.lastname + ', ' + patient.firstname;
                 };
                 $scope.save = function() {
-                    patientStorage.addPatient($scope.patient);
+                    patient.save();
                     $location.path('/Patients');
                 };
                 $scope.delete = function() {
-                    patientStorage.removePatient($scope.patient);
+                    patient.delete();
                     $location.path('/Patients');
                 };
 

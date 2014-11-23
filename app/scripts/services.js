@@ -1,6 +1,7 @@
 /*global angular: true */
 /*global _: true */
 /*global Firebase: true */
+/*global moment: true */
 
 (function() {
     'use strict';
@@ -38,60 +39,145 @@
                 patient.amka && patient.amka.lastIndexOf(amka, 0) === 0;
         };
     }).
-    factory('patientLocalStorage', ['$localStorage', 'uuid', function($localStorage, uuid) {
-        $localStorage.patients = $localStorage.patients || {};
+    factory('patientLocalStorage', ['$q', '$localStorage', 'uuid', function($q, $localStorage, uuid) {
+            var patientsArray = $localStorage.patients || {};
+            return {
+                patients: function() {
+                    var deferredList = $q.defer();
+                    deferredList.resolve({
+                        list: patientsArray,
+                        add: function(patient) {
+                            patient.id = patient.id || uuid.generate();
+                            patientsArray[patient.id] = patient;
+                        },
+                        remove: function(patient) {
+                            delete patientsArray[patient.id];
+                        }
+                    });
+                    return deferredList.promise;
+                },
+                patient: function(id) {
+                    var deferredObject = $q.defer();
+                    deferredObject.resolve({
+                        value: angular.copy(patientsArray[id]),
+                        save: function() {
+                            patientsArray[id] = this.value;
+                        },
+                        delete: function() {
+                            delete patientsArray[id];
+                        }
+                    });
+                    return deferredObject.promise;
+                }
+            }
+        }]).
+        // config(function($provide) {
+        //     $provide.decorator('$firebaseUtils', function($delegate) {
+        //         var _updateRecord = $firebaseUtils.updateRecord;
+        //         $firebaseUtils.updateRecord = function(rec, snap) {
+        //             _updateRecord(rec, snap);
+        //             $firebaseUtils.each(rec, function(v, k) {
+        //                 if (k === 'date') {
+        //                     rec[k] = new Date(v);
+        //                 }
+        //             });
+        //         };
+
+    //         var _toJSON = $firebaseUtils.toJSON;
+    //         $firebaseUtils.toJSON = function(data) {
+    //             var dataCopy = angular.extend({}, data);
+    //             if (dataCopy.date) {
+    //                 dataCopy.date = dataCopy.date.valueOf();
+    //             }
+    //             return _toJSON(dataCopy);
+    //         };
+    //         return $delegate;
+    //     });
+    // }).
+    factory('trasverse', [function() {
+        var recurse = function(tree, functionToCall) {
+            _.each(tree, function(value, key, object) {
+                if (key[0] != '$' && key[0] != '_') {
+                    if (!angular.isFunction(value)) {
+                        functionToCall(value, key, object);
+                        if (angular.isObject(value)) {
+                            recurse(value, functionToCall);
+                        }
+                    }
+                }
+            });
+            return recurse;
+        }
+        return recurse;
+    }]).
+    factory('patientWebStorage', ['$q', '$firebase', '$FirebaseObject', 'uuid', 'trasverse', function($q, $firebase, $FirebaseObject, uuid, trasverse) {
         return {
-            patients: $localStorage.patients,
-            bindPatients: function(scope, item) {
-                scope[item] = this.patients;
+            patients: function() {
+                var patientsArray = $firebase(new Firebase('https://medrichana.firebaseio.com/backend')).$asArray();
+                var deferredList = $q.defer();
+                patientsArray.$loaded(
+                    function(data) {
+                        deferredList.resolve({
+                            list: data,
+                            add: function(patient) {
+                                patient.id = patient.id || uuid.generate();
+                                patientsArray.$inst().$set(patient.id, patient);
+                            },
+                            remove: function(patient) {
+                                patientsArray.$remove(patient);
+                            }
+                        });
+                    }
+                );
+                return deferredList.promise;
             },
             patient: function(id) {
-                return this.patients[id];
-            },
-            addPatient: function(patient) {
-                patient.id = patient.id || uuid.generate();
-                this.patients[patient.id] = patient;
-            },
-            removePatient: function(patient) {
-                delete this.patients[patient.id];
-            },
-            filterPatients: function(patienttempl) {
-                var filterfunc = function(patient, template) {
-                    var regex = /^([0-9]+)#*/g;
-                    var amka = template.amka.search(regex) === 0 ? template.amka.split(regex)[1] : template.amka;
-                    return patient.firstname.toLowerCase().lastIndexOf(template.firstname.toLowerCase(), 0) === 0 &&
-                        patient.lastname.toLowerCase().lastIndexOf(template.lastname.toLowerCase(), 0) === 0 &&
-                        patient.amka.lastIndexOf(amka, 0) === 0;
-                };
-                return _.sortBy(_.filter(this.patients, function(patient) {
-                    return filterfunc(patient, patienttempl);
-                }), function(item) {
-                    return item.lastname + ' ' + item.firstname;
-                });
-            }
-        };
-    }]).factory('patientWebStorage', ['$q', '$firebase', '$FirebaseObject', 'uuid', function($q, $firebase, $FirebaseObject, uuid) {
-        var patientsArray = $firebase(new Firebase('https://medrichana.firebaseio.com/backend')).$asArray();
-        var deferred = $q.defer();
-        patientsArray.$loaded(
-            function(data) {
-                deferred.resolve({
-                    list: data,
-                    add: function(patient) {
-                        patient.id = patient.id || uuid.generate();
-                        patientsArray.$inst().$set(patient.id, patient);
-                    },
-                    remove: function(patient) {
-                        patientsArray.$remove(patient);
+                var PatientFactory = $FirebaseObject.$extendFactory({
+                    // $$updated: function(snap) {
+                    //     var changed = $FirebaseObject.prototype.$$updated.apply(this, arguments);
+                    //     trasverse(this, function(value, key, object) {
+                    //         if (angular.isString(value)) {
+                    //             var date = moment(value, moment.ISO_8601, true);
+                    //             if (date.isValid()) {
+                    //                 object[key] = date.toDate();
+                    //                 changed = true;
+                    //             }
+                    //         }
+                    //     });
+                    //     return changed;
+                    // },
+                    toJSON: function() {
+                        var result = angular.fromJson(
+                            angular.toJson(
+                                _.omit(angular.extend({}, this),
+                                    function(value, key) {
+                                        return key[0] === '$';
+                                    })
+                            )
+                        );
+                        return result;
                     }
                 });
-            },
-            function(data) {
-                deferred.reject(data);
+
+                var patientObject = $firebase(new Firebase('https://medrichana.firebaseio.com/backend/' + id), {
+                    objectFactory: PatientFactory
+                }).$asObject();
+                var deferredObject = $q.defer();
+                patientObject.$loaded(
+                    function(data) {
+                        deferredObject.resolve({
+                            value: data,
+                            save: function() {
+                                patientObject.$save();
+                            },
+                            delete: function() {
+                                patientObject.$remove();
+                            }
+                        });
+                    }
+                );
+                return deferredObject.promise;
             }
-        );
-        return {
-            patients: deferred.promise
-        };
+        }
     }]);
 })();

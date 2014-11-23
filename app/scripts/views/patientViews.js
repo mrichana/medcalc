@@ -199,7 +199,7 @@
                         }
                         if (field.id === 'birthday') {
                             if (scope.view.values.birthday) {
-                                date = moment(scope.view.values.birthday);
+                                date = moment(new Date(scope.view.values.birthday));
                                 if (date.isValid()) {
                                     if (date.format('DDMMYY') !== scope.view.values.amka.substring(0, 6)) {
                                         scope.view.values.amka = date.format('DDMMYY') + '#####';
@@ -224,7 +224,7 @@
                     }
 
                     fieldsId.amka.warning = !regEx.test(scope.view.values.amka);
-                    fieldsId.birthday.warning = !scope.view.values.birthday || !(moment(scope.view.values.birthday).isValid());
+                    fieldsId.birthday.warning = !scope.view.values.birthday || !(moment(new Date(scope.view.values.birthday)).isValid());
                     fieldsId.age.warning = !scope.view.values.age;
                     fieldsId.lastname.warning = !scope.view.values.lastname;
                     fieldsId.firstname.warning = !scope.view.values.firstname;

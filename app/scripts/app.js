@@ -17,5 +17,5 @@
         'mgcrea.ngStrap',
         'ui.tinymce',
         'firebase'
-    ]);
+    ])
 })();
