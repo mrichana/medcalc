@@ -18,18 +18,18 @@
                         templateUrl: 'partials/patient.html',
                         controller: 'patientCtrl',
                         resolve: {
-                            patient: function($route, patientWebStorage) {
-                                return patientWebStorage.patient($route.current.params.id);
-                            }
+                            patient: ['$route', 'patientLocalStorage', function($route, patientStorage) {
+                                return patientStorage.patient($route.current.params.id);
+                            }]
                         }
                     })
                     .when('/Patients', {
                         templateUrl: 'partials/patients.html',
                         controller: 'patientsCtrl',
                         resolve: {
-                            patients: function(patientWebStorage) {
-                                return patientWebStorage.patients();
-                            }
+                            patients: ['patientLocalStorage', function(patientStorage) {
+                                return patientStorage.patients();
+                            }]
                         }
                     })
                     .otherwise({

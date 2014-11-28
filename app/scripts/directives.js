@@ -246,11 +246,11 @@
                 require: '^ngModel',
                 replace: true,
                 scope: {},
-                template: '<div class="switch"><div class="switch-handle"></div></div>',
+                template: '<div class="onoffswitch"><input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" checked><label class="onoffswitch-label"><span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span></label></div>',
                 link: function(scope, elem, attrs, ngModelController) {
 
                     ngModelController.$render = function() {
-                        elem.toggleClass('active', ngModelController.$viewValue);
+                        $(elem.children(0)[0]).prop('checked', ngModelController.$viewValue);
                     };
 
                     elem.on('click tap', function() {
@@ -259,8 +259,6 @@
                             ngModelController.$render();
                         }
                     });
-
-                    elem.addClass('switch-transition-enabled');
                 }
             };
         })
