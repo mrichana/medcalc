@@ -77,7 +77,6 @@
             }
         ])
         .directive('scrollSpy', [
-
             function() {
                 return {
                     restrict: 'A',
@@ -246,9 +245,10 @@
                 require: '^ngModel',
                 replace: true,
                 scope: {},
-                template: '<div class="onoffswitch"><input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" checked><label class="onoffswitch-label"><span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span></label></div>',
+                template: '<div class="onoffswitch"><input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" checked><label class="onoffswitch-label"><span class="onoffswitch-inner" data-off="{{::off}}"" data-on="{{::on}}"></span><span class="onoffswitch-switch"></span></label></div>',
                 link: function(scope, elem, attrs, ngModelController) {
-
+                    scope.on = attrs['on'];
+                    scope.off = attrs['off'];
                     ngModelController.$render = function() {
                         $(elem.children(0)[0]).prop('checked', ngModelController.$viewValue);
                     };

@@ -39,8 +39,9 @@
                 $locationProvider.html5Mode(false);
             }
         ])
-        .controller('generalCtrl', ['$scope', '$route', '$location',
-            function($scope, $route, $location) {
+        .controller('generalCtrl', ['$rootScope', '$scope', '$route', '$location',
+            function($rootScope, $scope, $route, $location) {
+                $rootScope.online = false;
                 $scope.filters = [{
                     name: 'Αρχείο Ασθενών',
                     content: '/Patients',
