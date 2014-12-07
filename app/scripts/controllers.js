@@ -39,10 +39,9 @@
                 $locationProvider.html5Mode(false);
             }
         ])
-        .controller('generalCtrl', ['$rootScope', '$scope', '$route', '$location', '$modal',
-            function($rootScope, $scope, $route, $location, $modal) {
+        .controller('generalCtrl', ['$rootScope', '$scope', '$route', '$location',
+            function($rootScope, $scope, $route, $location) {
                 $rootScope.online = false;
-                $rootScope.onlineUser = {name: "", password: ""};
                 $scope.filters = [{
                     name: 'Αρχείο Ασθενών',
                     content: '/Patients',
@@ -65,27 +64,6 @@
                     $scope.location = $location.path();
                 });
 
-                var onlineModal = $modal({
-                    scope: $rootScope,
-                    animation: 'am-flip-x',
-                    placement: 'center',
-                    container: 'body',
-                    title: 'OnLine',
-                    contentTemplate: 'partials/modalOnlineId.html',
-                    show: false
-                });
-                
-                $scope.setOnline = function() {
-                    $scope.online = true;
-                    onlineModal.$hide();
-                }
-
-                $scope.$watch('online', function() {
-                    if ($scope.online) {
-                        $scope.online = false;
-                        onlineModal.$promise.then(onlineModal.show);
-                    }
-                });
                 $scope.$watch('location', function() {
                     $location.path($scope.location);
                 });
