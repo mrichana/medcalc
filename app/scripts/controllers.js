@@ -5,6 +5,7 @@
     'use strict';
 
     /* Controllers */
+    var storageProvider = 'patientLocalStorage';
 
     angular.module('medical.controllers', ['ngRoute', 'medical.views'])
         .config(['$routeProvider', '$locationProvider',
@@ -18,7 +19,7 @@
                         templateUrl: 'partials/patient.html',
                         controller: 'patientCtrl',
                         resolve: {
-                            patient: ['$route', 'patientLocalStorage', function($route, patientStorage) {
+                            patient: ['$route', storageProvider, function($route, patientStorage) {
                                 return patientStorage.patient($route.current.params.id);
                             }]
                         }
@@ -27,7 +28,7 @@
                         templateUrl: 'partials/patients.html',
                         controller: 'patientsCtrl',
                         resolve: {
-                            patients: ['patientLocalStorage', function(patientStorage) {
+                            patients: [storageProvider, function(patientStorage) {
                                 return patientStorage.patients();
                             }]
                         }
@@ -41,8 +42,8 @@
         ])
         .controller('generalCtrl', ['$rootScope', '$scope', '$route', '$location', '$modal',
             function($rootScope, $scope, $route, $location, $modal) {
-                $rootScope.online = false;
-                $rootScope.onlineUser = {name: "", password: ""};
+                $scope.online = false;
+                $rootScope.onlineUser = false;
                 $scope.filters = [{
                     name: 'Αρχείο Ασθενών',
                     content: '/Patients',
@@ -66,7 +67,7 @@
                 });
 
                 var onlineModal = $modal({
-                    scope: $rootScope,
+                    scope: $scope,
                     animation: 'am-flip-x',
                     placement: 'center',
                     container: 'body',
@@ -74,21 +75,30 @@
                     contentTemplate: 'partials/modalOnlineId.html',
                     show: false
                 });
-                
-                $scope.setOnline = function() {
-                    $scope.online = true;
-                    onlineModal.$hide();
-                }
 
                 $scope.$watch('online', function() {
                     if ($scope.online) {
-                        $scope.online = false;
-                        onlineModal.$promise.then(onlineModal.show);
-                    }
+                        if (!$rootScope.onlineUser) {
+                            $scope.online = false;
+                            onlineModal.$promise.then(onlineModal.show);
+                        };
+                    } else {
+                        $rootScope.onlineUser = false;
+                    };
                 });
                 $scope.$watch('location', function() {
                     $location.path($scope.location);
                 });
+            }
+        ])
+        .controller('onlineCtrl', ['$rootScope', '$scope', '$modal',
+            function($rootScope, $scope, $modal) {
+                $scope.setOnline = function() {
+                    $scope.$parent.$hide();
+                    $scope.$parent.$parent.online = true;
+                    $rootScope.onlineUser = $scope.onlineUser;
+                    storageProvider = $rootScope.onlineUser ? 'patientWebStorage' : 'patientLocalStorage';
+                }
             }
         ])
         .controller('calculatorCtrl', ['$scope', '$route', '$routeParams', 'views', 'internalMedicineViews', 'triplexViews',
