@@ -40,7 +40,8 @@
         };
     }).
     factory('patientLocalStorage', ['$q', '$localStorage', 'uuid', function($q, $localStorage, uuid) {
-            var patientsArray = $localStorage.patients || {};
+            $localStorage.patients = $localStorage.patients || {};
+            var patientsArray = $localStorage.patients;
             return {
                 patients: function() {
                     var deferredList = $q.defer();
