@@ -1,4 +1,4 @@
-/*global angular: true */
+﻿/*global angular: true */
 /*global _: true */
 
 (function() {
@@ -19,7 +19,7 @@
                         templateUrl: 'partials/patient.html',
                         controller: 'patientCtrl',
                         resolve: {
-                            patient: ['$route', storageProvider, function($route, patientStorage) {
+                            patient: ['$route', 'patientHybridStorage', function($route, patientStorage) {
                                 return patientStorage.patient($route.current.params.id);
                             }]
                         }
@@ -28,7 +28,7 @@
                         templateUrl: 'partials/patients.html',
                         controller: 'patientsCtrl',
                         resolve: {
-                            patients: [storageProvider, function(patientStorage) {
+                            patients: ['patientHybridStorage', function(patientStorage) {
                                 return patientStorage.patients();
                             }]
                         }
