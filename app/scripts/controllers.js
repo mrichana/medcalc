@@ -18,7 +18,7 @@
                         templateUrl: 'partials/patient.html',
                         controller: 'patientCtrl',
                         resolve: {
-                            patient: ['$route', 'patientLocalStorage', function($route, patientStorage) {
+                            patient: ['$route', 'patientHybridStorage', function($route, patientStorage) {
                                 return patientStorage.patient($route.current.params.id);
                             }]
                         }
@@ -27,7 +27,7 @@
                         templateUrl: 'partials/patients.html',
                         controller: 'patientsCtrl',
                         resolve: {
-                            patients: ['patientLocalStorage', function(patientStorage) {
+                            patients: ['patientHybridStorage', function(patientStorage) {
                                 return patientStorage.patients();
                             }]
                         }

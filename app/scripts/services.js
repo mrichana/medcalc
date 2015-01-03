@@ -72,29 +72,6 @@
                 }
             }
         }]).
-        // config(function($provide) {
-        //     $provide.decorator('$firebaseUtils', function($delegate) {
-        //         var _updateRecord = $firebaseUtils.updateRecord;
-        //         $firebaseUtils.updateRecord = function(rec, snap) {
-        //             _updateRecord(rec, snap);
-        //             $firebaseUtils.each(rec, function(v, k) {
-        //                 if (k === 'date') {
-        //                     rec[k] = new Date(v);
-        //                 }
-        //             });
-        //         };
-
-    //         var _toJSON = $firebaseUtils.toJSON;
-    //         $firebaseUtils.toJSON = function(data) {
-    //             var dataCopy = angular.extend({}, data);
-    //             if (dataCopy.date) {
-    //                 dataCopy.date = dataCopy.date.valueOf();
-    //             }
-    //             return _toJSON(dataCopy);
-    //         };
-    //         return $delegate;
-    //     });
-    // }).
     factory('trasverse', [function() {
         var recurse = function(tree, functionToCall) {
             _.each(tree, function(value, key, object) {
@@ -180,5 +157,10 @@
                 return deferredObject.promise;
             }
         }
+    }]).
+    factory('patientHybridStorage', ['patientLocalStorage', 'patientWebStorage', function(patientLocalStorage, patientWebStorage) {
+        var online = false;
+        var ret = online ? patientWebStorage:patientLocalStorage;
+        return ret;
     }]);
 })();
