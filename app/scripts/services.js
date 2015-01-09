@@ -111,20 +111,7 @@
             },
             patient: function(id) {
                 var PatientFactory = $FirebaseObject.$extendFactory({
-                    // $$updated: function(snap) {
-                    //     var changed = $FirebaseObject.prototype.$$updated.apply(this, arguments);
-                    //     trasverse(this, function(value, key, object) {
-                    //         if (angular.isString(value)) {
-                    //             var date = moment(value, moment.ISO_8601, true);
-                    //             if (date.isValid()) {
-                    //                 object[key] = date.toDate();
-                    //                 changed = true;
-                    //             }
-                    //         }
-                    //     });
-                    //     return changed;
-                    // },
-                    toJSON: function() {
+                   toJSON: function() {
                         var result = angular.fromJson(
                             angular.toJson(
                                 _.omit(angular.extend({}, this),
@@ -158,9 +145,14 @@
             }
         }
     }]).
-    factory('patientHybridStorage', ['patientLocalStorage', 'patientWebStorage', function(patientLocalStorage, patientWebStorage) {
-        var online = false;
-        var ret = online ? patientWebStorage:patientLocalStorage;
-        return ret;
+    factory('patientHybridStorage', ['$q', 'patientLocalStorage', 'patientWebStorage', function($q, patientLocalStorage, patientWebStorage) {
+    	return {
+			patients: function() {
+				return patientWebStorage.patients();
+			},
+			patient: function(id) {
+				return patientWebStorage.patient(id);
+			}
+    	}
     }]);
 })();
