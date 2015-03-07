@@ -148,10 +148,10 @@
     factory('patientHybridStorage', ['$q', 'patientLocalStorage', 'patientWebStorage', function($q, patientLocalStorage, patientWebStorage) {
     	return {
 			patients: function() {
-				return patientWebStorage.patients();
+				return patientLocalStorage.patients();
 			},
 			patient: function(id) {
-				return patientWebStorage.patient(id);
+				return patientLocalStorage.patient(id);
 			}
     	}
     }]);

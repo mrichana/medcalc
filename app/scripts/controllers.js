@@ -5,8 +5,6 @@
     'use strict';
 
     /* Controllers */
-    var storageProvider = 'patientLocalStorage';
-
     angular.module('medical.controllers', ['ngRoute', 'medical.views'])
         .config(['$routeProvider', '$locationProvider',
             function($routeProvider, $locationProvider) {
@@ -45,16 +43,20 @@
                 $scope.online = false;
                 $rootScope.onlineUser = false;
                 $scope.filters = [{
-                    name: 'Αρχείο Ασθενών',
-                    content: '/Patients',
-                    category: 'Αρχείο'
-                }, {
+                //    name: 'Αρχείο Ασθενών',
+                //    content: '/Patients',
+                //    category: 'Αρχείο'
+                //}, {
                     name: 'Κλινική Ιατρική',
                     content: '/Calculators/Generic',
                     category: 'Υπολογιστές'
                 }, {
                     name: 'Καρδιολογία',
                     content: '/Calculators/Cardiology',
+                    category: 'Υπολογιστές'
+                }, {
+                    name: 'Ηλεκτροκαρδιογράφημα',
+                    content: '/Calculators/Ecg',
                     category: 'Υπολογιστές'
                 }, {
                     name: 'Triplex',
@@ -97,7 +99,6 @@
                     $scope.$parent.$hide();
                     $scope.$parent.$parent.online = true;
                     $rootScope.onlineUser = $scope.onlineUser;
-                    storageProvider = $rootScope.onlineUser ? 'patientWebStorage' : 'patientLocalStorage';
                 }
             }
         ])
@@ -112,6 +113,10 @@
                     Cardiology: {
                         name: 'Cardiology',
                         content: views.categories().cardiology
+                    },
+                    Ecg: {
+                        name: 'Ηλεκτροκαρδιογράφημα',
+                        content: views.categories().ecg
                     },
                     Triplex: {
                         name: 'Triplex',

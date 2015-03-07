@@ -1030,31 +1030,65 @@
             }, {
                 id: 'QTc',
                 name: 'Διορθωμένο QT',
-                category: 'cardiology',
+                category: 'ecg',
                 template: 'calculator.basic',
                 defaultValues: {
                     HeartRate: 70,
                     QT: 400
                 },
                 fields: [{
-                        id: 'QT',
-                        name: 'Διάστημα QT',
-                        input: {
-                            type: 'number',
-                            step: 10,
-                            min: 200,
-                            max: 1000
-                        }
-                    }, {
-                        id: 'HeartRate',
-                        name: 'Σφύξεις',
-                        input: {
-                            type: 'number',
-                            step: 1,
-                            min: 20,
-                            max: 280
-                        }
-                    },
+                    id: 'QT',
+                    name: 'Διάστημα QT',
+                    calculator: 'QT',
+                    input: {
+                        type: 'number',
+                        step: 10,
+                        min: 200,
+                        max: 1000
+                    }
+                }, {
+                    id: 'HeartRate',
+                    name: 'Σφύξεις',
+                    input: {
+                        type: 'number',
+                        step: 1,
+                        min: 20,
+                        max: 280
+                    }
+                },
+                    generalFields.Result
+                ],
+                init: init,
+                reset: reset,
+                update: update
+            }, {
+                id: 'QT',
+                name: 'mm σε msec',
+                category: 'hiddencalculator',
+                template: 'calculator.basic',
+                defaultValues: {
+                    mm: 10,
+                    paperSpeed: 25
+                },
+                fields: [{
+                    id: 'mm',
+                    name: 'Διάστημα (mm)',
+                    input: {
+                        type: 'number',
+                        step: 1,
+                        min: 1,
+                        max: 1000
+                    }
+                }, {
+                    id: 'paperSpeed',
+                    name: 'Ταχύτητα χαρτιού (mm/sec)',
+                    input: {
+                        type: 'number',
+                        step: 25,
+                        min: 25,
+                        max: 50
+                    }
+                },
                     generalFields.Result
                 ],
                 init: init,

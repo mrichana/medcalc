@@ -919,6 +919,15 @@
                         ret.resultlevel = 0;
                     }
                     return ret;
+                },
+                QT: function(values) {
+                    var result;
+                    var explanation;
+                    var ret = {};
+                    ret.formula = 'mm * (1/paperSpeed) * 1000';
+                    ret.result = evaluator(values, ret.formula);
+                    ret.suffix = 'msec';
+                    return ret;
                 }
             };
         }
