@@ -1083,10 +1083,11 @@
                     id: 'paperSpeed',
                     name: 'Ταχύτητα χαρτιού (mm/sec)',
                     input: {
-                        type: 'number',
-                        step: 25,
-                        min: 25,
-                        max: 50
+                        type: 'select',
+                        options: [
+                            {name:'25', value:25},
+                            {name:'50', value: 50}
+                        ]
                     }
                 },
                     generalFields.Result
