@@ -836,40 +836,94 @@
                 update: update
             },
                 {
-                id: 'QT',
-                name: 'mm σε msec',
-                category: 'hiddencalculator',
-                template: 'calculator.basic',
-                defaultValues: {
-                    QTmm: 10,
-                    paperSpeed: 25
+                    id: 'QT',
+                    name: 'mm σε msec',
+                    category: 'hiddencalculator',
+                    template: 'calculator.basic',
+                    defaultValues: {
+                        QTmm: 10,
+                        paperSpeed: 25
+                    },
+                    fields: [{
+                        id: 'QTmm',
+                        name: 'Διάστημα (mm)',
+                        input: {
+                            type: 'number',
+                            step: 1,
+                            min: 1,
+                            max: 1000
+                        }
+                    }, {
+                        id: 'paperSpeed',
+                        name: 'Ταχύτητα χαρτιού (mm/sec)',
+                        input: {
+                            type: 'select',
+                            options: [
+                                {name:'25', value:25},
+                                {name:'50', value: 50}
+                            ]
+                        }
+                    },
+                        generalFields.Result
+                    ],
+                    init: init,
+                    reset: reset,
+                    update: update
                 },
-                fields: [{
-                    id: 'QTmm',
-                    name: 'Διάστημα (mm)',
-                    input: {
-                        type: 'number',
-                        step: 1,
-                        min: 1,
-                        max: 1000
-                    }
-                }, {
-                    id: 'paperSpeed',
-                    name: 'Ταχύτητα χαρτιού (mm/sec)',
-                    input: {
-                        type: 'select',
-                        options: [
-                            {name:'25', value:25},
-                            {name:'50', value: 50}
-                        ]
-                    }
+                {
+                    id: 'Sokolow',
+                    name: 'Δείκτης Sokolow-Lyon',
+                    category: 'ecg',
+                    template: 'calculator.basic',
+                    defaultValues: {
+                        V1S: 10,
+                        V5R: 10,
+                        V6R: 10,
+                        aVLR: 10
+                    },
+                    fields: [{
+                        id: 'V1S',
+                        name: 'Κύμα S στην V1 (mV)',
+                        input: {
+                            type: 'number',
+                            step: 1,
+                            min: 1,
+                            max: 50
+                        }
+                    }, {
+                        id: 'V5R',
+                        name: 'Κύμα R στην V5 (mV)',
+                        input: {
+                            type: 'number',
+                            step: 1,
+                            min: 1,
+                            max: 50
+                        }
+                    }, {
+                        id: 'V6R',
+                        name: 'Κύμα R στην V6 (mV)',
+                        input: {
+                            type: 'number',
+                            step: 1,
+                            min: 1,
+                            max: 50
+                        }
+                    }, {
+                        id: 'aVLR',
+                        name: 'Κύμα R στην aVL (mV)',
+                        input: {
+                            type: 'number',
+                            step: 1,
+                            min: 1,
+                            max: 50
+                        }
+                    },
+                        generalFields.Result
+                    ],
+                    init: init,
+                    reset: reset,
+                    update: update
                 },
-                    generalFields.Result
-                ],
-                init: init,
-                reset: reset,
-                update: update
-            },
                 {
                 id: 'HeartRate',
                 name: 'Καρδιακή Συχνότητα',

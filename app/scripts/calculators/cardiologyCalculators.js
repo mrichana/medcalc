@@ -825,9 +825,6 @@
                     };
                 },
                 QTc: function(values) {
-                    var result;
-                    var explanation;
-                    var resultlevel;
                     var ret = {};
                     ret.formula = 'QT / sqrt(60 / HeartRate)';
                     ret.result = roundNum(evaluator(values, ret.formula));
@@ -857,17 +854,28 @@
                     return ret;
                 },
                 QT: function(values) {
-                    var result;
-                    var explanation;
                     var ret = {};
                     ret.formula = 'QTmm * (1/paperSpeed) * 1000';
                     ret.result = evaluator(values, ret.formula);
                     ret.suffix = 'msec';
                     return ret;
                 },
+                Sokolow: function(values) {
+                    var ret = {};
+                    var hypertrophy = values.V1S + Math.max(values.V5R, values.V6R) >= 35 || values.aVLR >= 11;
+
+                    if (hypertrophy) {
+                        ret.result = 'Θετικός για υπερτροφία μυοκαρδίου';
+                        ret.explanation = 'Ειδικότητα 100%';
+                        ret.resultlevel = 3;
+                    } else {
+                        ret.result = 'Αρνητικός για υπερτροφία μυοκαρδίου';
+                        ret.explanation = 'Ευαισθησία 22%';
+                        ret.resultlevel = 0;
+                    }
+                    return ret;
+                },
                 HeartRate: function(values) {
-                    var result;
-                    var explanation;
                     var ret = {};
                     ret.formula = '60*paperSpeed/HRQRS2QRSmm/HRcycles';
                     ret.result = roundNum(evaluator(values, ret.formula));
