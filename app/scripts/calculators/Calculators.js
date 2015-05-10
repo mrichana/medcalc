@@ -24,9 +24,9 @@
         thisNum = thisNum / Math.pow(10, dec);
         return thisNum;
     }).
-    factory('calculators', ['patientCalculators', 'internalMedicineCalculators', 'cardiologyCalculators', 'triplexCalculators',
-        function(patientCalculators, internalMedicineCalculators, cardiologyCalculators, triplexCalculators) {
-            return _.extend({}, patientCalculators, internalMedicineCalculators, cardiologyCalculators, triplexCalculators);
+    factory('calculators', ['patientCalculators', 'internalMedicineCalculators', 'pulmonologyCalculators', 'cardiologyCalculators', 'triplexCalculators',
+        function(patientCalculators, internalMedicineCalculators, pulmonologyCalculators, cardiologyCalculators, triplexCalculators) {
+            return _.extend({}, patientCalculators, internalMedicineCalculators, pulmonologyCalculators, cardiologyCalculators, triplexCalculators);
         }
     ]);
 })();

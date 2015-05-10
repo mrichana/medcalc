@@ -51,6 +51,10 @@
                     content: '/Calculators/Generic',
                     category: 'Υπολογιστές'
                 }, {
+                    name: 'Πνευμονολογία',
+                    content: '/Calculators/Pulmonology',
+                    category: 'Υπολογιστές'
+                }, {
                     name: 'Καρδιολογία',
                     content: '/Calculators/Cardiology',
                     category: 'Υπολογιστές'
@@ -102,16 +106,20 @@
                 }
             }
         ])
-        .controller('calculatorCtrl', ['$scope', '$route', '$routeParams', 'views', 'internalMedicineViews', 'cardiologyViews', 'triplexViews',
+        .controller('calculatorCtrl', ['$scope', '$route', '$routeParams', 'views', 'internalMedicineViews', 'pulmonologyViews','cardiologyViews', 'triplexViews',
             function($scope, $route, $routeParams,
-                views, internalMedicineViews, cardiologyViews, triplexViews) {
+                views, internalMedicineViews, pulmonologyViews, cardiologyViews, triplexViews) {
                 $scope.filters = {
                     Generic: {
                         name: 'Κλινική Ιατρική',
                         content: views.categories().generic
                     },
+                    Pulmonology: {
+                        name: 'Πνευμονολογία',
+                        content: views.categories().pulmonology
+                    },
                     Cardiology: {
-                        name: 'Cardiology',
+                        name: 'Καρδιολογία',
                         content: views.categories().cardiology
                     },
                     Ecg: {
@@ -147,8 +155,8 @@
                 };
             }
         ])
-        .controller('patientCtrl', ['$scope', '$location', 'patient', 'views', 'patientViews', 'internalMedicineViews', 'cardiologyViews', 'triplexViews',
-            function($scope, $location, patient, views, patientViews, internalMedicineViews, cardiologyViews, triplexViews) {
+        .controller('patientCtrl', ['$scope', '$location', 'patient', 'views', 'patientViews', 'internalMedicineViews', 'pulmonologyViews', 'cardiologyViews', 'triplexViews',
+            function($scope, $location, patient, views, patientViews, internalMedicineViews, pulmonologyViews, cardiologyViews, triplexViews) {
                 var updatePanelsList = function() {
                     $scope.panelsList = angular.copy(_.sortBy(_.filter(views.all(), function(view) {
                         return _.contains(_.keys($scope.patient.calculatorsActive), view.id);
