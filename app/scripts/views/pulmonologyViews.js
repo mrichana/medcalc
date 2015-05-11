@@ -294,7 +294,97 @@
                     init: init,
                     reset: reset,
                     update: update
-                }]);
+                },
+                {
+                    id: 'PESI',
+                    name: 'Δείκτης σοβαρότητας Πνευμονικής Εμβολής (PESI)',
+                    category: 'pulmonology pe pulmonary_embolism',
+                    template: 'calculator.basic',
+                    defaultValues: {
+                        'Age': 65,
+                        'Sex': 0,
+                        'Cancer': false,
+                        'HistoryOf_CHF': false,
+                        'HistoryOf_PulmonaryDisease': false,
+                        'HeartRate': 70,
+                        'BloodPressure_Systolic': 120,
+                        'BreathRate': 16,
+                        'BodyTemperature': 36.6,
+                        'AltMentalStatus': false,
+                        'ArterialBlood_pO2': 100
+                    },
+                    fields: [ generalFields.Age, generalFields.Sex,
+                        {
+                            id: 'Cancer',
+                            name: 'Ενεργός καρκίνος',
+                            input: {
+                                type: 'check'
+                            }
+                        },
+                        {
+                            id: 'HistoryOf_CHF',
+                            name: 'Συμφορητική Καρδιακή Ανεπάρκεια',
+                            input: {
+                                type: 'check'
+                            }
+                        },
+                        {
+                            id: 'HistoryOf_PulmonaryDisease',
+                            name: 'Χ.Α.Π.',
+                            input: {
+                                type: 'check'
+                            }
+                        }, {
+                        id: 'HeartRate',
+                        name: 'Σφύξεις κατά την εισαγωγή',
+                        input: {
+                            type: 'number',
+                            step: 1,
+                            min: 20,
+                            max: 280
+                        }
+                    }, generalFields.BloodPressure_Systolic,
+                    {
+                        id: 'BreathRate',
+                        name: 'Ρυθμός αναπνοής (bpm)',
+                        input: {
+                            type: 'number',
+                            step: 1,
+                            min: 1,
+                            max: 60
+                        }
+                    }, {
+                        id: 'BodyTemperature',
+                        name: 'Θερμοκρασία σώματος',
+                        input: {
+                            type: 'number',
+                            step: 0.1,
+                            min: 35,
+                            max: 43
+                        }
+                    }, {
+                        id: 'AltMentalStatus',
+                        name: 'Επηρεασμένη νοητική κατάσταση',
+                        input: {
+                            type: 'check'
+                        }
+                    }, {
+                        id: 'ArterialBlood_pO2',
+                        name: 'pO<sub>2</sub>(mmHg)',
+                        input: {
+                            type: 'number',
+                            step: 1,
+                            min: 1,
+                            max: 200
+                        }
+                    },
+                        generalFields.Result
+                    ],
+                    init: init,
+                    reset: reset,
+                    update: update
+                }
+            ]);
         }
     ]);
 })();

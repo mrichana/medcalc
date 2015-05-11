@@ -210,6 +210,48 @@
                     };
 
                     return result;
+                },
+                PESI: function(values) {
+                    var result = {
+                        result: 0,
+                        explanation: "",
+                        resultlevel: 0
+                    };
+
+                    result.result += values.Age;
+                    result.result += (!values.Sex)*10;
+                    result.result += values.Cancer*30;
+                    result.result += values.HistoryOf_CHF*10;
+                    result.result += values.HistoryOf_PulmonaryDisease*10;
+                    result.result += (values.HeartRate>=110)*20;
+                    result.result += (values.BloodPressure_Systolic<100)*30;
+                    result.result += (values.BreathRate>30)*20;
+                    result.result += (values.BodyTemperature<36)*20;
+                    result.result += values.AltMentalStatus*60;
+                    result.result += (values.ArterialBlood_pO2<90)*20;
+
+                    if (result.result>125) {
+                        result.explanation="Class V Πολύ υψηλή θνησιμότητα (10-24.5%)";
+                        result.resultlevel=3;
+                    }
+                    else if (result.result>105) {
+                        result.explanation="Class IV Υψηλή θνησιμότητα (4-11.4%)";
+                        result.resultlevel=3;
+                    }
+                    else if (result.result>85) {
+                        result.explanation="Class III Μέτρια θνησιμότητα (3.2-7.1%)";
+                        result.resultlevel=2;
+                    }
+                    else if (result.result>65) {
+                        result.explanation="Class II Χαμηλή θνησιμότητα (1.7-3.5%)";
+                        result.resultlevel=1;
+                    }
+                    else {
+                        result.explanation="Class I Πολύ χαμηλή κλινική θνησιμότητα (0-1.6%)";
+                        result.resultlevel=0;
+                    };
+
+                    return result;
                 }
             };
         }
