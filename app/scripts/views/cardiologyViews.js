@@ -801,40 +801,90 @@
                     update: update
                 },
                 {
-                id: 'QTc',
-                name: 'Διορθωμένο QT',
-                category: 'ecg',
-                template: 'calculator.basic',
-                defaultValues: {
-                    HeartRate: 70,
-                    QT: 400
-                },
-                fields: [{
-                    id: 'QT',
-                    name: 'Διάστημα QT',
-                    calculator: 'QT',
-                    input: {
-                        type: 'number',
-                        step: 10,
-                        min: 200,
-                        max: 1000
-                    }
+                    id: 'QTc',
+                    name: 'Διορθωμένο QT',
+                    category: 'ecg',
+                    template: 'calculator.basic',
+                    defaultValues: {
+                        HeartRate: 70,
+                        QT: 400
+                    },
+                    fields: [{
+                        id: 'QT',
+                        name: 'Διάστημα QT',
+                        calculator: 'QT',
+                        input: {
+                            type: 'number',
+                            step: 10,
+                            min: 200,
+                            max: 1000
+                        }
+                    }, {
+                        id: 'HeartRate',
+                        name: 'Σφύξεις',
+                        input: {
+                            type: 'number',
+                            step: 1,
+                            min: 20,
+                            max: 280
+                        }
+                    },
+                        generalFields.Result
+                    ],
+                    init: init,
+                    reset: reset,
+                    update: update
                 }, {
-                    id: 'HeartRate',
-                    name: 'Σφύξεις',
-                    input: {
-                        type: 'number',
-                        step: 1,
-                        min: 20,
-                        max: 280
-                    }
+                    id: 'DTS',
+                    name: 'Duke Treadmill Score (DTS)',
+                    category: 'ecg',
+                    template: 'calculator.basic',
+                    defaultValues: {
+                        Bruce_ExerciseTime: 21,
+                        Bruce_STDeviation: 0,
+                        Bruce_AnginaIndex: 0
+                    },
+                    fields: [{
+                        id: 'Bruce_ExerciseTime',
+                        name: 'Διάρκεια κόπωσης κατά Bruce (min)',
+                        input: {
+                            type: 'number',
+                            step: 1,
+                            min: 1,
+                            max: 21
+                        }
+                    }, {
+                        id: 'Bruce_STDeviation',
+                        name: 'Μεταβολή ST (mm)',
+                        input: {
+                            type: 'number',
+                            step: 1,
+                            min: 0,
+                            max: 10
+                        }
+                    }, {
+                        id: 'Bruce_AnginaIndex',
+                        name: 'Τύπος προκάρδιου άλγους',
+                        input: {
+                            type: 'select',
+                            options: [{
+                                value: 0,
+                                name: 'Απών'
+                            }, {
+                                value: 1,
+                                name: 'Χωρίς περιορισμό στην κόπωση'
+                            }, {
+                                value: 2,
+                                name: 'Με περιορισμό στην κόπωση'
+                            }]
+                        }
+                    },
+                        generalFields.Result
+                    ],
+                    init: init,
+                    reset: reset,
+                    update: update
                 },
-                    generalFields.Result
-                ],
-                init: init,
-                reset: reset,
-                update: update
-            },
                 {
                     id: 'QT',
                     name: 'mm σε msec',

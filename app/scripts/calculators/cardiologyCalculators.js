@@ -824,7 +824,24 @@
                         resultlevel: resultlevel
                     };
                 },
-                QTc: function(values) {
+                DTS: function (values) {
+                    var ret = {};
+                    ret.formula = 'Bruce_ExerciseTime - 5*Bruce_STDeviation - 4*Bruce_AnginaIndex';
+                    ret.result = roundNum(evaluator(values, ret.formula));
+
+                    if (ret.result >= 5) {
+                        ret.explanation = 'Χαμηλός κίνδυνος (Θνησιμότητα στο έτος: 0.25%)';
+                        ret.resultlevel = 0;
+                    } else if (ret.result >= -11) {
+                        ret.explanation = 'Ενδιάμεσος κίνδυνος (Θνησιμότητα στο έτος: 1.25%)';
+                        ret.resultlevel = 2;
+                    } else {
+                        ret.explanation = 'Υψηλός κίνδυνος (Θνησιμότητα στο έτος: 5.25%)';
+                        ret.resultlevel = 3;
+                    }
+                    return ret;
+                },
+                QTc: function (values) {
                     var ret = {};
                     ret.formula = 'QT / sqrt(60 / HeartRate)';
                     ret.result = roundNum(evaluator(values, ret.formula));
