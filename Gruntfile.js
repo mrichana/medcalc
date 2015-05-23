@@ -36,7 +36,7 @@ module.exports = function (grunt) {
                 }
             },
             jsTest: {
-                files: ['test/spec/{,*/}*.js'],
+                files: ['test/spec/{,*/}*.js']
                 //tasks: ['newer:jshint:test', 'karma']
             },
             styles: {
@@ -361,8 +361,8 @@ module.exports = function (grunt) {
             all: {
                 dest: '<%= yeoman.dist %>/manifest.appcache',
                 cache: '<%= yeoman.dist %>/**/*',
-                network: '*',
-            },
+                network: '*'
+            }
         },
 
         'ftp-deploy': {
@@ -411,8 +411,8 @@ module.exports = function (grunt) {
         'usemin',
         'inline_angular_templates',
         'htmlmin',
-        'appcache',
-        'ftp-deploy'
+        'appcache'
+        //'ftp-deploy'
     ]);
 
     grunt.registerTask('default', [
@@ -420,6 +420,21 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('deploy', [
+        'clean:dist',
+        'useminPrepare',
+        'concurrent:dist',
+        'autoprefixer',
+        'concat',
+        //'ngmin',
+        'copy:dist',
+        'cdnify',
+        'cssmin',
+        'uglify',
+        //        'rev',
+        'usemin',
+        'inline_angular_templates',
+        'htmlmin',
+        'appcache',
         'ftp-deploy'
     ]);
 
