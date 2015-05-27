@@ -86,8 +86,8 @@
             return recurse;
         };
         return recurse;
-    }]).
-    /*factory('patientWebStorage', ['$q', '$firebase', '$FirebaseObject', 'uuid', 'trasverse', function($q, $firebase, $FirebaseObject, uuid, trasverse) {
+    }])
+        /*.factory('patientWebStorage', ['$q', '$firebase', '$FirebaseObject', 'uuid', 'trasverse', function($q, $firebase, $FirebaseObject, uuid, trasverse) {
         return {
             patients: function() {
                 var patientsArray = $firebase(new Firebase('https://medrichana.firebaseio.com/backend')).$asArray();
@@ -143,8 +143,8 @@
                 return deferredObject.promise;
             }
         }
-    }])*/
-    factory('patientHybridStorage', ['$q', 'patientLocalStorage', 'patientWebStorage', function($q, patientLocalStorage, patientWebStorage) {
+    }]).*/
+    /*factory('patientHybridStorage', ['$q', 'patientLocalStorage', 'patientWebStorage', function($q, patientLocalStorage, patientWebStorage) {
     	return {
 			patients: function() {
 				return patientLocalStorage.patients();
@@ -153,5 +153,5 @@
 				return patientLocalStorage.patient(id);
 			}
     	}
-    }]);
+    }])*/;
 })();
