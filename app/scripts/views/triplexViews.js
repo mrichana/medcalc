@@ -17,7 +17,7 @@
                 defaultValues: {
                     Triplex_LeftAtrium_Area4Ch: 15,
                     Triplex_LeftAtrium_Area2Ch: 15,
-                    Triplex_LeftAtrium_Length: 40,
+                    Triplex_LeftAtrium_Length: 40
                 },
                 fields: [{
                     id: 'Triplex_LeftAtrium_Area4Ch',
@@ -59,7 +59,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/lav.png'
+                    url: 'images/lav.png'
                 }],
                 init: init,
                 reset: reset,
@@ -125,7 +125,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/lav.png'
+                    url: 'images/lav.png'
                 }],
                 init: init,
                 reset: reset,
@@ -169,7 +169,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/AVVR.png'
+                    url: 'images/AVVR.png'
                 }],
                 init: init,
                 reset: reset,
@@ -213,7 +213,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/AVVR.png'
+                    url: 'images/AVVR.png'
                 }],
                 init: init,
                 reset: reset,
@@ -267,7 +267,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/AVVR.png'
+                    url: 'images/AVVR.png'
                 }],
                 init: init,
                 reset: reset,
@@ -321,7 +321,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/AVVR.png'
+                    url: 'images/AVVR.png'
                 }],
                 init: init,
                 reset: reset,
@@ -396,7 +396,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/AVVR.png'
+                    url: 'images/AVVR.png'
                 }],
                 init: init,
                 reset: reset,

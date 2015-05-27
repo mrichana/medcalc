@@ -15,7 +15,7 @@
         'ngSanitize',
         'mobile-angular-ui',
         'mgcrea.ngStrap',
-        'ui.tinymce',
+        //'ui.tinymce',
         'firebase'
     ])
 })();
