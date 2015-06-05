@@ -7,7 +7,7 @@
 
         <div class="btn-group btn-group-lg pull-left">
             <div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
-                <i class="icon-menu"></i>
+                <i class="fa fa-bars"></i>
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="content scrollable-content scroll-spy-target">
             <div id="{{view.id}}" class="panel panel-info" view='view' ng-repeat="view in panelsList track by view.id">
                 <div class="panel-heading">
-                    <button class="btn btn-default pull-right" ng-show="view.reset" verified-click="clearPanel(view.id)"><i class="icon-reload"></i>
+                    <button class="btn btn-default pull-right" ng-show="view.reset" verified-click="clearPanel(view.id)"><i class="fa fa-refresh"></i>
                     </button>
                     <h4>{{view.name}}</h4>
                 </div>
