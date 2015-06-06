@@ -200,7 +200,7 @@
                 update: update
             }, {
                 id: 'ESCSCORE',
-                name: 'ESC SCORE',
+                name: 'EuroHeart SCORE',
                 category: 'cardiology',
                 template: 'calculator.basic',
                 defaultValues: {
