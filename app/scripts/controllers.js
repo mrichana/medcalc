@@ -42,74 +42,56 @@
             function($rootScope, $scope, $route, $location, $modal) {
                 $scope.online = false;
                 $rootScope.onlineUser = false;
-                $scope.filters = [{
+                $scope.filters = [
+                //    {
                 //    name: 'Αρχείο Ασθενών',
                 //    content: '/Patients',
                 //    category: 'Αρχείο'
-                //}, {
-                    name: 'Κλινική Ιατρική',
-                    content: '/Calculators/Generic',
-                    category: 'Υπολογιστές'
-                }, {
-                    name: 'Πνευμονολογία',
-                    content: '/Calculators/Pulmonology',
-                    category: 'Υπολογιστές'
-                }, {
-                    name: 'Καρδιολογία',
-                    content: '/Calculators/Cardiology',
-                    category: 'Υπολογιστές'
-                }, {
-                    name: 'ΗΚΓ',
-                    content: '/Calculators/Ecg',
-                    category: 'Υπολογιστές'
-                }, {
-                    name: 'Triplex',
-                    content: '/Calculators/Triplex',
-                    category: 'Υπολογιστές'
-                }];
+                //},
+                    {
+                        name: 'Όλοι',
+                        content: '/Calculators/All',
+                        category: 'Υπολογιστές'
+                    }, {
+                        name: 'Κλινική Ιατρική',
+                        content: '/Calculators/Generic',
+                        category: 'Υπολογιστές'
+                    }, {
+                        name: 'Πνευμονολογία',
+                        content: '/Calculators/Pulmonology',
+                        category: 'Υπολογιστές'
+                    }, {
+                        name: 'Καρδιολογία',
+                        content: '/Calculators/Cardiology',
+                        category: 'Υπολογιστές'
+                    }, {
+                        name: 'ΗΚΓ',
+                        content: '/Calculators/Ecg',
+                        category: 'Υπολογιστές'
+                    }, {
+                        name: 'Triplex',
+                        content: '/Calculators/Triplex',
+                        category: 'Υπολογιστές'
+                    }
+                ];
 
                 $scope.$on('$routeChangeSuccess', function() {
                     $scope.location = $location.path();
                 });
 
-                var onlineModal = $modal({
-                    scope: $scope,
-                    animation: 'am-flip-x',
-                    placement: 'center',
-                    container: 'body',
-                    title: 'OnLine',
-                    contentTemplate: 'partials/modalOnlineId.html',
-                    show: false
-                });
-
-                $scope.$watch('online', function() {
-                    if ($scope.online) {
-                        if (!$rootScope.onlineUser) {
-                            $scope.online = false;
-                            onlineModal.$promise.then(onlineModal.show);
-                        };
-                    } else {
-                        $rootScope.onlineUser = false;
-                    };
-                });
                 $scope.$watch('location', function() {
                     $location.path($scope.location);
                 });
-            }
-        ])
-        .controller('onlineCtrl', ['$rootScope', '$scope', '$modal',
-            function($rootScope, $scope, $modal) {
-                $scope.setOnline = function() {
-                    $scope.$parent.$hide();
-                    $scope.$parent.$parent.online = true;
-                    $rootScope.onlineUser = $scope.onlineUser;
-                }
             }
         ])
         .controller('calculatorCtrl', ['$scope', '$route', '$routeParams', 'views', 'internalMedicineViews', 'pulmonologyViews','cardiologyViews', 'triplexViews',
             function($scope, $route, $routeParams,
                 views, internalMedicineViews, pulmonologyViews, cardiologyViews, triplexViews) {
                 $scope.filters = {
+                    All: {
+                        name: 'Όλοι',
+                        content: views.allList()
+                    },
                     Generic: {
                         name: 'Κλινική Ιατρική',
                         content: views.categories().generic

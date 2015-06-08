@@ -158,7 +158,7 @@
                 scope: {
                     view: '='
                 },
-                template: '<a class="list-group-item" scrollto="#{{view.id}}" scroll-spy="#{{view.id}}" href>{{view.name}} <i class="icon-right pull-right"></i></a>'
+                template: '<a class="list-group-item" scrollto="#{{view.id}}" scroll-spy="#{{view.id}}" href>{{view.name}} <i class="fa fa-chevron-right pull-right"></i></a>'
             };
         })
         .directive('result', function() {
