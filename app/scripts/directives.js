@@ -34,6 +34,36 @@
                 };
             }
         ])
+        .directive('scrollMonitor', ['$rootScope',
+            function($rootScope) {
+                return {
+                    restrict: 'A',
+                    link: function($scope, elem, attrs) {
+                        var parent = elem;
+                        var scrollHandler = function() {
+                            var elements = $('.scroll-item', parent);
+
+                            var result = {viewSelected: null, viewsVisible: []};
+                            var parentHalf = parent.height() / 2;
+                            _.forEach(elements, function(element, index, list) {
+                                var $element = $(element);
+                                var elementTop = $element.offset().top - parent.offset().top;
+                                var elementBottom = elementTop + $element.height();
+                                if (elementBottom >= 0 && elementTop < parent.height()){
+                                    result.viewsVisible.push($element);
+                                    if ((elementTop < parentHalf) && (elementBottom > parentHalf)) {
+                                        result.viewSelected = $element;
+                                    }
+                                };
+                            });
+                            $rootScope.$broadcast('scrollMonitor', result);
+                        };
+                        parent.on('scroll', scrollHandler);
+                        scrollHandler();
+                    }
+                };
+            }
+        ])
         .directive('scrollto', [
             function() {
                 return function(scope, elm, attrs) {
@@ -81,23 +111,11 @@
                 return {
                     restrict: 'A',
                     link: function($scope, elem, attrs) {
-                        var parent = $('.scroll-spy-target');
-                        var scrollHandler = function() {
-                            var element = $(attrs.scrollSpy);
-                            var parent = $('.scroll-spy-target');
-                            if (!element.length) {
-                                parent.off('scroll', scrollHandler);
-                                return;
-                            }
-                            var parentHalf = parent.height() / 2;
-                            var elementPos = element.offset().top - parent.offset().top;
-                            if ((elementPos < parentHalf) && (elementPos + element.height() > parentHalf)) {
-                                elem.addClass('active');
-                            } else {
-                                elem.removeClass('active');
-                            }
-                        };
-                        parent.on('scroll', scrollHandler);
+                        $scope.$on('scrollMonitor', function(event, views){
+                            $('scroll-spy').removeClass('active');
+                            //views.viewsVisible.addClass('active');
+                            elem.toggleClass('active', views.viewSelected.is($(attrs.scrollSpy)));
+                        });
                     }
                 };
             }
@@ -195,6 +213,7 @@
                 return {
                     restrict: 'E',
                     replace: true,
+                    template: '<div class="text-center"><h3><i class="fa fa-spinner fa-spin"></i></h3></div>',
                     scope: {
                         view: '='
                     },
@@ -225,7 +244,16 @@
                         }
 
                         var templateName = scope.view.template || 'calculator';
-                        var loader = $http.get('partials/views/' + templateName + '.html', {
+                        var loader;
+
+                        scope.$on('scrollMonitor', function (event, views){
+                            if (_.find(views.viewsVisible, function(view){return view.attr('id') == scope.view.id;})) {
+                                console.log(scope.view);
+
+                            }
+                        });
+
+                        /*loader = $http.get('partials/views/' + templateName + '.html', {
                             cache: $templateCache
                         });
 
@@ -235,6 +263,7 @@
                         then(function() {
                             element.replaceWith($compile(element.html())(scope));
                         });
+                        */
                     }
                 };
             }

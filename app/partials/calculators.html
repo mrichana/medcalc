@@ -13,8 +13,8 @@
     </div>
 
     <div class="app-body scrollable">
-        <div class="content scrollable-content scroll-spy-target">
-            <div id="{{view.id}}" class="panel panel-info" view='view' ng-repeat="view in panelsList track by view.id">
+        <div scroll-monitor class="content scrollable-content scroll-spy-target">
+            <div id="{{view.id}}" class="panel panel-info scroll-item" view='view' ng-repeat="view in panelsList track by view.id">
                 <div class="panel-heading">
                     <button class="btn btn-default pull-right" ng-show="view.reset" verified-click="clearPanel(view.id)"><i class="fa fa-refresh"></i>
                     </button>
