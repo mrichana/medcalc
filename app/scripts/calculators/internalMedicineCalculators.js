@@ -12,8 +12,8 @@
      * Description
      */
     angular.module('medical.calculators').
-    factory('internalMedicineCalculators', ['mathParser', 'roundNum', 'evaluator',
-        function(mathParser, roundNum, evaluator) {
+    factory('internalMedicineCalculators', ['roundNum', 'evaluator',
+        function(roundNum, evaluator) {
             return {
                 BMI: function(values) {
                     var ret = {};
@@ -62,7 +62,7 @@
 
                     try {
                         ret.formula = values.Calculation;
-                        ret.result = mathParser.eval(ret.formula);
+                        ret.result = math.eval(ret.formula);
                         ret.resultlevel = 0;
                         if (!angular.isNumber(ret.result)) {
                             throw 'nan';

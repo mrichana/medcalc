@@ -7,16 +7,15 @@
 
 
     angular.module('medical.calculators', []).
-    factory('evaluator', ['mathParser',
-        function(mathParser) {
+    factory('evaluator',
+        function() {
             var evals = {};
             return function(scope, formula) {
-                evals[formula] = evals[formula] || mathParser.compile(formula).eval;
+                evals[formula] = evals[formula] || math.compile(formula).eval;
                 return evals[formula](scope);
             };
         }
-    ]).
-    value('mathParser', mathjs()).
+    ).
     value('roundNum', function(thisNum, dec) {
         dec = dec || 0;
         thisNum = thisNum * Math.pow(10, dec);

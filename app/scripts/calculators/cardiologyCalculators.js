@@ -12,8 +12,8 @@
      * Description
      */
     angular.module('medical.calculators').
-    factory('cardiologyCalculators', ['mathParser', 'roundNum', 'evaluator',
-        function(mathParser, roundNum, evaluator) {
+    factory('cardiologyCalculators', ['roundNum', 'evaluator',
+        function(roundNum, evaluator) {
             return {
                 CHADScore: function(values) {
                     var ret = {};
