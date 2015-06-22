@@ -40,8 +40,6 @@
         ])
         .controller('generalCtrl', ['$rootScope', '$scope', '$route', '$location', '$modal',
             function($rootScope, $scope, $route, $location, $modal) {
-                $scope.online = false;
-                $rootScope.onlineUser = false;
                 $scope.filters = [
                 //    {
                 //    name: 'Αρχείο Ασθενών',
@@ -75,6 +73,22 @@
                     }
                 ];
 
+
+                $scope.setRelative = function (movement) {
+                    var selection = _.findIndex($scope.filters, function(filter){return filter.content === $scope.location});
+                    selection += movement;
+                    if (selection >= 0 && selection < $scope.filters.length){
+                        $location.path($scope.filters[selection].content);
+                    }
+                };
+
+                $scope.swipeLeft = function() {
+                    $scope.setRelative(1);
+                };
+                $scope.swipeRight = function() {
+                    $scope.setRelative(-1);
+                };
+
                 $scope.$on('$routeChangeSuccess', function() {
                     $scope.location = $location.path();
                 });
@@ -82,40 +96,41 @@
                 $scope.$watch('location', function() {
                     $location.path($scope.location);
                 });
+
             }
         ])
         .controller('calculatorCtrl', ['$scope', '$route', '$routeParams', 'views', 'internalMedicineViews', 'pulmonologyViews','cardiologyViews', 'triplexViews',
             function($scope, $route, $routeParams,
                 views, internalMedicineViews, pulmonologyViews, cardiologyViews, triplexViews) {
-                $scope.filters = {
-                    All: {
+                $scope.filters = [
+                    {   id: 'All',
                         name: 'Όλοι',
                         content: views.allList()
-                    },
-                    Generic: {
+                    }, {
+                        id: 'Generic',
                         name: 'Κλινική Ιατρική',
                         content: views.categories().generic
-                    },
-                    Pulmonology: {
+                    }, {
+                        id: 'Pulmonology',
                         name: 'Πνευμονολογία',
                         content: views.categories().pulmonology
-                    },
-                    Cardiology: {
+                    }, {
+                        id: 'Cardiology',
                         name: 'Καρδιολογία',
                         content: views.categories().cardiology
-                    },
-                    Ecg: {
+                    }, {
+                        id: 'Ecg',
                         name: 'Ηλεκτροκαρδιογράφημα',
                         content: views.categories().ecg
-                    },
-                    Triplex: {
+                    }, {
+                        id: 'Triplex',
                         name: 'Triplex',
                         content: views.categories().triplex
                     }
-                };
+                ];
 
                 $scope.filters.setAbsolute = function(filterName) {
-                    $scope.views = $scope.filters[filterName].content;
+                    $scope.views = _.find($scope.filters, function(filter) {return filter.id === filterName;}).content;
 
                     $scope.panelsList = $scope.views;
                     $scope.filters.active = filterName;

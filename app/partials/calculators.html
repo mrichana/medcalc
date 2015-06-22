@@ -1,5 +1,5 @@
 <div class="app">
-    <div class="navbar navbar-app navbar-absolute-top" role="navigation" ng-controller="generalCtrl">
+    <div class="navbar navbar-app navbar-absolute-top" role="navigation" ng-controller="generalCtrl" ng-swipe-left="swipeLeft()" ng-swipe-right="swipeRight()">
         <div class="navbar-brand navbar-brand-center">
             <select ng-model="location" ng-options="value.content as value.name group by value.category for value in filters">
             </select>
