@@ -1,7 +1,7 @@
-<div class="app">
-    <div class="navbar navbar-app navbar-absolute-top" role="navigation" ng-controller="generalCtrl" ng-swipe-left="swipeLeft()" ng-swipe-right="swipeRight()">
+<div class="app" ng-swipe-left="swipeLeft()" ng-swipe-right="swipeRight()">
+    <div class="navbar navbar-app navbar-absolute-top" role="navigation">
         <div class="navbar-brand navbar-brand-center">
-            <select ng-model="location" ng-options="value.content as value.name group by value.category for value in filters">
+            <select ng-model="location" ng-options="value.address as value.name group by value.category for value in filters">
             </select>
         </div>
 
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="sidebar sidebar-left ng-hide" toggleable inactive-class="ng-hide" parent-active-class="sidebar-left-in" id="mainSidebar">
-            <h1 class="app-name">Υπολογιστές</h1>
+            <h1 class="app-name">{{filters[filters.activeIndex].category}}</h1>
             <div class="scrollable">
                 <div class="scrollable-content">
                     <div class="list-group" toggle="off" bubble target="mainSidebar">

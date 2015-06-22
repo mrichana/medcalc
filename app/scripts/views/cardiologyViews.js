@@ -77,7 +77,7 @@
                 {
                 id: 'CHADScore',
                 name: 'CHAD Score',
-                category: 'cardiology',
+                category: 'cardiology af',
                 template: 'calculator.basic',
                 defaultValues: {
                     'HistoryOf_CHF': false,
@@ -645,7 +645,7 @@
                 {
                 id: 'HASBLED',
                 name: 'HAS-BLED Score',
-                category: 'cardiology',
+                category: 'cardiology af',
                 template: 'calculator.basic',
                 defaultValues: {
                     BloodPressure_Systolic: 120,
@@ -977,7 +977,7 @@
                 {
                 id: 'HeartRate',
                 name: 'Καρδιακή Συχνότητα',
-                category: 'ecg',
+                category: 'ecg af',
                 template: 'calculator.basic',
                 defaultValues: {
                     HRQRS2QRSmm: 21,

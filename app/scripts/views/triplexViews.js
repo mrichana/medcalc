@@ -12,7 +12,7 @@
             return views.add([{
                 id: 'Triplex_LeftAtrium_Volume',
                 name: 'Left Atrial Volume',
-                category: 'triplex atrium volume',
+                category: 'triplex atrium volume af',
                 template: 'calculator.basic',
                 defaultValues: {
                     Triplex_LeftAtrium_Area4Ch: 15,
@@ -67,7 +67,7 @@
             }, {
                 id: 'Triplex_LeftAtrium_Volume_Index',
                 name: 'Left Atrial Volume Index',
-                category: 'triplex atrium volume index',
+                category: 'triplex atrium volume index af',
                 template: 'calculator.basic',
                 defaultValues: {
                     Triplex_LeftAtrium_Area4Ch: 15,
