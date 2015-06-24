@@ -38,105 +38,89 @@
                 $locationProvider.html5Mode(false);
             }
         ])
-        .controller('generalCtrl', ['$rootScope', '$scope', '$route', '$location', '$modal',
-            function($rootScope, $scope, $route, $location, $modal) {
-                $scope.online = false;
-                $rootScope.onlineUser = false;
-                $scope.filters = [{
-                //    name: 'Αρχείο Ασθενών',
-                //    content: '/Patients',
-                //    category: 'Αρχείο'
-                //}, {
-                    name: 'Κλινική Ιατρική',
-                    content: '/Calculators/Generic',
-                    category: 'Υπολογιστές'
-                }, {
-                    name: 'Πνευμονολογία',
-                    content: '/Calculators/Pulmonology',
-                    category: 'Υπολογιστές'
-                }, {
-                    name: 'Καρδιολογία',
-                    content: '/Calculators/Cardiology',
-                    category: 'Υπολογιστές'
-                }, {
-                    name: 'ΗΚΓ',
-                    content: '/Calculators/Ecg',
-                    category: 'Υπολογιστές'
-                }, {
-                    name: 'Triplex',
-                    content: '/Calculators/Triplex',
-                    category: 'Υπολογιστές'
-                }];
-
-                $scope.$on('$routeChangeSuccess', function() {
-                    $scope.location = $location.path();
-                });
-
-                var onlineModal = $modal({
-                    scope: $scope,
-                    animation: 'am-flip-x',
-                    placement: 'center',
-                    container: 'body',
-                    title: 'OnLine',
-                    contentTemplate: 'partials/modalOnlineId.html',
-                    show: false
-                });
-
-                $scope.$watch('online', function() {
-                    if ($scope.online) {
-                        if (!$rootScope.onlineUser) {
-                            $scope.online = false;
-                            onlineModal.$promise.then(onlineModal.show);
-                        };
-                    } else {
-                        $rootScope.onlineUser = false;
-                    };
-                });
-                $scope.$watch('location', function() {
-                    $location.path($scope.location);
-                });
-            }
-        ])
-        .controller('onlineCtrl', ['$rootScope', '$scope', '$modal',
-            function($rootScope, $scope, $modal) {
-                $scope.setOnline = function() {
-                    $scope.$parent.$hide();
-                    $scope.$parent.$parent.online = true;
-                    $rootScope.onlineUser = $scope.onlineUser;
-                }
-            }
-        ])
-        .controller('calculatorCtrl', ['$scope', '$route', '$routeParams', 'views', 'internalMedicineViews', 'pulmonologyViews','cardiologyViews', 'triplexViews',
-            function($scope, $route, $routeParams,
+        .controller('calculatorCtrl', ['$scope', '$location', 'views', 'internalMedicineViews', 'pulmonologyViews','cardiologyViews', 'triplexViews',
+            function($scope, $location,
                 views, internalMedicineViews, pulmonologyViews, cardiologyViews, triplexViews) {
-                $scope.filters = {
-                    Generic: {
+                $scope.filters = [
+                    {   id: 'All',
+                        name: 'Όλοι',
+                        address: '/Calculators/All',
+                        category: 'Υπολογιστές',
+                        content: views.allList()
+                    }, {
+                        id: 'Generic',
                         name: 'Κλινική Ιατρική',
+                        address: '/Calculators/Generic',
+                        category: 'Υπολογιστές',
                         content: views.categories().generic
-                    },
-                    Pulmonology: {
+                    }, {
+                        id: 'Pulmonology',
                         name: 'Πνευμονολογία',
+                        address: '/Calculators/Pulmonology',
+                        category: 'Υπολογιστές',
                         content: views.categories().pulmonology
-                    },
-                    Cardiology: {
+                    }, {
+                        id: 'Cardiology',
                         name: 'Καρδιολογία',
+                        address: '/Calculators/Cardiology',
+                        category: 'Υπολογιστές',
                         content: views.categories().cardiology
-                    },
-                    Ecg: {
+                    }, {
+                        id: 'Ecg',
                         name: 'Ηλεκτροκαρδιογράφημα',
+                        address: '/Calculators/Ecg',
+                        category: 'Υπολογιστές',
                         content: views.categories().ecg
-                    },
-                    Triplex: {
+                    }, {
+                        id: 'Triplex',
                         name: 'Triplex',
+                        address: '/Calculators/Triplex',
+                        category: 'Υπολογιστές',
                         content: views.categories().triplex
+                    }, {
+                        id: 'nstemi',
+                        name: 'NSTEMI',
+                        address: '/Calculators/nstemi',
+                        category: 'Κλινική',
+                        content: views.categories().nstemi
+                    }, {
+                        id: 'af',
+                        name: 'Κολπική Μαρμαρυγή',
+                        address: '/Calculators/af',
+                        category: 'Κλινική',
+                        content: views.categories().af
+                    }, {
+                        id: 'hf',
+                        name: 'Καρδιακή Ανεπάρκεια',
+                        address: '/Calculators/hf',
+                        category: 'Κλινική',
+                        content: views.categories().hf
+                    }
+                ];
+
+                $scope.setRelative = function (movement) {
+                    var selection = _.findIndex($scope.filters, function(filter){return filter.address === $scope.location});
+                    selection += movement;
+                    if (selection >= 0 && selection < $scope.filters.length){
+                        $location.path($scope.filters[selection].address);
                     }
                 };
 
-                $scope.filters.setAbsolute = function(filterName) {
-                    $scope.views = $scope.filters[filterName].content;
+                $scope.swipeLeft = function() {
+                    $scope.setRelative(1);
+                };
+                $scope.swipeRight = function() {
+                    $scope.setRelative(-1);
+                };
 
+                $scope.$watch('location', function() {
+                    $location.path($scope.location);
+                });
+
+                $scope.filters.setAbsolute = function(filterName) {
+                    $scope.filters.activeIndex = _.findIndex($scope.filters, function(filter){return filter.id === filterName});
+                    $scope.views = $scope.filters[$scope.filters.activeIndex].content;
                     $scope.panelsList = $scope.views;
-                    $scope.filters.active = filterName;
                     $scope.values = {};
                     _.each($scope.panelsList, function(panel) {
                         panel.values = $scope.values;
@@ -145,6 +129,7 @@
 
                 $scope.$on('$routeChangeSuccess', function(event, route) {
                     $scope.filters.setAbsolute(route.params.id);
+                    $scope.location = $location.path();
                 });
 
                 $scope.clearPanel = function(id) {

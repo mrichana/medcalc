@@ -11,8 +11,9 @@
         var top = parent.scrollTop() + item.offset().top - parent.offset().top;
         parent.animate({
             scrollTop: top
-        }, 1800);
+        }, {duration: 1800});
     };
+
 
     /* Directives */
     angular.module('medical.directives', [])
@@ -31,6 +32,35 @@
                         setTimeout(update, 0);
                     }
 
+                };
+            }
+        ])
+        .directive('scrollMonitor', ['$rootScope',
+            function($rootScope) {
+                return {
+                    restrict: 'A',
+                    link: function($scope, elem, attrs) {
+                        var parent = elem;
+                        var scrollHandler = function() {
+                            var elements = $('.scroll-item', parent);
+
+                            var result = {viewSelected: null, viewsVisible: []};
+                            var parentHalf = parent.height() / 2;
+                            _.forEach(elements, function(element, index, list) {
+                                var $element = $(element);
+                                var elementTop = $element.offset().top - parent.offset().top;
+                                var elementBottom = elementTop + $element.height();
+                                if (elementBottom >= 0 && elementTop < parent.height()){
+                                    $rootScope.$broadcast('viewVisible', $element);
+                                    if ((elementTop < parentHalf) && (elementBottom > parentHalf)) {
+                                        $rootScope.$broadcast('viewSelected', $element);
+                                    }
+                                };
+                            });
+                        };
+                        parent.on('scroll', scrollHandler);
+                        setTimeout(scrollHandler, 0);
+                    }
                 };
             }
         ])
@@ -81,23 +111,12 @@
                 return {
                     restrict: 'A',
                     link: function($scope, elem, attrs) {
-                        var parent = $('.scroll-spy-target');
-                        var scrollHandler = function() {
-                            var element = $(attrs.scrollSpy);
-                            var parent = $('.scroll-spy-target');
-                            if (!element.length) {
-                                parent.off('scroll', scrollHandler);
-                                return;
-                            }
-                            var parentHalf = parent.height() / 2;
-                            var elementPos = element.offset().top - parent.offset().top;
-                            if ((elementPos < parentHalf) && (elementPos + element.height() > parentHalf)) {
-                                elem.addClass('active');
-                            } else {
-                                elem.removeClass('active');
-                            }
-                        };
-                        parent.on('scroll', scrollHandler);
+                        $scope.$on('viewSelected', function(event, viewActive){
+                            $('scroll-spy').removeClass('active');
+                            viewActive.addClass('active');
+                            //views.viewsVisible.addClass('active');
+                            elem.toggleClass('active', viewActive.is($(attrs.scrollSpy)));
+                        });
                     }
                 };
             }
@@ -158,7 +177,7 @@
                 scope: {
                     view: '='
                 },
-                template: '<a class="list-group-item" scrollto="#{{view.id}}" scroll-spy="#{{view.id}}" href>{{view.name}} <i class="icon-right pull-right"></i></a>'
+                template: '<a class="list-group-item" scrollto="#{{view.id}}" scroll-spy="#{{view.id}}" href>{{view.name}} <i class="fa fa-chevron-right pull-right"></i></a>'
             };
         })
         .directive('result', function() {
@@ -190,11 +209,12 @@
                 template: '<div ng-class="{\'alert\': resultlevel!=null, \'alert-danger\': resultlevel==3, \'alert-warning\': resultlevel==2, \'alert-info\': resultlevel==1, \'alert-success\': resultlevel==0}"><h4><ul class="list-group"><li class="list-group-item" ng-class="{\'list-group-item-danger\': resultitem.resultlevel==3, \'list-group-item-warning\': resultitem.resultlevel==2, \'list-group-item-info\': resultitem.resultlevel==1, \'list-group-item-success\': resultitem.resultlevel==0}" ng-repeat="resultitem in result track by $index">{{resultitem.name}} <span class="badge">{{resultitem.value}}</span></li></ul></h4></div>'
             };
         })
-        .directive('view', ['$compile', '$http', '$templateCache',
-            function($compile, $http, $templateCache) {
+        .directive('view', ['$compile', '$http', '$templateCache', '$timeout',
+            function($compile, $http, $templateCache, $timeout) {
                 return {
                     restrict: 'E',
                     replace: true,
+                    template: '<div class="text-center"><h3><i class="fa fa-spinner fa-spin"></i></h3></div>',
                     scope: {
                         view: '='
                     },
@@ -225,16 +245,36 @@
                         }
 
                         var templateName = scope.view.template || 'calculator';
-                        var loader = $http.get('partials/views/' + templateName + '.html', {
-                            cache: $templateCache
-                        });
 
-                        loader.success(function(html) {
-                            element.html(html);
-                        }).
-                        then(function() {
-                            element.replaceWith($compile(element.html())(scope));
+                        var loader;
+
+                        $timeout(function(){
+                                loader = $http.get('partials/views/' + templateName + '.html', {
+                                    cache: $templateCache
+                                });
+
+                                loader.success(function(html) {
+                                    element.html(html);
+                                }).
+                                    then(function() {
+                                        element.replaceWith($compile(element.html())(scope));
+                                    });
                         });
+                        //var unregister = scope.$on('viewVisible', function (event, viewVisible){
+                        //    if ( viewVisible.attr('id') == scope.view.id) {
+                        //        unregister();
+                        //        loader = $http.get('partials/views/' + templateName + '.html', {
+                        //            cache: $templateCache
+                        //        });
+                        //
+                        //        loader.success(function(html) {
+                        //            element.html(html);
+                        //        }).
+                        //            then(function() {
+                        //                element.replaceWith($compile(element.html())(scope));
+                        //            });
+                        //    }
+                        //});
                     }
                 };
             }

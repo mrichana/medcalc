@@ -12,12 +12,12 @@
             return views.add([{
                 id: 'Triplex_LeftAtrium_Volume',
                 name: 'Left Atrial Volume',
-                category: 'triplex atrium volume',
+                category: 'triplex atrium volume af',
                 template: 'calculator.basic',
                 defaultValues: {
                     Triplex_LeftAtrium_Area4Ch: 15,
                     Triplex_LeftAtrium_Area2Ch: 15,
-                    Triplex_LeftAtrium_Length: 40,
+                    Triplex_LeftAtrium_Length: 40
                 },
                 fields: [{
                     id: 'Triplex_LeftAtrium_Area4Ch',
@@ -59,7 +59,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/lav.png'
+                    url: 'images/lav.png'
                 }],
                 init: init,
                 reset: reset,
@@ -67,7 +67,7 @@
             }, {
                 id: 'Triplex_LeftAtrium_Volume_Index',
                 name: 'Left Atrial Volume Index',
-                category: 'triplex atrium volume index',
+                category: 'triplex atrium volume index af',
                 template: 'calculator.basic',
                 defaultValues: {
                     Triplex_LeftAtrium_Area4Ch: 15,
@@ -125,7 +125,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/lav.png'
+                    url: 'images/lav.png'
                 }],
                 init: init,
                 reset: reset,
@@ -169,7 +169,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/AVVR.png'
+                    url: 'images/AVVR.png'
                 }],
                 init: init,
                 reset: reset,
@@ -213,7 +213,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/AVVR.png'
+                    url: 'images/AVVR.png'
                 }],
                 init: init,
                 reset: reset,
@@ -267,7 +267,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/AVVR.png'
+                    url: 'images/AVVR.png'
                 }],
                 init: init,
                 reset: reset,
@@ -321,7 +321,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/AVVR.png'
+                    url: 'images/AVVR.png'
                 }],
                 init: init,
                 reset: reset,
@@ -396,7 +396,7 @@
                     input: {
                         type: 'image'
                     },
-                    url: '/images/AVVR.png'
+                    url: 'images/AVVR.png'
                 }],
                 init: init,
                 reset: reset,

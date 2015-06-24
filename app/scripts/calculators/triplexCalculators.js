@@ -11,8 +11,8 @@
      * Description
      */
     angular.module('medical.calculators').
-    factory('triplexCalculators', ['mathParser', 'roundNum', 'evaluator',
-        function(mathParser, roundNum, evaluator) {
+    factory('triplexCalculators', ['roundNum', 'evaluator',
+        function(roundNum, evaluator) {
             return {
                 Triplex_LeftAtrium_Volume: function(values) {
                     this.evaluator = evaluator;

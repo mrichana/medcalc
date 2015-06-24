@@ -12,8 +12,8 @@
      * Description
      */
     angular.module('medical.calculators').
-    factory('pulmonologyCalculators', ['mathParser', 'roundNum', 'evaluator',
-        function(mathParser, roundNum, evaluator) {
+    factory('pulmonologyCalculators', ['roundNum', 'evaluator',
+        function(roundNum, evaluator) {
             return {
                 ArterialBloodGasses: function(values) {
                     var expectedPco2, phHigh, phLow, hco3High, hco3Low;

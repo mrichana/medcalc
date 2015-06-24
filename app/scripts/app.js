@@ -14,8 +14,8 @@
         'ngAnimate',
         'ngSanitize',
         'mobile-angular-ui',
-        'mgcrea.ngStrap'
+        'mgcrea.ngStrap',
         //'ui.tinymce',
-        //'firebase'
+        'firebase'
     ])
 })();
