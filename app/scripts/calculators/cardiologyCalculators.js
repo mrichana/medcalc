@@ -31,17 +31,17 @@
                     ret.formula = 'HistoryOf_CHF + HistoryOf_Hypertension + ChadScore_AgeGroup + HistoryOf_Diabetes + (HistoryOf_Stroke * 2) + HistoryOf_VascularDisease + Sex';
                     ret.result = evaluator(local, ret.formula);
 
+                    var explanations = [0, 1.3, 2.2, 3.2, 4.0, 6.7, 9.8, 9.6, 6.7, 15.2];
+                    ret.explanation = 'Πιθανότητα ισχαιμικού ΑΕΕ:'+ explanations[ret.result] +'% ανά έτος';
                     switch (ret.result) {
                         case 0:
-                            ret.explanation = 'Όχι αγωγή';
                             ret.resultlevel = 0;
                             break;
                         case 1:
-                            ret.explanation = 'Αντιπηκτκή Αγωγή με Warfarin (INR 2.0-3.0) ή NOAC ή Ασπιρίνη';
+                        case 2:
                             ret.resultlevel = 1;
                             break;
                         default:
-                            ret.explanation = 'Αντιπηκτκή Αγωγή με Warfarin (INR 2.0-3.0) ή NOAC';
                             ret.resultlevel = 2;
                     }
                     return ret;
@@ -562,160 +562,36 @@
                         GRACEScore_Killip = 44;
                     }
 
-                    result = GRACEScore_Killip + GRACEScore_BloodPressure + GRACEScore_HeartRate + GRACEScore_Age + GRACEScore_Creatinine + 17 * values.GRACEScore_stemi + 13 * values.GRACEScore_troponine + 30 * values.GRACEScore_arrest;
+                    result = GRACEScore_Killip + GRACEScore_BloodPressure + GRACEScore_HeartRate + GRACEScore_Age + GRACEScore_Creatinine + 17 * values.ACS_stmi + 13 * values.ACS_Troponine + 30 * values.GRACEScore_arrest;
 
-                    if (result >= 6) {
-                        explanation = 0.2;
-                    }
-                    if (result >= 27) {
-                        explanation = 0.4;
-                    }
-                    if (result >= 39) {
-                        explanation = 0.6;
-                    }
-                    if (result >= 48) {
-                        explanation = 0.8;
-                    }
-                    if (result >= 55) {
-                        explanation = 1.0;
-                    }
-                    if (result >= 60) {
-                        explanation = 1.2;
-                    }
-                    if (result >= 65) {
-                        explanation = 1.4;
-                    }
-                    if (result >= 69) {
-                        explanation = 1.6;
-                    }
-                    if (result >= 73) {
-                        explanation = 1.8;
-                    }
-                    if (result >= 76) {
-                        explanation = 2;
-                    }
-                    if (result >= 88) {
-                        explanation = 3;
-                    }
-                    if (result >= 97) {
-                        explanation = 4;
-                    }
-                    if (result >= 104) {
-                        explanation = 5;
-                    }
-                    if (result >= 110) {
-                        explanation = 6;
-                    }
-                    if (result >= 115) {
-                        explanation = 7;
-                    }
-                    if (result >= 119) {
-                        explanation = 8;
-                    }
-                    if (result >= 123) {
-                        explanation = 9;
-                    }
-                    if (result >= 126) {
-                        explanation = 10;
-                    }
-                    if (result >= 129) {
-                        explanation = 11;
-                    }
-                    if (result >= 132) {
-                        explanation = 12;
-                    }
-                    if (result >= 134) {
-                        explanation = 13;
-                    }
-                    if (result >= 137) {
-                        explanation = 14;
-                    }
-                    if (result >= 139) {
-                        explanation = 15;
-                    }
-                    if (result >= 141) {
-                        explanation = 16;
-                    }
-                    if (result >= 143) {
-                        explanation = 17;
-                    }
-                    if (result >= 145) {
-                        explanation = 18;
-                    }
-                    if (result >= 147) {
-                        explanation = 19;
-                    }
-                    if (result >= 149) {
-                        explanation = 20;
-                    }
-                    if (result >= 150) {
-                        explanation = 21;
-                    }
-                    if (result >= 152) {
-                        explanation = 22;
-                    }
-                    if (result >= 153) {
-                        explanation = 23;
-                    }
-                    if (result >= 155) {
-                        explanation = 24;
-                    }
-                    if (result >= 156) {
-                        explanation = 25;
-                    }
-                    if (result >= 158) {
-                        explanation = 26;
-                    }
-                    if (result >= 159) {
-                        explanation = 27;
-                    }
-                    if (result >= 160) {
-                        explanation = 28;
-                    }
-                    if (result >= 162) {
-                        explanation = 29;
-                    }
-                    if (result >= 163) {
-                        explanation = 30;
-                    }
-                    if (result >= 174) {
-                        explanation = 40;
-                    }
-                    if (result >= 183) {
-                        explanation = 50;
-                    }
-                    if (result >= 191) {
-                        explanation = 60;
-                    }
-                    if (result >= 200) {
-                        explanation = 70;
-                    }
-                    if (result >= 208) {
-                        explanation = 80;
-                    }
-                    if (result >= 219) {
-                        explanation = 90;
-                    }
-                    if (result >= 285) {
-                        explanation = 99;
+                    var ret= {};
+                    ret.result = roundNum(result);
+
+                    if (result > 140) {
+                        ret.explanation = 'Θνησιμότητα κατά την νοσηλεία >3%';
+                    } else
+                    if (result > 108) {
+                        ret.explanation = 'Θνησιμότητα κατά την νοσηλεία 1-3%';
+                    } else
+                    {
+                        ret.explanation = 'Θνησιμότητα κατά την νοσηλεία <1%';
                     }
 
-                    var resultlevel;
-                    if (explanation <= 2) {
-                        resultlevel = 0;
-                    } else if (explanation <= 10) {
-                        resultlevel = 1;
-                    } else if (explanation <= 20) {
-                        resultlevel = 2;
-                    } else {
-                        resultlevel = 3;
+
+                    if (result > 118) {
+                        ret.explanation += ', στους 6 μήνες >8%';
+                        ret.resultlevel = 3;
+                    } else
+                    if (result > 88) {
+                        ret.explanation += ', στους 6 μήνες 3-8%';
+                        ret.resultlevel = 2;
+                    } else
+                    {
+                        ret.explanation += ', στους 6 μήνες <3%';
+                        ret.resultlevel = 0;
                     }
 
-                    return {
-                        result: roundNum(result),
-                        explanation: 'Θνησιμότητα εντός εξαμήνου: ' + explanation + '%',
-                        resultlevel: resultlevel
-                    };
+                    return ret;
                 },
                 HASBLED: function(values) {
                     var result;
@@ -776,25 +652,79 @@
                     var resultlevel;
                     switch (result) {
                         case 'I':
-                            explanation = '6%';
+                            explanation = 'Απουσία κλινικών σημείων καρδιακής ανεπάρκειας';
                             resultlevel = 0;
                             break;
                         case 'II':
-                            explanation = '17%';
+                            explanation = 'Υγροί πνευμονικοί ήχοι, Τρίτος τόνος, Αυξημένη Πίεση Σφαγιτιδικών Φλεβών';
                             resultlevel = 1;
                             break;
                         case 'III':
-                            explanation = '38%';
+                            explanation = 'Οξύ Πνευμονικό Οίδημα';
                             resultlevel = 2;
                             break;
                         case 'IV':
-                            explanation = '67%';
+                            explanation = 'Καρδιογενές Σόκ ή Υπόταση (ΑΠ<90mmHg) και σημεία περιφερικού αγγειόσπασμου (Ολιγουρία, Κυάνωση ή Εφύδρωση)';
                             resultlevel = 3;
                             break;
                     }
                     return {
                         result: result,
-                        explanation: 'Ποσοστό Θνησιμότητας σε 30 Ημέρες: ' + explanation,
+                        explanation: explanation,
+                        resultlevel: resultlevel
+                    };
+                },
+                HEARTScore: function(values) {
+                    var result;
+                    var explanation;
+                    var resultlevel;
+
+                    result = 0;
+                    result += values.HEARTScore_History;
+                    result += values.HEARTScore_ECG;
+
+                    result += (values.Age >= 45) ? 1 : 0;
+                    result += (values.Age >= 65) ? 1 : 0;
+
+                    var partialresult = 0;
+                    partialresult += (values.HistoryOf_Diabetes) ? 1 : 0;
+                    partialresult += (values.Smoker) ? 1 : 0;
+                    partialresult += (values.HistoryOf_Hypertension) ? 1 : 0;
+                    partialresult += (values.HistoryOf_Hyperlipidemia) ? 1 : 0;
+                    partialresult += (values.FamilyHistoryOf_CAD) ? 1 : 0;
+                    partialresult += (values.Obesity) ? 1 : 0;
+
+                    result += (partialresult >=1) ? 1 : 0;
+                    result += (partialresult >=3) ? 1 : 0;
+
+                    result += values.HEARTScore_Troponine;
+
+                    switch (result) {
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                            explanation = '0.9-1.7%';
+                            resultlevel = 0;
+                            break;
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 7:
+                            explanation = '12-16.6%';
+                            resultlevel = 1;
+                            break;
+                        case 8:
+                        case 9:
+                        case 10:
+                            explanation = '50-65%';
+                            resultlevel = 2;
+                            break;
+                    };
+
+                    return {
+                        result: result,
+                        explanation: 'Πιθανότητα καρδιαγγειακού συμβαμάτος σε 6 εβδομάδες: ' + explanation,
                         resultlevel: resultlevel
                     };
                 },

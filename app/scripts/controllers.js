@@ -77,13 +77,24 @@
                         address: '/Calculators/Triplex',
                         category: 'Υπολογιστές',
                         content: views.categories().triplex
-                    }
-                    , {
+                    }, {
+                        id: 'nstemi',
+                        name: 'NSTEMI',
+                        address: '/Calculators/nstemi',
+                        category: 'Κλινική',
+                        content: views.categories().nstemi
+                    }, {
                         id: 'af',
                         name: 'Κολπική Μαρμαρυγή',
                         address: '/Calculators/af',
                         category: 'Κλινική',
                         content: views.categories().af
+                    }, {
+                        id: 'hf',
+                        name: 'Καρδιακή Ανεπάρκεια',
+                        address: '/Calculators/hf',
+                        category: 'Κλινική',
+                        content: views.categories().hf
                     }
                 ];
 

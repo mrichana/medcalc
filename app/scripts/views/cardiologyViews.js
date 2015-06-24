@@ -76,7 +76,7 @@
             return views.add([
                 {
                 id: 'CHADScore',
-                name: 'CHAD Score',
+                name: 'CHA2DS2-VASc Score',
                 category: 'cardiology af',
                 template: 'calculator.basic',
                 defaultValues: {
@@ -132,7 +132,7 @@
                 {
                 id: 'CRUSADEScore',
                 name: 'CRUSADE Score',
-                category: 'cardiology',
+                category: 'cardiology nstemi',
                 template: 'calculator.basic',
                 defaultValues: {
                     Hematocrit: 40,
@@ -563,12 +563,12 @@
                 {
                 id: 'GRACEScore',
                 name: 'GRACE Score',
-                category: 'cardiology',
+                category: 'cardiology nstemi',
                 template: 'calculator.basic',
                 defaultValues: {
                     GRACEScore_arrest: false,
-                    GRACEScore_stemi: false,
-                    GRACEScore_troponine: false,
+                    ACS_stmi: false,
+                    ACS_Troponine: false,
                     Age: 60,
                     HeartRate: 70,
                     BloodPressure_Systolic: 120,
@@ -582,13 +582,13 @@
                             type: 'check'
                         }
                     }, {
-                        id: 'GRACEScore_stemi',
+                        id: 'ACS_stmi',
                         name: 'ST Ανάσπαση ή Κατάσπαση',
                         input: {
                             type: 'check'
                         }
                     }, {
-                        id: 'GRACEScore_troponine',
+                        id: 'ACS_Troponine',
                         name: 'Παρουσία Καρδιοενζύμων',
                         input: {
                             type: 'check'
@@ -615,6 +615,7 @@
                     }, {
                         id: 'KillipClass',
                         name: 'Killip Class',
+                        calculator: 'KillipClassEval',
                         input: {
                             type: 'select',
                             options: [{
@@ -724,14 +725,14 @@
                 }
             },
                 {
-                id: 'KillipClassEval',
-                name: 'Killip Class',
-                category: 'cardiology',
-                template: 'calculator.basic',
-                defaultValues: {
-                    KillipClass: 'I'
-                },
-                fields: [{
+                    id: 'KillipClassEval',
+                    name: 'Killip Class',
+                    category: 'cardiology',
+                    template: 'calculator.basic',
+                    defaultValues: {
+                        KillipClass: 'I'
+                    },
+                    fields: [{
                         id: 'KillipClass',
                         name: 'Killip Class',
                         input: {
@@ -743,7 +744,7 @@
                             }, {
                                 value: 'II',
                                 name: 'Class II',
-                                description: 'Υγροί πνευμονικοί ήχοι, Τρίτος τόνος, Αυξημένη Πίεση Σφαγιτιδικής Φλέβας'
+                                description: 'Υγροί πνευμονικοί ήχοι, Τρίτος τόνος, Αυξημένη Πίεση Σφαγιτιδικών Φλεβών'
                             }, {
                                 value: 'III',
                                 name: 'Class III',
@@ -755,16 +756,139 @@
                             }]
                         }
                     },
-                    generalFields.Result
-                ],
-                init: init,
-                reset: reset,
-                update: update
-            },
+                        generalFields.Result
+                    ],
+                    init: init,
+                    reset: reset,
+                    update: update
+                },
+                {
+                    id: 'HEARTScore',
+                    name: 'HEART Score',
+                    category: 'cardiology nstemi',
+                    template: 'calculator.basic',
+                    defaultValues: {
+                        'HEARTScore_History': 0,
+                        'HEARTScore_ECG': 0,
+                        'Age': 65,
+
+                        'HistoryOf_Diabetes': false,
+                        'Smoker': false,
+                        'HistoryOf_Hypertension': false,
+                        'HistoryOf_Hyperlipidemia': false,
+                        'FamilyHistoryOf_CAD': false,
+                        'Obesity': false,
+
+                        'HEARTScore_Troponine': 0
+                    },
+                    fields: [
+                        {
+                            id: 'HEARTScore_History',
+                            name: 'Ιστορικό',
+                            input: {
+                                type: 'select',
+                                options: [
+                                    {
+                                        value: 0,
+                                        name: 'Μη ύποπτο'
+                                    },
+                                    {
+                                        value: 1,
+                                        name: 'Μέτρια ύποπτο'
+                                    },
+                                    {
+                                        value: 2,
+                                        name: 'Έντονα ύποπτο'
+                                    }
+                                ]
+                            }
+                        }, {
+                            id: 'HEARTScore_ECG',
+                            name: 'ΗΚΓ',
+                            input: {
+                                type: 'select',
+                                options: [
+                                    {
+                                        value: 0,
+                                        name: 'Φυσιολογικό'
+                                    },
+                                    {
+                                        value: 1,
+                                        name: 'Μη ειδικές διαταραχές επαναπολώσης'
+                                    },
+                                    {
+                                        value: 2,
+                                        name: 'Σημαντική κατάσπαση ST'
+                                    }
+                                ]
+                            }
+                        }, generalFields.Age, {
+                            id: 'HistoryOf_Diabetes',
+                            name: 'Σακχαρώδης Διαβήτης',
+                            input: {
+                                type: 'check'
+                            }
+                        }, {
+                            id: 'Smoker',
+                            name: 'Καπνιστής',
+                            input: {
+                                type: 'check'
+                            }
+                        }, {
+                            id: 'HistoryOf_Hypertension',
+                            name: 'Αρτηριακή Υπέρταση',
+                            input: {
+                                type: 'check'
+                            }
+                        }, {
+                            id: 'HistoryOf_Hyperlipidemia',
+                            name: 'Υπερλιπιδαιμία',
+                            input: {
+                                type: 'check'
+                            }
+                        }, {
+                            id: 'FamilyHistoryOf_CAD',
+                            name: 'Οικογενειακό ιστορικό (♂ < 55, ♀ < 65)',
+                            input: {
+                                type: 'check'
+                            }
+                        }, {
+                            id: 'Obesity',
+                            name: 'Παχυσαρκία',
+                            input: {
+                                type: 'check'
+                            }
+                        }, {
+                            id: 'HEARTScore_Troponine',
+                            name: 'Τροπονίνη κατά την είσοδο',
+                            input: {
+                                type: 'select',
+                                options: [
+                                    {
+                                        value: 0,
+                                        name: '<= Φυσιολογικού Ορίου'
+                                    },
+                                    {
+                                        value: 1,
+                                        name: '1-3x Φυσιολογικού Ορίου'
+                                    },
+                                    {
+                                        value: 2,
+                                        name: '>3x Φυσιολογικού Ορίου'
+                                    }
+                                ]
+                            }
+                        },
+                        generalFields.Result
+                    ],
+                    init: init,
+                    reset: reset,
+                    update: update
+                },
                 {
                     id: 'NYHAClassEval',
                     name: 'NYHA Class',
-                    category: 'cardiology',
+                    category: 'cardiology hf',
                     template: 'calculator.basic',
                     defaultValues: {
                         NYHAClass: 'I'
@@ -977,7 +1101,7 @@
                 {
                 id: 'HeartRate',
                 name: 'Καρδιακή Συχνότητα',
-                category: 'ecg af',
+                category: 'ecg af hf',
                 template: 'calculator.basic',
                 defaultValues: {
                     HRQRS2QRSmm: 21,
