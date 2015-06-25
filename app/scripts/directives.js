@@ -35,13 +35,13 @@
                 };
             }
         ])
-        .directive('scrollMonitor', ['$rootScope',
-            function($rootScope) {
+        .directive('scrollMonitor', ['$rootScope', '$timeout',
+            function($rootScope, $timeout) {
                 return {
                     restrict: 'A',
                     link: function($scope, elem, attrs) {
                         var parent = elem;
-                        var scrollHandler = function() {
+                        var scrollUpdate = function() {
                             var elements = $('.scroll-item', parent);
 
                             var result = {viewSelected: null, viewsVisible: []};
@@ -58,8 +58,8 @@
                                 };
                             });
                         };
-                        parent.on('scroll', scrollHandler);
-                        setTimeout(scrollHandler, 0);
+                        parent.on('scroll', scrollUpdate);
+                        $timeout(scrollUpdate, 1000); //Hack as I dont know when the view panels will load
                     }
                 };
             }
@@ -143,33 +143,33 @@
                 }
             };
         })
-        .directive('visibleOnFocus', function() {
-            return {
-                restrict: 'A',
-                link: function(scope, element) {
-                    var focusedElement;
-                    element.on('click', function() {
-                        if (focusedElement !== this) {
-                            focusedElement = this;
-                            var siblings = $(this).parent().parent().prevUntil('label');
-                            var target;
-                            if (siblings.length) {
-                                target = $(siblings[siblings.length - 1]).prev('label');
-                            } else if ($(this).parent().parent().prev('label').length) {
-                                target = $(this).parent().parent().prev('label');
-                            } else {
-                                target = this;
-                            }
-
-                            scrollFunction(target);
-                        }
-                    });
-                    element.on('blur', function() {
-                        focusedElement = null;
-                    });
-                }
-            };
-        })
+        //.directive('visibleOnFocus', function() {
+        //    return {
+        //        restrict: 'A',
+        //        link: function(scope, element) {
+        //            var focusedElement;
+        //            element.on('click', function() {
+        //                if (focusedElement !== this) {
+        //                    focusedElement = this;
+        //                    var siblings = $(this).parent().parent().prevUntil('label');
+        //                    var target;
+        //                    if (siblings.length) {
+        //                        target = $(siblings[siblings.length - 1]).prev('label');
+        //                    } else if ($(this).parent().parent().prev('label').length) {
+        //                        target = $(this).parent().parent().prev('label');
+        //                    } else {
+        //                        target = this;
+        //                    }
+        //
+        //                    scrollFunction(target);
+        //                }
+        //            });
+        //            element.on('blur', function() {
+        //                focusedElement = null;
+        //            });
+        //        }
+        //    };
+        //})
         .directive('navView', function() {
             return {
                 restrict: 'E',
