@@ -84,6 +84,12 @@
                         category: 'Κλινική',
                         content: views.categories().nstemi
                     }, {
+                        id: 'stemi',
+                        name: 'STEMI',
+                        address: '/Calculators/stemi',
+                        category: 'Κλινική',
+                        content: views.categories().stemi
+                    }, {
                         id: 'af',
                         name: 'Κολπική Μαρμαρυγή',
                         address: '/Calculators/af',
