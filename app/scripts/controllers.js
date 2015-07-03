@@ -112,12 +112,12 @@
                     }
                 };
 
-                $scope.swipeLeft = function() {
-                    $scope.setRelative(1);
-                };
-                $scope.swipeRight = function() {
-                    $scope.setRelative(-1);
-                };
+                //$scope.swipeLeft = function() {
+                //    $scope.setRelative(1);
+                //};
+                //$scope.swipeRight = function() {
+                //    $scope.setRelative(-1);
+                //};
 
                 $scope.$watch('location', function() {
                     $location.path($scope.location);
