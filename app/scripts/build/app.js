@@ -22,7 +22,7 @@ var app;
         .directive('navView', directives.navView)
         .directive('scrollMonitor', directives.scrollMonitor)
         .directive('affix', directives.affix)
-        .directive('scrollspy', directives.scrollspy)
+        .directive('scrollSpy', directives.scrollSpy)
         .directive('result', directives.result)
         .directive('multiresult', directives.multiresult)
         .directive('view', directives.view)

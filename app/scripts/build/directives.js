@@ -96,11 +96,10 @@ var directives;
                         var $element = $(element);
                         var elementTop = $element.offset().top - parent.offset().top;
                         var elementBottom = elementTop + $element.height();
-                        if (elementBottom >= 0 && elementTop < parent.height()) {
-                            $rootScope.$broadcast('viewVisible', $element);
-                            if ((elementTop < parentHalf) && (elementBottom > parentHalf)) {
-                                $rootScope.$broadcast('viewSelected', $element);
-                            }
+                        if ((elementTop < parentHalf) && (elementBottom > parentHalf)) {
+                            $rootScope.$broadcast('viewSelected', $element);
+                            $('[scroll-spy]').removeClass('active');
+                            $('[scroll-spy="#' + $element.attr('id') + '"]').addClass('active');
                         }
                         ;
                     });
@@ -113,6 +112,20 @@ var directives;
     directives.scrollMonitor = scrollMonitor;
     ;
     scrollMonitor.$inject = ['$rootScope', '$timeout'];
+    ;
+    function scrollSpy() {
+        return {
+            restrict: 'A',
+            link: function ($scope, element, attributes) {
+                $scope.$on('viewSelected', function (event, viewActive) {
+                    $('scroll-spy').removeClass('active');
+                    element.toggleClass('active', viewActive.is($(attributes.scrollSpy)));
+                });
+            }
+        };
+    }
+    directives.scrollSpy = scrollSpy;
+    ;
     ;
     function affix($window) {
         return {
@@ -143,21 +156,6 @@ var directives;
     directives.affix = affix;
     ;
     affix.$inject = ['$window'];
-    ;
-    function scrollspy() {
-        return {
-            restrict: 'A',
-            link: function ($scope, element, attributes) {
-                $scope.$on('viewSelected', function (event, viewActive) {
-                    $('scroll-spy').removeClass('active');
-                    viewActive.addClass('active');
-                    element.toggleClass('active', viewActive.is($(attributes.scrollSpy)));
-                });
-            }
-        };
-    }
-    directives.scrollspy = scrollspy;
-    ;
     ;
     function result() {
         return {
@@ -340,5 +338,6 @@ var directives;
     }
     directives.verifiedClick = verifiedClick;
     ;
+    verifiedClick.$inject = ['$timeout', '$animate'];
 })(directives || (directives = {}));
 //# sourceMappingURL=directives.js.map

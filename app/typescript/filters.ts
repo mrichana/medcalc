@@ -7,12 +7,12 @@ module filters {
     firstname: string;
   };
 
-  export function to_trusted($sce) {
-    this.$inject = ["$sce"];
-    return function(text: string) {
+  export function to_trusted($sce: ng.ISCEService): ng.IFilterService {
+    return function(text: string): any {
       return $sce.trustAsHtml(angular.isDefined(text) ? '' + text : '');
     };
   };
+  to_trusted.$inject=['$sce'];
 
   /*angular.module('medical.filters', []).
   filter('filterPatients', ['patientTemplateTest',

@@ -98,11 +98,10 @@ module directives {
             var $element = $(element);
             var elementTop = $element.offset().top - parent.offset().top;
             var elementBottom = elementTop + $element.height();
-            if (elementBottom >= 0 && elementTop < parent.height()) {
-              $rootScope.$broadcast('viewVisible', $element);
-              if ((elementTop < parentHalf) && (elementBottom > parentHalf)) {
-                $rootScope.$broadcast('viewSelected', $element);
-              }
+            if ((elementTop < parentHalf) && (elementBottom > parentHalf)) {
+              $rootScope.$broadcast('viewSelected', $element);
+              $('[scroll-spy]').removeClass('active');
+              $('[scroll-spy="#'+$element.attr('id')+'"]').addClass('active');
             };
           });
         };
@@ -112,6 +111,21 @@ module directives {
     };
   };
   scrollMonitor.$inject = ['$rootScope', '$timeout'];
+
+  interface IScrollSpyAttributes extends ng.IAttributes {
+    scrollSpy: string;
+  };
+  export function scrollSpy(): ng.IDirective {
+    return {
+      restrict: 'A',
+      link: ($scope: ng.IScope, element: ng.IAugmentedJQuery, attributes: IScrollSpyAttributes) => {
+        $scope.$on('viewSelected', function(event, viewActive) {
+          $('scroll-spy').removeClass('active');
+          element.toggleClass('active', viewActive.is($(attributes.scrollSpy)));
+        });
+      }
+    };
+  };
 
   interface IAffixAttributes extends ng.IAttributes {
     affix: string;
@@ -144,22 +158,6 @@ module directives {
     };
   };
   affix.$inject = ['$window'];
-
-  interface IScrollSpyAttributes extends ng.IAttributes {
-    scrollSpy: string;
-  };
-  export function scrollspy(): ng.IDirective {
-    return {
-      restrict: 'A',
-      link: ($scope: ng.IScope, element: ng.IAugmentedJQuery, attributes: IScrollSpyAttributes) => {
-        $scope.$on('viewSelected', function(event, viewActive) {
-          $('scroll-spy').removeClass('active');
-          viewActive.addClass('active');
-          element.toggleClass('active', viewActive.is($(attributes.scrollSpy)));
-        });
-      }
-    };
-  };
 
   interface IResultAttributes extends ng.IAttributes {
   };

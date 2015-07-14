@@ -12,13 +12,13 @@ module.exports = function (grunt) {
     // Load grunt tasks automatically
     require('load-grunt-tasks')(grunt);
     grunt.loadNpmTasks('grunt-appcache');
+    grunt.loadNpmTasks('grunt-ts');
 
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
 
     // Define the configuration for all the tasks
     grunt.initConfig({
-
         // Project settings
         yeoman: {
             // configurable paths
@@ -26,7 +26,14 @@ module.exports = function (grunt) {
             dist: 'dist'
         },
 
-        // Watches files for changes and runs tasks based on the changed files
+        ts: {
+            default: {
+                src: ["<%= yeoman.app %>/typescript/**/*.ts"],
+                watch: "<%= yeoman.app %>/typescript/"  //will re-run this task if any .ts or .html file is changed.
+            }
+        },
+
+       // Watches files for changes and runs tasks based on the changed files
         watch: {
             js: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
