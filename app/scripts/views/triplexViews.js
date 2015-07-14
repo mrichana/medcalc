@@ -516,7 +516,7 @@
                 }, {
                     id: 'result',
                     input: {
-                        type: 'multiresult'
+                        type: 'multiResult'
                     }
                 }],
                 init: init,

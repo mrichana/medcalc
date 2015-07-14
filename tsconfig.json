@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "watch": true,
+        "sourceMap": true,
+        "outDir": "./app/scripts"
+    },
+    "filesGlob": [
+        "./**/*.ts",
+        "!./node_modules/**/*.ts"
+    ],
+    "files": [
+        "./app/typescript/app.ts",
+        "./app/typescript/controllers.ts",
+        "./app/typescript/directives.ts",
+        "./app/typescript/filters.ts",
+        "./app/typescript/services.ts",
+        "./app/typings/angularjs/angular-animate.d.ts",
+        "./app/typings/angularjs/angular-route.d.ts",
+        "./app/typings/angularjs/angular-sanitize.d.ts",
+        "./app/typings/angularjs/angular.d.ts",
+        "./app/typings/jquery/jquery.d.ts",
+        "./app/typings/underscore/underscore.d.ts"
+    ]
+}
