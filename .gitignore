@@ -12,3 +12,5 @@ Thumbs.db
 .tmp
 *.sublime-project
 /*.sublime-workspace
+
+app/scripts/controllers.js
