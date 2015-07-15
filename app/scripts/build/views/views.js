@@ -9,6 +9,10 @@ var CalculatorViews;
             viewsCollection._all = _.indexBy(viewsCollection._allList, 'id');
             _.each(viewsCollection._allList, function (view) {
                 _.each(view.fields, function (field) {
+                    if (field.calculator && viewsCollection._all[field.calculator]) {
+                        field.calculatorView = angular.copy(viewsCollection._all[field.calculator]);
+                        field.calculatorView.parent = view;
+                    }
                 });
             });
             viewsCollection._categories = _.reduce(viewsCollection._allList, function (memo, view) {
@@ -91,6 +95,7 @@ var CalculatorViews;
     CalculatorViews.sexField = new GeneralField('Sex', 'Φύλο', { type: 'select', options: [{ value: 0, name: '♂ Άρρεν' }, { value: 1, name: '♀ Θήλυ' }] });
     CalculatorViews.heightField = new GeneralField('Height', 'Ύψος (cm)', { type: 'number', step: 1, min: 0, max: 250 });
     CalculatorViews.weightField = new GeneralField('Weight', 'Βάρος (kgr)', { type: 'number', step: 1, min: 0, max: 250 });
+    CalculatorViews.bloodPressure_SystolicField = new GeneralField('BloodPressure_Systolic', 'Συστολική Αρτηριακή Πίεση', { type: 'number', step: 5, min: 50, max: 280 });
     CalculatorViews.resultField = new GeneralField('result', '', { type: 'result' });
 })(CalculatorViews || (CalculatorViews = {}));
 //# sourceMappingURL=views.js.map
