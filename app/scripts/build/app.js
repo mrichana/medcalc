@@ -3,7 +3,6 @@ var app;
     'use strict';
     angular.module('medicalCalculator', [
         'medical.services',
-        'medical.views',
         'ngRoute',
         'ngTouch',
         'ngAnimate',
@@ -14,8 +13,6 @@ var app;
     ])
         .filter('to_trusted', filters.to_trusted)
         .controller('calculatorCtrl', controllers.calculatorCtrl)
-        .controller('patientCtrl', controllers.patientCtrl)
-        .controller('patientsCtrl', controllers.patientsCtrl)
         .directive('autosize', directives.autosize)
         .directive('scrollto', directives.scrollto)
         .directive('selectOnFocus', directives.selectOnFocus)

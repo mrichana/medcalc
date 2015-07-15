@@ -4,7 +4,6 @@ module app {
   // Declare app level module which depends on filters, and services
   angular.module('medicalCalculator', [
       'medical.services',
-      'medical.views',
       'ngRoute',
       'ngTouch',
       'ngAnimate',
@@ -18,8 +17,8 @@ module app {
   .filter('to_trusted', filters.to_trusted)
 
   .controller('calculatorCtrl', controllers.calculatorCtrl)
-  .controller('patientCtrl', controllers.patientCtrl)
-  .controller('patientsCtrl', controllers.patientsCtrl)
+//  .controller('patientCtrl', controllers.patientCtrl)
+//  .controller('patientsCtrl', controllers.patientsCtrl)
 
   .directive('autosize', directives.autosize)
   .directive('scrollto', directives.scrollto)
