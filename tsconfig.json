@@ -8,7 +8,7 @@
         "noLib": false,
         "watch": true,
         "sourceMap": true,
-        "outDir": "./app/scripts/build/"
+        "outDir": "./app/scripts/"
     },
     "filesGlob": [
         "./**/*.ts",
