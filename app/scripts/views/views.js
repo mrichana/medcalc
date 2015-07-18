@@ -44,6 +44,8 @@ var CalculatorViews;
     CalculatorViews.viewsCollection = viewsCollection;
     var Result = (function () {
         function Result() {
+            this.prefix = '';
+            this.suffix = '';
         }
         return Result;
     })();

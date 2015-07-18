@@ -21,7 +21,6 @@ var app;
         .directive('affix', directives.affix)
         .directive('scrollSpy', directives.scrollSpy)
         .directive('result', directives.result)
-        .directive('multiresult', directives.multiresult)
         .directive('view', directives.view)
         .directive('flipswitch', directives.flipswitch)
         .directive('customInput', directives.customInput)

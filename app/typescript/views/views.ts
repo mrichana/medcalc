@@ -63,6 +63,9 @@ module CalculatorViews {
     explanation: string;
     resultlevel: number;
 
+    prefix: string = '';
+    suffix: string = '';
+
     formula: string;
   }
 

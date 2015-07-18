@@ -164,31 +164,11 @@ var directives;
             scope: {
                 result: '='
             },
-            template: '<div ng-class="{\'alert\': result.resultlevel!=null, \'alert-danger\': result.resultlevel==3, \'alert-warning\': result.resultlevel==2, \'alert-info\': result.resultlevel==1, \'alert-success\': result.resultlevel==0}"><h3 ng-bind-html="result.result + result.suffix | to_trusted"></h3><h4 ng-bind-html="result.explanation | to_trusted"></h4></div>'
+            template: '<div ng-class="{\'alert\': result.resultlevel!=null, \'alert-danger\': result.resultlevel==3, \'alert-warning\': result.resultlevel==2, \'alert-info\': result.resultlevel==1, \'alert-success\': result.resultlevel==0}"><h3 ng-bind-html="result.prefix + result.result + result.suffix | to_trusted"></h3><h4 ng-bind-html="result.explanation | to_trusted"></h4></div>'
         };
     }
     directives.result = result;
     ;
-    ;
-    ;
-    function multiresult() {
-        return {
-            restrict: 'E',
-            replace: true,
-            scope: {
-                result: '='
-            },
-            link: function ($scope, element, attributes) {
-                $scope.$watchCollection('result', function (newValue, oldValue, scope) {
-                    scope.resultlevel = Math.round(_.reduce(scope.result, function (memo, item) {
-                        return memo + item.resultlevel;
-                    }, 0) / scope.result.length);
-                });
-            },
-            template: '<div ng-class="{\'alert\': resultlevel!=null, \'alert-danger\': resultlevel==3, \'alert-warning\': resultlevel==2, \'alert-info\': resultlevel==1, \'alert-success\': resultlevel==0}"><h4><ul class="list-group"><li class="list-group-item" ng-class="{\'list-group-item-danger\': resultitem.resultlevel==3, \'list-group-item-warning\': resultitem.resultlevel==2, \'list-group-item-info\': resultitem.resultlevel==1, \'list-group-item-success\': resultitem.resultlevel==0}" ng-repeat="resultitem in result track by $index">{{resultitem.name}} <span class="badge">{{resultitem.value}}</span></li></ul></h4></div>'
-        };
-    }
-    directives.multiresult = multiresult;
     ;
     ;
     function view($compile, $http, $templateCache, $timeout) {
@@ -282,7 +262,6 @@ var directives;
             radio: '<div class="btn-group" data-toggle="buttons-checkbox"><button type="button" class="btn span2" ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
             vradio: '<div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox"><button type="button" class="btn span4" ng-model="values[field.id]" ng-disabled="{{field.input.disabled}}" ng-class="{disabled: field.input.disabled}" ng-repeat="option in field.input.options" btn-radio="{{option.value}}">{{option.name}}</button></div><span class="help-block">{{fieldFromAnyValue(field.value, "value", field.input.options).description}}</span>',
             result: '<result result="result"></result>',
-            multiresult: '<multiResult result="result"></multiResult>',
             'static': '<div class="form-control-static" name="{{field.id}}" ng-bind-html="values[field.id] | to_trusted"></div>',
             staticmultiline: '<textarea class="form-control" ng-disabled="true" ng-class="{disabled: true}" name="{{field.id}}" ng-model="values[field.id]" />',
             date: '<input type="text" class="form-control" ng-model="values[field.id]" name="field.id" bs-datepicker data-date-type="date" data-date-format="dd-MM-yyyy" data-autoclose="true" data-max-date="today" data-icon-left="icon-left" data-icon-right="icon-right" data-use-native="true" data-start-view=2 />',
