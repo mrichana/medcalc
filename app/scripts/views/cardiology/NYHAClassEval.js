@@ -12,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'NYHAClassEval';
             this.name = 'NYHA Class';
-            this.category = 'cardiology';
+            this.category = 'cardiology hf';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 NYHAClass: 'I'
@@ -67,7 +67,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        NYHAClassEval.Ctor = (function () { return CalculatorViews.viewsCollection.add([new NYHAClassEval()]); })();
+        NYHAClassEval.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('NYHAClassEval', 'NYHA Class', 'cardiology hf', NYHAClassEval)); })();
         return NYHAClassEval;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

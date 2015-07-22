@@ -229,7 +229,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        EuroSCOREII.Ctor = (function () { return CalculatorViews.viewsCollection.add([new EuroSCOREII()]); })();
+        EuroSCOREII.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('EuroSCOREII', 'EuroSCORE II', 'cardiology', EuroSCOREII)); })();
         return EuroSCOREII;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

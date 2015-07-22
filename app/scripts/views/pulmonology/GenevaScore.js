@@ -1,8 +1,7 @@
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var CalculatorViews;
 (function (CalculatorViews) {
@@ -13,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'GenevaScore';
             this.name = 'Score της Γενέβης';
-            this.category = 'pulmonology';
+            this.category = 'pulmonology pe';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 'HistoryOf_DVT': false,
@@ -104,7 +103,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        GenevaScore.Ctor = (function () { return CalculatorViews.viewsCollection.add([new GenevaScore()]); })();
+        GenevaScore.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('GenevaScore', 'Score της Γενέβης', 'pulmonology pe', GenevaScore)); })();
         return GenevaScore;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

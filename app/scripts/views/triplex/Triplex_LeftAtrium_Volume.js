@@ -86,7 +86,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        Triplex_LeftAtrium_Volume.Ctor = (function () { return CalculatorViews.viewsCollection.add([new Triplex_LeftAtrium_Volume()]); })();
+        Triplex_LeftAtrium_Volume.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('Triplex_LeftAtrium_Volume', 'Left Atrial Volume', 'triplex', Triplex_LeftAtrium_Volume)); })();
         return Triplex_LeftAtrium_Volume;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

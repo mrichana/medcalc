@@ -1,8 +1,7 @@
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var CalculatorViews;
 (function (CalculatorViews) {
@@ -51,7 +50,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        Calc.Ctor = (function () { return CalculatorViews.viewsCollection.add([new Calc()]); })();
+        Calc.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('Calc', 'Υπολογιστής', 'generic', Calc)); })();
         return Calc;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

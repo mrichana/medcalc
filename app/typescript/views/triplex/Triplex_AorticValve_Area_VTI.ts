@@ -2,10 +2,11 @@ module CalculatorViews {
   'use strict';
 
   class Triplex_AorticValve_Area_VTI extends View {
-    static Ctor = (() => viewsCollection.add([new Triplex_AorticValve_Area_VTI()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_AorticValve_Area_VTI', 'Aortic Valve Area (VTI)', 'triplex AoV Stenosis', Triplex_AorticValve_Area_VTI)))();
+
     id: string = 'Triplex_AorticValve_Area_VTI';
     name: string = 'Aortic Valve Area (VTI)';
-    category: string = 'triplex';
+    category: string = 'triplex AoV Stenosis';
     template: string = 'calculator.basic';
     defaultValues = {
       Triplex_LVOT_Diameter: 20,

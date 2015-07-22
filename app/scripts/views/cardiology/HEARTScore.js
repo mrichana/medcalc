@@ -12,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'HEARTScore';
             this.name = 'HEART Score';
-            this.category = 'cardiology';
+            this.category = 'cardiology nstemi';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 'HEARTScore_History': 0,
@@ -173,7 +173,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        HEARTScore.Ctor = (function () { return CalculatorViews.viewsCollection.add([new HEARTScore()]); })();
+        HEARTScore.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('HEARTScore', 'HEART Score', 'cardiology nstemi', HEARTScore)); })();
         return HEARTScore;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

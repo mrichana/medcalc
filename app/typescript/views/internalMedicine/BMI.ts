@@ -2,7 +2,8 @@ module CalculatorViews {
   'use strict';
 
   class BMI extends View {
-    static Ctor = (() => viewsCollection.add([new BMI()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('BMI', 'Δείκτης Μάζας Σώματος', 'generic', BMI)))();
+    
     id: string = 'BMI';
     name: string = 'Δείκτης Μάζας Σώματος';
     category: string = 'generic';

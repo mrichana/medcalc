@@ -2,10 +2,11 @@ module CalculatorViews {
   'use strict';
 
   class NYHAClassEval extends View {
-    static Ctor = (() => viewsCollection.add([new NYHAClassEval()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('NYHAClassEval', 'NYHA Class', 'cardiology hf', NYHAClassEval)))();
+
     id: string = 'NYHAClassEval';
     name: string = 'NYHA Class';
-    category: string = 'cardiology';
+    category: string = 'cardiology hf';
     template: string = 'calculator.basic';
     defaultValues = {
     NYHAClass: 'I'

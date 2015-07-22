@@ -1,8 +1,7 @@
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var CalculatorViews;
 (function (CalculatorViews) {
@@ -13,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'PESI';
             this.name = 'Δείκτης σοβαρότητας Πνευμονικής Εμβολής (PESI)';
-            this.category = 'pulmonology';
+            this.category = 'pulmonology pe';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 'Age': 65,
@@ -135,7 +134,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        PESI.Ctor = (function () { return CalculatorViews.viewsCollection.add([new PESI()]); })();
+        PESI.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('PESI', 'Δείκτης σοβαρότητας Πνευμονικής Εμβολής (PESI)', 'pulmonology pe', PESI)); })();
         return PESI;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

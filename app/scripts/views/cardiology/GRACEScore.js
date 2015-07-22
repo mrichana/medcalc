@@ -12,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'GRACEScore';
             this.name = 'GRACE Score';
-            this.category = 'cardiology';
+            this.category = 'cardiology stemi nstemi';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 GRACEScore_arrest: false,
@@ -256,7 +256,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        GRACEScore.Ctor = (function () { return CalculatorViews.viewsCollection.add([new GRACEScore()]); })();
+        GRACEScore.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('GRACEScore', 'GRACE Score', 'cardiology stemi nstemi', GRACEScore)); })();
         return GRACEScore;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

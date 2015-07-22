@@ -101,7 +101,7 @@ module directives {
             if ((elementTop < parentHalf) && (elementBottom > parentHalf)) {
               $rootScope.$broadcast('viewSelected', $element);
               $('[scroll-spy]').removeClass('active');
-              $('[scroll-spy="#'+$element.attr('id')+'"]').addClass('active');
+              $('[scroll-spy="#' + $element.attr('id') + '"]').addClass('active');
             };
           });
         };
@@ -177,7 +177,7 @@ module directives {
     result: any;
     description: string;
     prefix: string;
-    suffix:string;
+    suffix: string;
   };
 
   interface IViewAttributes extends ng.IAttributes {
@@ -196,11 +196,13 @@ module directives {
             $scope.view.init();
           }
           _.each($scope.view.fields, function(field) {
-            $scope.$watch('view.values.' + field.id, function(newValue, oldValue, $scope) {
-              if ($scope.view.update) {
-                $scope.view.result = $scope.view.update(newValue, oldValue, $scope, field);
-              }
-            });
+            if (field.id != 'result') {
+              $scope.$watch('view.values.' + field.id, function(newValue, oldValue, $scope) {
+                if ($scope.view.update) {
+                  $scope.view.result = $scope.view.update(newValue, oldValue, $scope, field);
+                }
+              });
+            };
           });
           _.each($scope.view.external, function(field) {
             $scope.$watch('view.values.' + field, function(newValue, oldValue, $scope) {
@@ -209,11 +211,11 @@ module directives {
               }
             });
           });
-          $scope.$watchCollection('view.values.calculatorsActive', function() {
-            _.each($scope.view.fields, function(field) {
-              field.input.disabled = _.contains(_.keys($scope.view.values.calculatorsActive), field.id);
-            });
-          });
+//          $scope.$watchCollection('view.values.calculatorsActive', function() {
+//            _.each($scope.view.fields, function(field) {
+//              field.input.disabled = _.contains(_.keys($scope.view.values.calculatorsActive), field.id);
+//            });
+//          });
         }
 
         var templateName = $scope.view.template || 'calculator';

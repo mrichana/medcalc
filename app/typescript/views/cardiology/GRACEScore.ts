@@ -2,10 +2,11 @@ module CalculatorViews {
   'use strict';
 
   class GRACEScore extends View {
-    static Ctor = (() => viewsCollection.add([new GRACEScore()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('GRACEScore', 'GRACE Score', 'cardiology stemi nstemi', GRACEScore)))();
+
     id: string = 'GRACEScore';
     name: string = 'GRACE Score';
-    category: string = 'cardiology';
+    category: string = 'cardiology stemi nstemi';
     template: string = 'calculator.basic';
     defaultValues = {
       GRACEScore_arrest: false,

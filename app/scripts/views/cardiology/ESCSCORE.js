@@ -12,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'ESCSCORE';
             this.name = 'EuroHeart SCORE';
-            this.category = 'cardiology';
+            this.category = 'cardiology nstemi';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 Age: 65,
@@ -236,7 +236,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        ESCSCORE.Ctor = (function () { return CalculatorViews.viewsCollection.add([new ESCSCORE()]); })();
+        ESCSCORE.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('ESCSCORE', 'EuroHeart SCORE', 'cardiology nstemi', ESCSCORE)); })();
         return ESCSCORE;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

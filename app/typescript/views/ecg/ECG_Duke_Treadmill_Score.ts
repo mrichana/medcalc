@@ -2,10 +2,11 @@ module CalculatorViews {
   'use strict';
 
   class ECG_Duke_Treadmill_Score extends View {
-    static Ctor = (() => viewsCollection.add([new ECG_Duke_Treadmill_Score()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('ECG_Duke_Treadmill_Score', 'Duke Treadmill Score (DTS)', 'ecg nstemi', ECG_Duke_Treadmill_Score)))();
+
     id: string = 'ECG_Duke_Treadmill_Score';
     name: string = 'Duke Treadmill Score (DTS)';
-    category: string = 'ecg';
+    category: string = 'ecg nstemi';
     template: string = 'calculator.basic';
     defaultValues = {
     ECG_Bruce_ExerciseTime: 21,

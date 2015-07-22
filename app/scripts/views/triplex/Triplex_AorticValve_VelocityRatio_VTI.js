@@ -11,8 +11,8 @@ var CalculatorViews;
         function Triplex_AorticValve_VelocityRatio_VTI() {
             _super.apply(this, arguments);
             this.id = 'Triplex_AorticValve_VelocityRatio_VTI';
-            this.name = 'Aortic Valve VTI Ratio';
-            this.category = 'triplex';
+            this.name = 'Aortic Valve Velocity Ratio (VTI)';
+            this.category = 'triplex AoV Stenosis';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 Triplex_LVOT_VTI: 25,
@@ -69,7 +69,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        Triplex_AorticValve_VelocityRatio_VTI.Ctor = (function () { return CalculatorViews.viewsCollection.add([new Triplex_AorticValve_VelocityRatio_VTI()]); })();
+        Triplex_AorticValve_VelocityRatio_VTI.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('Triplex_AorticValve_VelocityRatio_VTI', 'Aortic Valve Velocity Ratio (VTI)', 'triplex AoV Stenosis', Triplex_AorticValve_VelocityRatio_VTI)); })();
         return Triplex_AorticValve_VelocityRatio_VTI;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

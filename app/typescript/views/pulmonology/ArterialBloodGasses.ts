@@ -2,10 +2,11 @@ module CalculatorViews {
   'use strict';
 
   class ArterialBloodGasses extends View {
-    static Ctor = (() => viewsCollection.add([new ArterialBloodGasses()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('ArterialBloodGasses', 'Αέρια Αίματος', 'pulmonology pe', ArterialBloodGasses)))();
+
     id: string = 'ArterialBloodGasses';
     name: string = 'Αέρια Αίματος';
-    category: string = 'pulmonology';
+    category: string = 'pulmonology pe';
     template: string = 'calculator.basic';
     defaultValues = {
       'ArterialBlood_pH': 7.40,

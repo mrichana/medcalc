@@ -2,10 +2,11 @@ module CalculatorViews {
   'use strict';
 
   class PESI extends View {
-    static Ctor = (() => viewsCollection.add([new PESI()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('PESI', 'Δείκτης σοβαρότητας Πνευμονικής Εμβολής (PESI)', 'pulmonology pe', PESI)))();
+
     id: string = 'PESI';
     name: string = 'Δείκτης σοβαρότητας Πνευμονικής Εμβολής (PESI)';
-    category: string = 'pulmonology';
+    category: string = 'pulmonology pe';
     template: string = 'calculator.basic';
     defaultValues = {
       'Age': 65,

@@ -2,7 +2,8 @@ module CalculatorViews {
   'use strict';
 
   class GlasgowComaScale extends View {
-    static Ctor = (() => viewsCollection.add([new GlasgowComaScale()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('GlasgowComaScale', 'Κλίμακα Γλασκόβης', 'generic', GlasgowComaScale)))();
+
     id: string = 'GlasgowComaScale';
     name: string = 'Κλίμακα Γλασκόβης';
     category: string = 'generic';

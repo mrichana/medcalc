@@ -2,10 +2,11 @@ module CalculatorViews {
   'use strict';
 
   class Triplex_LeftAtrium_Volume_Index extends View {
-    static Ctor = (() => viewsCollection.add([new Triplex_LeftAtrium_Volume_Index()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_LeftAtrium_Volume_Index', 'Left Atrial Volume Index', 'triplex', Triplex_LeftAtrium_Volume_Index)))();
+
     id: string = 'Triplex_LeftAtrium_Volume_Index';
     name: string = 'Left Atrial Volume Index';
-    category: string = 'triplex';
+    category: string = 'triplex af';
     template: string = 'calculator.basic';
     defaultValues = {
       Triplex_LeftAtrium_Area4Ch: 15,

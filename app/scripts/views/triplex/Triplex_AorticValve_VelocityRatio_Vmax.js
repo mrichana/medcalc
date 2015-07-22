@@ -11,8 +11,8 @@ var CalculatorViews;
         function Triplex_AorticValve_VelocityRatio_Vmax() {
             _super.apply(this, arguments);
             this.id = 'Triplex_AorticValve_VelocityRatio_Vmax';
-            this.name = 'Aortic Valve Vmax Ratio';
-            this.category = 'triplex';
+            this.name = 'Aortic Valve Velocity Ratio (Vmax)';
+            this.category = 'triplex AoV Stenosis';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 Triplex_LVOT_Vmax: 1,
@@ -68,7 +68,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        Triplex_AorticValve_VelocityRatio_Vmax.Ctor = (function () { return CalculatorViews.viewsCollection.add([new Triplex_AorticValve_VelocityRatio_Vmax()]); })();
+        Triplex_AorticValve_VelocityRatio_Vmax.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('Triplex_AorticValve_VelocityRatio_Vmax', 'Aortic Valve Velocity Ratio (Vmax)', 'triplex AoV Stenosis', Triplex_AorticValve_VelocityRatio_Vmax)); })();
         return Triplex_AorticValve_VelocityRatio_Vmax;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

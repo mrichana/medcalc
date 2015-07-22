@@ -2,7 +2,8 @@ module CalculatorViews {
   'use strict';
 
   class Calc extends View {
-    static Ctor = (() => viewsCollection.add([new Calc()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('Calc', 'Υπολογιστής', 'generic', Calc)))();
+
     id: string = 'Calc';
     name: string = 'Υπολογιστής';
     category: string = 'generic';

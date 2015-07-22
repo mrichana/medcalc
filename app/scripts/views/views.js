@@ -4,25 +4,14 @@ var CalculatorViews;
     var viewsCollection = (function () {
         function viewsCollection() {
         }
-        viewsCollection.add = function (viewList) {
-            viewsCollection._allList = _.union(viewsCollection._allList, viewList);
-            viewsCollection._all = _.indexBy(viewsCollection._allList, 'id');
-            _.each(viewsCollection._allList, function (view) {
-                _.each(view.fields, function (field) {
-                    if (field.calculator && viewsCollection._all[field.calculator]) {
-                        field.calculatorView = angular.copy(viewsCollection._all[field.calculator]);
-                        field.calculatorView.parent = view;
-                    }
-                });
+        viewsCollection.add = function (viewDescription) {
+            viewsCollection._allList.push(viewDescription);
+            viewsCollection._all[viewDescription.id] = viewDescription;
+            var categories = viewDescription.category ? viewDescription.category.split(/\W+/g) : ['generic'];
+            _.each(categories, function (category) {
+                viewsCollection._categories[category] = viewsCollection._categories[category] || {};
+                viewsCollection._categories[category][viewDescription.id] = viewDescription;
             });
-            viewsCollection._categories = _.reduce(viewsCollection._allList, function (memo, view) {
-                var categories = view.category ? view.category.split(/\W+/g) : ['generic'];
-                _.each(categories, function (category) {
-                    memo[category] = memo[category] || {};
-                    memo[category][view.id] = view;
-                });
-                return memo;
-            }, {});
         };
         ;
         viewsCollection.all = function () {
@@ -42,6 +31,27 @@ var CalculatorViews;
         return viewsCollection;
     })();
     CalculatorViews.viewsCollection = viewsCollection;
+    var ViewDescription = (function () {
+        function ViewDescription(id, name, category, type) {
+            this.id = id;
+            this.name = name;
+            this.category = category;
+            this.type = type;
+        }
+        ViewDescription.prototype.factory = function (values) {
+            var ret = new this.type(values);
+            _.each(ret.fields, function (field) {
+                if (field.calculator) {
+                    if (viewsCollection._all[field.calculator]) {
+                        field.calculatorView = viewsCollection._all[field.calculator].factory(values);
+                    }
+                }
+            });
+            return ret;
+        };
+        return ViewDescription;
+    })();
+    CalculatorViews.ViewDescription = ViewDescription;
     var Result = (function () {
         function Result() {
             this.prefix = '';
@@ -51,7 +61,8 @@ var CalculatorViews;
     })();
     CalculatorViews.Result = Result;
     var View = (function () {
-        function View() {
+        function View(values) {
+            this.values = values || {};
         }
         View.prototype.init = function () {
             _.defaults(this.values, this.defaultValues);

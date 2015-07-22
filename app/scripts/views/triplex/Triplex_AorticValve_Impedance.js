@@ -12,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'Triplex_AorticValve_Impedance';
             this.name = 'Aorto-Valvular Impedance (Zva)';
-            this.category = 'triplex';
+            this.category = 'triplex AoV Stenosis';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 Triplex_LVOT_Diameter: 20,
@@ -102,7 +102,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        Triplex_AorticValve_Impedance.Ctor = (function () { return CalculatorViews.viewsCollection.add([new Triplex_AorticValve_Impedance()]); })();
+        Triplex_AorticValve_Impedance.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('Triplex_AorticValve_Impedance', 'Aorto-Valvular Impedance (Zva)', 'triplex AoV Stenosis', Triplex_AorticValve_Impedance)); })();
         return Triplex_AorticValve_Impedance;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

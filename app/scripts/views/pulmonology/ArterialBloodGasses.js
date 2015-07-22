@@ -1,8 +1,7 @@
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var CalculatorViews;
 (function (CalculatorViews) {
@@ -13,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'ArterialBloodGasses';
             this.name = 'Αέρια Αίματος';
-            this.category = 'pulmonology';
+            this.category = 'pulmonology pe';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 'ArterialBlood_pH': 7.40,
@@ -204,7 +203,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        ArterialBloodGasses.Ctor = (function () { return CalculatorViews.viewsCollection.add([new ArterialBloodGasses()]); })();
+        ArterialBloodGasses.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('ArterialBloodGasses', 'Αέρια Αίματος', 'pulmonology pe', ArterialBloodGasses)); })();
         return ArterialBloodGasses;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

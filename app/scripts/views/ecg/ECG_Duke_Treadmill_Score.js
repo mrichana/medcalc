@@ -12,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'ECG_Duke_Treadmill_Score';
             this.name = 'Duke Treadmill Score (DTS)';
-            this.category = 'ecg';
+            this.category = 'ecg nstemi';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 ECG_Bruce_ExerciseTime: 21,
@@ -77,7 +77,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        ECG_Duke_Treadmill_Score.Ctor = (function () { return CalculatorViews.viewsCollection.add([new ECG_Duke_Treadmill_Score()]); })();
+        ECG_Duke_Treadmill_Score.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('ECG_Duke_Treadmill_Score', 'Duke Treadmill Score (DTS)', 'ecg nstemi', ECG_Duke_Treadmill_Score)); })();
         return ECG_Duke_Treadmill_Score;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

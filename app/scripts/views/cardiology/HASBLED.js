@@ -12,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'HASBLED';
             this.name = 'HAS-BLED Score';
-            this.category = 'cardiology';
+            this.category = 'cardiology af';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 BloodPressure_Systolic: 120,
@@ -125,7 +125,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        HASBLED.Ctor = (function () { return CalculatorViews.viewsCollection.add([new HASBLED()]); })();
+        HASBLED.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('HASBLED', 'HAS-BLED Score', 'cardiology af', HASBLED)); })();
         return HASBLED;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

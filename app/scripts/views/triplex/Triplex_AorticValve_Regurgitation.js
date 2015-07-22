@@ -12,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'Triplex_AorticValve_Regurgitation_VC';
             this.name = 'Aortic Valve Regurgitation (Vena Contracta)';
-            this.category = 'triplex';
+            this.category = 'triplex AoV regurgitation';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 Triplex_AorticValve_Regurgitation_VenaContracta_Width: 0.0,
@@ -49,7 +49,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        Triplex_AorticValve_Regurgitation_VC.Ctor = (function () { return CalculatorViews.viewsCollection.add([new Triplex_AorticValve_Regurgitation_VC()]); })();
+        Triplex_AorticValve_Regurgitation_VC.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('Triplex_AorticValve_Regurgitation_VC', 'Aortic Valve Regurgitation (Vena Contracta)', 'triplex AoV regurgitation', Triplex_AorticValve_Regurgitation_VC)); })();
         return Triplex_AorticValve_Regurgitation_VC;
     })(CalculatorViews.View);
     var Triplex_AorticValve_Regurgitation_PHT = (function (_super) {
@@ -58,7 +58,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'Triplex_AorticValve_Regurgitation_PHT';
             this.name = 'Aortic Valve Regurgitation (PHT)';
-            this.category = 'triplex';
+            this.category = 'triplex AoV regurgitation';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 Triplex_AorticValve_Regurgitation_PHT: 550
@@ -94,7 +94,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        Triplex_AorticValve_Regurgitation_PHT.Ctor = (function () { return CalculatorViews.viewsCollection.add([new Triplex_AorticValve_Regurgitation_PHT()]); })();
+        Triplex_AorticValve_Regurgitation_PHT.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('Triplex_AorticValve_Regurgitation_PHT', 'Aortic Valve Regurgitation (PHT)', 'triplex AoV regurgitation', Triplex_AorticValve_Regurgitation_PHT)); })();
         return Triplex_AorticValve_Regurgitation_PHT;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

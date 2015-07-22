@@ -2,7 +2,8 @@ module CalculatorViews {
   'use strict';
 
   class EuroSCOREII extends View {
-    static Ctor = (() => viewsCollection.add([new EuroSCOREII()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('EuroSCOREII', 'EuroSCORE II', 'cardiology', EuroSCOREII)))();
+
     id: string = 'EuroSCOREII';
     name: string = 'EuroSCORE II';
     category: string = 'cardiology';

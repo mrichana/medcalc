@@ -2,10 +2,11 @@ module CalculatorViews {
   'use strict';
 
   class HEARTScore extends View {
-    static Ctor = (() => viewsCollection.add([new HEARTScore()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('HEARTScore', 'HEART Score', 'cardiology nstemi', HEARTScore)))();
+
     id: string = 'HEARTScore';
     name: string = 'HEART Score';
-    category: string = 'cardiology';
+    category: string = 'cardiology nstemi';
     template: string = 'calculator.basic';
     defaultValues = {
       'HEARTScore_History': 0,

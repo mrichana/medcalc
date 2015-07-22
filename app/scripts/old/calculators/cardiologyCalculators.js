@@ -15,123 +15,6 @@
     factory('cardiologyCalculators', ['roundNum', 'evaluator',
         function(roundNum, evaluator) {
             return {
-                CHADScore: function(values) {
-                    var ret = {};
-                    var local = _.extend({}, values);
-
-                    if (values.Age > 75) {
-                        local['ChadScore_AgeGroup'] = 2;
-                    } else if (values.Age > 65) {
-                        local['ChadScore_AgeGroup'] = 1;
-                    } else {
-                        local['ChadScore_AgeGroup'] = 0;
-                    }
-
-
-                    ret.formula = 'HistoryOf_CHF + HistoryOf_Hypertension + ChadScore_AgeGroup + HistoryOf_Diabetes + (HistoryOf_Stroke * 2) + HistoryOf_VascularDisease + Sex';
-                    ret.result = evaluator(local, ret.formula);
-
-                    var explanations = [0, 1.3, 2.2, 3.2, 4.0, 6.7, 9.8, 9.6, 6.7, 15.2];
-                    ret.explanation = 'Πιθανότητα ισχαιμικού ΑΕΕ:'+ explanations[ret.result] +'% ανά έτος';
-                    switch (ret.result) {
-                        case 0:
-                            ret.resultlevel = 0;
-                            break;
-                        case 1:
-                        case 2:
-                            ret.resultlevel = 1;
-                            break;
-                        default:
-                            ret.resultlevel = 2;
-                    }
-                    return ret;
-                },
-                CRUSADEScore: function(values) {
-                    var result;
-                    var explanation;
-                    var resultlevel;
-                    var local = _.extend({}, values);
-                    if (values.Hematocrit >= 40) {
-                        local.ht = 0;
-                    } else if (values.Hematocrit >= 37) {
-                        local.ht = 2;
-                    } else if (values.Hematocrit >= 34) {
-                        local.ht = 3;
-                    } else if (values.Hematocrit >= 31) {
-                        local.ht = 7;
-                    } else {
-                        local.ht = 9;
-                    }
-
-                    if (values.GFR > 120) {
-                        local.gfr = 0;
-                    } else if (values.GFR > 90) {
-                        local.gfr = 7;
-                    } else if (values.GFR > 60) {
-                        local.gfr = 17;
-                    } else if (values.GFR > 30) {
-                        local.gfr = 28;
-                    } else {
-                        local.gfr = 35;
-                    }
-
-                    if (values.HeartRate > 120) {
-                        local.hr = 11;
-                    } else if (values.HeartRate > 110) {
-                        local.hr = 10;
-                    } else if (values.HeartRate > 100) {
-                        local.hr = 8;
-                    } else if (values.HeartRate > 90) {
-                        local.hr = 6;
-                    } else if (values.HeartRate > 80) {
-                        local.hr = 3;
-                    } else if (values.HeartRate > 70) {
-                        local.hr = 1;
-                    } else {
-                        local.hr = 0;
-                    }
-
-                    if (values.BloodPressure_Systolic > 200) {
-                        local.sbp = 5;
-                    } else if (values.BloodPressure_Systolic > 180) {
-                        local.sbp = 3;
-                    } else if (values.BloodPressure_Systolic > 120) {
-                        local.sbp = 1;
-                    } else if (values.BloodPressure_Systolic > 100) {
-                        local.sbp = 5;
-                    } else if (values.BloodPressure_Systolic > 90) {
-                        local.sbp = 8;
-                    } else {
-                        local.sbp = 10;
-                    }
-
-                    var probability = [2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.8, 3.9, 4, 4.1, 4.3, 4.4, 4.6, 4.7, 4.9, 5, 5.2, 5.4, 5.6, 5.7, 5.9, 6.1, 6.3, 6.5, 6.7, 6.9, 7.2, 7.4, 7.6, 7.9, 8.1, 8.4, 8.6, 8.9, 9.2, 9.5, 9.8, 10.1, 10.4, 10.7, 11.1, 11.4, 11.7, 12.1, 12.5, 12.8, 13.2, 13.6, 14, 14.4, 14.9, 15.3, 15.7, 16.2, 16.7, 17.1, 17.6, 18.1, 18.6, 19.2, 19.7, 20.2, 20.8, 21.4, 21.9, 22.5, 23.1, 23.7, 24.4, 25, 25.6, 26.3, 27, 27.6, 28.3, 29, 29.7, 30.4, 31.2, 31.9, 32.6, 33.4, 34.2, 34.9, 35.7, 36.5, 37.3, 38.1, 38.9, 39.7, 40.5, 41.3, 42.2, 43, 43.8];
-
-                    result =
-                        local.ht * 1 +
-                        local.gfr * 1 +
-                        local.hr * 1 +
-                        local.sbp * 1 +
-                        local.HistoryOf_VascularDisease * 6 +
-                        local.HistoryOf_Diabetes * 6 +
-                        local.CRUSADEScore_CHFAtPresentation * 7 +
-                        local.Sex * 8;
-
-                    explanation = 'Πιθανότητα σοβαρής αιμορραγίας κατά την νοσηλεία: ' + probability[result] + '%';
-                    if (result >= 40) {
-                        resultlevel = 3;
-                    } else if (result >= 30) {
-                        resultlevel = 2;
-                    } else {
-                        resultlevel = 1;
-                    }
-
-                    return {
-                        result: result,
-                        explanation: explanation,
-                        resultlevel: resultlevel
-                    };
-                },
                 ESCSCORE: function(values) {
                     var result;
                     var explanation;
@@ -328,58 +211,6 @@
                     var explanation;
                     var resultlevel;
 
-                    var calc = [];
-                    calc.push(0.0666354 * (values.Age < 60 ? 1 : values.Age - 58));
-                    calc.push(values.Sex * 0.3304052);
-                    calc.push(values.HistoryOf_PulmonaryDisease * 0.4931341);
-                    calc.push(values.HistoryOf_VascularDisease * 0.6558917);
-                    calc.push(values.HistoryOf_NeurologicalDisease * 0.841626);
-                    calc.push(values.HistoryOf_CardiacSurgery * 1.002625);
-                    calc.push((values.Plasma_Creatinine > 2.25) ? 0.6521653 : 0);
-                    calc.push(values.EuroSCORE_ActiveEndocarditis * 1.101265);
-                    calc.push(values.EuroSCORE_CriticalState * 0.9058132);
-                    calc.push(values.AnginaAtRest * 0.5677075);
-                    var ef;
-                    if (values.LVEF > 50) {
-                        ef = 0;
-                    } else if (values.LVEF > 30) {
-                        ef = 0.4191643;
-                    } else {
-                        ef = 1.094443;
-                    }
-                    calc.push(ef);
-                    calc.push(values.EuroSCORE_MIinTheLast90Days * 0.5460218);
-                    calc.push((values.PASP > 60) ? 0.7676924 : 0);
-                    calc.push(values.EuroSCORE_Emergency * 0.7127953);
-                    calc.push(!values.EuroSCORE_SimpleCABG * 0.5420364);
-                    calc.push(values.EuroSCORE_ThoracicAorta * 1.159787);
-                    calc.push(values.EuroSCORE_SeptalRupture * 1.462009);
-
-                    var sup = _(calc).reduce(function(memo, value) {
-                        return (memo += value);
-                    }, -4.789594);
-
-                    var value = Math.exp(sup);
-                    result = 100 * value / (1 + value);
-
-                    result = Math.round(result * 100) / 100;
-
-                    if (result > 8) {
-                        explanation = 'Υψηλού Κινδύνου';
-                        resultlevel = 3;
-                    } else if (result > 4) {
-                        explanation = 'Μετρίου Κινδύνου';
-                        resultlevel = 2;
-                    } else {
-                        explanation = 'Μικρού Κινδύνου';
-                        resultlevel = 1;
-                    }
-
-                    return {
-                        result: 'Υπολογιζόμενη Θνητότητα Χειρουργείου ' + result + '%',
-                        explanation: explanation,
-                        resultlevel: resultlevel
-                    };
                 },
                 EuroSCOREII: function(values) {
                     var result;
@@ -773,38 +604,10 @@
                 },
                 QTc: function (values) {
                     var ret = {};
-                    ret.formula = 'QT / sqrt(60 / HeartRate)';
-                    ret.result = roundNum(evaluator(values, ret.formula));
-
-                    if (ret.result >= 480) {
-                        ret.explanation = 'Έντονα παρατεταμένο QT';
-                        ret.resultlevel = 3;
-                    } else if (ret.result >= 460) {
-                        ret.explanation = 'Παρατεταμένο QT';
-                        ret.resultlevel = 2;
-                    } else if (ret.result >= 440) {
-                        ret.explanation = 'Μικρή παράταση QT';
-                        ret.resultlevel = 1;
-                    } else if (ret.result <= 330) {
-                        ret.explanation = 'Έντονη βράχυνση QT';
-                        ret.resultlevel = 3;
-                    } else if (ret.result <= 350) {
-                        ret.explanation = 'Βραχύ QT';
-                        ret.resultlevel = 2;
-                    } else if (ret.result <= 370) {
-                        ret.explanation = 'Μικρή βράχυνση QT';
-                        ret.resultlevel = 1;
-                    } else {
-                        ret.explanation = 'Φυσιολογικό QT';
-                        ret.resultlevel = 0;
-                    }
                     return ret;
                 },
                 QT: function(values) {
                     var ret = {};
-                    ret.formula = 'QTmm * (1/paperSpeed) * 1000';
-                    ret.result = evaluator(values, ret.formula);
-                    ret.suffix = 'msec';
                     return ret;
                 },
                 Sokolow: function(values) {

@@ -1,8 +1,7 @@
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var CalculatorViews;
 (function (CalculatorViews) {
@@ -13,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'Triplex_LeftAtrium_Volume_Index';
             this.name = 'Left Atrial Volume Index';
-            this.category = 'triplex';
+            this.category = 'triplex af';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 Triplex_LeftAtrium_Area4Ch: 15,
@@ -98,7 +97,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        Triplex_LeftAtrium_Volume_Index.Ctor = (function () { return CalculatorViews.viewsCollection.add([new Triplex_LeftAtrium_Volume_Index()]); })();
+        Triplex_LeftAtrium_Volume_Index.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('Triplex_LeftAtrium_Volume_Index', 'Left Atrial Volume Index', 'triplex', Triplex_LeftAtrium_Volume_Index)); })();
         return Triplex_LeftAtrium_Volume_Index;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

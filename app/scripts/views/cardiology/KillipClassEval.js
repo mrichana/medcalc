@@ -12,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'KillipClassEval';
             this.name = 'Killip Class';
-            this.category = 'cardiology';
+            this.category = 'cardiology stemi nstemi';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 KillipClass: 'I'
@@ -70,7 +70,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        KillipClassEval.Ctor = (function () { return CalculatorViews.viewsCollection.add([new KillipClassEval()]); })();
+        KillipClassEval.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('KillipClassEval', 'Killip Class', 'cardiology stemi nstemi', KillipClassEval)); })();
         return KillipClassEval;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

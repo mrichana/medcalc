@@ -2,7 +2,8 @@ module CalculatorViews {
   'use strict';
 
   class GFR extends View {
-    static Ctor = (() => viewsCollection.add([new GFR()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('GFR', 'GFR', 'generic', GFR)))();
+
     id: string = 'GFR';
     name: string = 'GFR';
     category: string = 'generic';

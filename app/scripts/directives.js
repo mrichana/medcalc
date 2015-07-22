@@ -185,22 +185,20 @@ var directives;
                         $scope.view.init();
                     }
                     _.each($scope.view.fields, function (field) {
-                        $scope.$watch('view.values.' + field.id, function (newValue, oldValue, $scope) {
-                            if ($scope.view.update) {
-                                $scope.view.result = $scope.view.update(newValue, oldValue, $scope, field);
-                            }
-                        });
+                        if (field.id != 'result') {
+                            $scope.$watch('view.values.' + field.id, function (newValue, oldValue, $scope) {
+                                if ($scope.view.update) {
+                                    $scope.view.result = $scope.view.update(newValue, oldValue, $scope, field);
+                                }
+                            });
+                        }
+                        ;
                     });
                     _.each($scope.view.external, function (field) {
                         $scope.$watch('view.values.' + field, function (newValue, oldValue, $scope) {
                             if ($scope.view.update) {
                                 $scope.view.result = $scope.view.update(newValue, oldValue, $scope, null);
                             }
-                        });
-                    });
-                    $scope.$watchCollection('view.values.calculatorsActive', function () {
-                        _.each($scope.view.fields, function (field) {
-                            field.input.disabled = _.contains(_.keys($scope.view.values.calculatorsActive), field.id);
                         });
                     });
                 }

@@ -2,10 +2,11 @@ module CalculatorViews {
   'use strict';
 
   class GenevaScore extends View {
-    static Ctor = (() => viewsCollection.add([new GenevaScore()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('GenevaScore', 'Score της Γενέβης', 'pulmonology pe', GenevaScore)))();
+
     id: string = 'GenevaScore';
     name: string = 'Score της Γενέβης';
-    category: string = 'pulmonology';
+    category: string = 'pulmonology pe';
     template: string = 'calculator.basic';
     defaultValues = {
       'HistoryOf_DVT': false,

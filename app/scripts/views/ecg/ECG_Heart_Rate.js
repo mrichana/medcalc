@@ -12,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'ECG_Heart_Rate';
             this.name = 'Καρδιακή Συχνότητα';
-            this.category = 'ecg';
+            this.category = 'ecg af';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 ECG_HRQRS2QRSmm: 21,
@@ -61,7 +61,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        ECG_Heart_Rate.Ctor = (function () { return CalculatorViews.viewsCollection.add([new ECG_Heart_Rate()]); })();
+        ECG_Heart_Rate.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('ECG_Heart_Rate', 'Καρδιακή Συχνότητα', 'ecg af', ECG_Heart_Rate)); })();
         return ECG_Heart_Rate;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

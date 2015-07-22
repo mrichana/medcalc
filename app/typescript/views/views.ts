@@ -2,29 +2,19 @@ module CalculatorViews {
   'use strict';
 
   export class viewsCollection {
-    private static _allList: View[] = [];
+    private static _allList: IViewDescription[] = [];
     private static _categories: any = {};
     private static _all: any = {};
 
-    static add(viewList: View[]): void {
-      viewsCollection._allList = _.union(viewsCollection._allList, viewList);
-      viewsCollection._all = _.indexBy(viewsCollection._allList, 'id');
-      _.each(viewsCollection._allList, function(view) {
-        _.each(view.fields, function(field) {
-          if (field.calculator && viewsCollection._all[field.calculator]) {
-            field.calculatorView = angular.copy(viewsCollection._all[field.calculator]);
-            field.calculatorView.parent = view;
-          }
-        });
+    static add(viewDescription: IViewDescription): void {
+      viewsCollection._allList.push(viewDescription);
+      viewsCollection._all[viewDescription.id] = viewDescription;
+
+      var categories = viewDescription.category ? viewDescription.category.split(/\W+/g) : ['generic'];
+      _.each(categories, function(category) {
+        viewsCollection._categories[category] = viewsCollection._categories[category] || {};
+        viewsCollection._categories[category][viewDescription.id] = viewDescription;
       });
-      viewsCollection._categories = _.reduce(viewsCollection._allList, function(memo, view: IView) {
-        var categories = view.category ? view.category.split(/\W+/g) : ['generic'];
-        _.each(categories, function(category) {
-          memo[category] = memo[category] || {};
-          memo[category][view.id] = view;
-        });
-        return memo;
-      }, {});
     };
 
     static all() {
@@ -38,6 +28,39 @@ module CalculatorViews {
     static categories() {
       return viewsCollection._categories;
     }
+  }
+
+  export interface IViewDescription {
+    id: string;
+    name: string;
+    category: string;
+    factory(values?: any): IView;
+  }
+
+  export class ViewDescription implements IViewDescription {
+    constructor(id: string, name: string, category: string, type: typeof View) {
+      this.id = id;
+      this.name = name;
+      this.category = category;
+      this.type = type;
+    }
+    id: string;
+    name: string;
+    category: string;
+    private type: typeof View;
+    factory(values?: any): IView {
+      var ret = new this.type(values);
+      _.each(ret.fields, function(field) {
+        if (field.calculator) {
+          if (viewsCollection._all[field.calculator]) {
+            field.calculatorView = viewsCollection._all[field.calculator].factory(values);
+          }
+        }
+      });
+
+      return ret;
+    }
+
   }
 
   export interface IView {
@@ -79,16 +102,17 @@ module CalculatorViews {
 
     values;
 
-    constructor() {
+    constructor(values?: any) {
+      this.values = values || {};
     }
 
     init() {
+      _.defaults(this.values, this.defaultValues);
       /*if (!this.parent) {
         this.values = this.values || {};
       } else {
         this.values = this.parent.values;
       };*/
-      _.defaults(this.values, this.defaultValues);
     }
 
     reset() {

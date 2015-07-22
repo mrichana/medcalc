@@ -12,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'Triplex_AorticValve_Area_VTI';
             this.name = 'Aortic Valve Area (VTI)';
-            this.category = 'triplex';
+            this.category = 'triplex AoV Stenosis';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 Triplex_LVOT_Diameter: 20,
@@ -77,7 +77,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        Triplex_AorticValve_Area_VTI.Ctor = (function () { return CalculatorViews.viewsCollection.add([new Triplex_AorticValve_Area_VTI()]); })();
+        Triplex_AorticValve_Area_VTI.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('Triplex_AorticValve_Area_VTI', 'Aortic Valve Area (VTI)', 'triplex AoV Stenosis', Triplex_AorticValve_Area_VTI)); })();
         return Triplex_AorticValve_Area_VTI;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

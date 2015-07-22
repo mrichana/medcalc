@@ -2,10 +2,11 @@ module CalculatorViews {
   'use strict';
 
   class CHADScore extends View {
-    static Ctor = (() => viewsCollection.add([new CHADScore()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('CHADScore', 'CHA2DS2-VASc Score', 'cardiology af', CHADScore)))();
+
     id: string = 'CHADScore';
     name: string = 'CHA2DS2-VASc Score';
-    category: string = 'cardiology';
+    category: string = 'cardiology af';
     template: string = 'calculator.basic';
     defaultValues = {
       'HistoryOf_CHF': false,

@@ -12,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'CRUSADEScore';
             this.name = 'CRUSADE Score';
-            this.category = 'cardiology';
+            this.category = 'cardiology stemi nstemi';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 Hematocrit: 40,
@@ -167,7 +167,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        CRUSADEScore.Ctor = (function () { return CalculatorViews.viewsCollection.add([new CRUSADEScore()]); })();
+        CRUSADEScore.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('CRUSADEScore', 'CRUSADE Score', 'cardiology stemi nstemi', CRUSADEScore)); })();
         return CRUSADEScore;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

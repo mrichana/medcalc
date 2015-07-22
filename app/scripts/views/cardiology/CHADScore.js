@@ -12,7 +12,7 @@ var CalculatorViews;
             _super.apply(this, arguments);
             this.id = 'CHADScore';
             this.name = 'CHA2DS2-VASc Score';
-            this.category = 'cardiology';
+            this.category = 'cardiology af';
             this.template = 'calculator.basic';
             this.defaultValues = {
                 'HistoryOf_CHF': false,
@@ -89,7 +89,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        CHADScore.Ctor = (function () { return CalculatorViews.viewsCollection.add([new CHADScore()]); })();
+        CHADScore.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('CHADScore', 'CHA2DS2-VASc Score', 'cardiology af', CHADScore)); })();
         return CHADScore;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

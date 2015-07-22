@@ -2,10 +2,11 @@ module CalculatorViews {
   'use strict';
 
   class HASBLED extends View {
-    static Ctor = (() => viewsCollection.add([new HASBLED()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('HASBLED', 'HAS-BLED Score', 'cardiology af', HASBLED)))();
+
     id: string = 'HASBLED';
     name: string = 'HAS-BLED Score';
-    category: string = 'cardiology';
+    category: string = 'cardiology af';
     template: string = 'calculator.basic';
     defaultValues = {
     BloodPressure_Systolic: 120,

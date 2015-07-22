@@ -2,7 +2,8 @@ module CalculatorViews {
   'use strict';
 
   class Triplex_Stroke_Volume extends View {
-    static Ctor = (() => viewsCollection.add([new Triplex_Stroke_Volume()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_Stroke_Volume', 'Stroke Volume (SV)', 'triplex', Triplex_Stroke_Volume)))();
+
     id: string = 'Triplex_Stroke_Volume';
     name: string = 'Stroke Volume (SV)';
     category: string = 'triplex';

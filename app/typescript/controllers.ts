@@ -17,14 +17,14 @@
   export class calculatorCtrl {
     public static $inject = ['$scope', '$location'];
     constructor(private $scope: ICalculatorScope, private $location: ng.ILocationService) {
-      var views = CalculatorViews.viewsCollection; 
+      var views = CalculatorViews.viewsCollection;
       $scope.filters = [
         {
           id: 'All',
           name: 'Όλοι',
           address: '/Calculators/All',
           category: 'Υπολογιστές',
-          content: views.allList()
+          content: _.reject( views.allList(), function (view: IViewDescription) { return view.category=='hidden'; })
         }, {
           id: 'Generic',
           name: 'Κλινική Ιατρική',
@@ -45,7 +45,7 @@
           content: views.categories().cardiology
         }, {
           id: 'Ecg',
-          name: 'Ηλεκτροκαρδιογράφημα',
+          name: 'ΗΚΓ',
           address: '/Calculators/Ecg',
           category: 'Υπολογιστές',
           content: views.categories().ecg
@@ -96,12 +96,11 @@
 
       $scope.setAbsoluteFilter = function(filterName) {
         $scope.activeFilterIndex = _.findIndex($scope.filters, function(filter) { return filter.id === filterName });
-        $scope.views = $scope.filters[$scope.activeFilterIndex].content;
-        $scope.panelsList = $scope.views;
+
         $scope.values = {};
-        _.each($scope.panelsList, function(panel) {
-          panel.values = $scope.values;
-        });
+        $scope.views = _.map($scope.filters[$scope.activeFilterIndex].content, function(viewDesc) {return viewDesc.factory($scope.values)});
+
+        $scope.panelsList = $scope.views;
       };
 
       $scope.$on('$routeChangeSuccess', function(event, route) {

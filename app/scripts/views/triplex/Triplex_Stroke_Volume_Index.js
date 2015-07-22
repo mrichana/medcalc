@@ -65,7 +65,7 @@ var CalculatorViews;
             return ret;
         };
         ;
-        Triplex_Stroke_Volume_Index.Ctor = (function () { return CalculatorViews.viewsCollection.add([new Triplex_Stroke_Volume_Index()]); })();
+        Triplex_Stroke_Volume_Index.Ctor = (function () { return CalculatorViews.viewsCollection.add(new CalculatorViews.ViewDescription('Triplex_Stroke_Volume_Index', 'Stroke Volume Index (SVi)', 'triplex', Triplex_Stroke_Volume_Index)); })();
         return Triplex_Stroke_Volume_Index;
     })(CalculatorViews.View);
 })(CalculatorViews || (CalculatorViews = {}));

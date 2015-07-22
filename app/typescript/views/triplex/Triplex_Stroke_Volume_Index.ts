@@ -2,7 +2,8 @@ module CalculatorViews {
   'use strict';
 
   class Triplex_Stroke_Volume_Index extends View {
-    static Ctor = (() => viewsCollection.add([new Triplex_Stroke_Volume_Index()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_Stroke_Volume_Index', 'Stroke Volume Index (SVi)', 'triplex', Triplex_Stroke_Volume_Index)))();
+
     id: string = 'Triplex_Stroke_Volume_Index';
     name: string = 'Stroke Volume Index (SVi)';
     category: string = 'triplex';

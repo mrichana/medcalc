@@ -2,10 +2,11 @@ module CalculatorViews {
   'use strict';
 
   class CRUSADEScore extends View {
-    static Ctor = (() => viewsCollection.add([new CRUSADEScore()]))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('CRUSADEScore', 'CRUSADE Score', 'cardiology stemi nstemi', CRUSADEScore)))();
+
     id: string = 'CRUSADEScore';
     name: string = 'CRUSADE Score';
-    category: string = 'cardiology';
+    category: string = 'cardiology stemi nstemi';
     template: string = 'calculator.basic';
     defaultValues = {
       Hematocrit: 40,
