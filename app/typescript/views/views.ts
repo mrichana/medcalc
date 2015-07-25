@@ -30,7 +30,7 @@ module CalculatorViews {
     }
   }
 
-  export interface IViewDescription {
+  export interface IViewDescription{
     id: string;
     name: string;
     category: string;
