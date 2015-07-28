@@ -83,7 +83,7 @@
       ];
 
       $scope.setRelativeFilter = function(movement) {
-        var selection = _.findIndex($scope.filters, function(filter) { return filter.address === $scope.location });
+        var selection = _.findIndex($scope.filters, function(filter) { return filter.address == $scope.location });
         selection += movement;
         if (selection >= 0 && selection < $scope.filters.length) {
           $location.path($scope.filters[selection].address);
@@ -95,7 +95,9 @@
       });
 
       $scope.setAbsoluteFilter = function(filterName) {
-        $scope.activeFilterIndex = _.findIndex($scope.filters, function(filter) { return filter.id === filterName });
+        $scope.activeFilterIndex = _.findIndex($scope.filters, function(filter) {
+          return filter.id === filterName
+        });
 
         $scope.values = {};
         $scope.views = _.map($scope.filters[$scope.activeFilterIndex].content, function(viewDesc) {return viewDesc.factory($scope.values)});

@@ -2,11 +2,6 @@ module filters {
   'use strict';
 
   /* Filters */
-  export interface Patient {
-    lastname: string;
-    firstname: string;
-  };
-
   export function to_trusted($sce: ng.ISCEService): ng.IFilterService {
     return function(text: string): any {
       return $sce.trustAsHtml(angular.isDefined(text) ? '' + text : '');
