@@ -11,7 +11,8 @@ module app {
       'mobile-angular-ui',
       'mgcrea.ngStrap',
       //'ui.tinymce',
-      'firebase'
+      'firebase',
+      'ngMaterial'
   ])
 
   .filter('to_trusted', filters.to_trusted)
@@ -33,8 +34,11 @@ module app {
   .directive('customInput', directives.customInput)
   .directive('verifiedClick', directives.verifiedClick)
 
-  .config(['$routeProvider', '$locationProvider',
-    function($routeProvider, $locationProvider) {
+  .config(['$routeProvider', '$locationProvider', '$mdThemingProvider',
+    function($routeProvider, $locationProvider, $mdThemingProvider) {
+      $mdThemingProvider.theme('default')
+        .primaryPalette('red')
+        .accentPalette('grey');
       $routeProvider
         .when('/Calculators/:id', {
           templateUrl: 'partials/calculators.html',

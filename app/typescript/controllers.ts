@@ -11,12 +11,13 @@
     panelsList: any[];
     values: any;
     clearPanel(id: string): void;
+    toggleSideNav(): void;
   }
 
   /* Controllers */
   export class calculatorCtrl {
-    public static $inject = ['$scope', '$location'];
-    constructor(private $scope: ICalculatorScope, private $location: ng.ILocationService) {
+    public static $inject = ['$scope', '$location', '$mdSidenav'];
+    constructor(private $scope: ICalculatorScope, private $location: ng.ILocationService, private $mdSidenav) {
       var views = CalculatorViews.viewsCollection;
       $scope.filters = [
         {
@@ -116,6 +117,10 @@
         });
         panel.reset();
       };
+
+      $scope.toggleSideNav = function() {
+        $mdSidenav('left').toggle();
+      }
     };
   }
 
