@@ -55,6 +55,7 @@ module CalculatorViews {
       var ret = new Result();
       ret.formula = '(pi * ((Triplex_LVOT_Diameter / 10) / 2) ^ 2) * Triplex_LVOT_VTI / Triplex_AorticValve_VTI';
       ret.result = View.roundNum(View.evaluator(values, ret.formula), 2);
+      ret.suffix = 'cm<sup>2</sup>'
 
       if (ret.result < 1.0) {
         ret.explanation = 'Σοβαρή στένωση αορτικής βαλβίδας';

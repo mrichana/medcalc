@@ -56,6 +56,7 @@ module CalculatorViews {
       var ret = new Result();
       ret.formula = '8 * Triplex_LeftAtrium_Area4Ch * Triplex_LeftAtrium_Area2Ch / ( 3 * pi * ( Triplex_LeftAtrium_Length / 10 ))';
       ret.result = View.roundNum(View.evaluator(values, ret.formula));
+      ret.suffix = 'cm<sup>3</sup>'
 
       if (ret.result >= 73) {
         ret.explanation = 'Μεγάλη διάταση αριστερού κόλπου';
