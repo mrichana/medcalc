@@ -36,7 +36,7 @@ module CalculatorViews {
         input: {
           type: 'image'
         },
-        url: 'images/Bernoulli.png'
+        url: 'images/bernoulli.png'
       }
     ];
     calculator(values) {
