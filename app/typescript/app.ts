@@ -33,8 +33,10 @@ module app {
   .directive('customInput', directives.customInput)
   .directive('verifiedClick', directives.verifiedClick)
 
-  .config(['$routeProvider', '$locationProvider',
-    function($routeProvider, $locationProvider) {
+  .config(['$routeProvider', '$locationProvider', '$compileProvider',
+    function($routeProvider, $locationProvider, $compileProvider) {
+      $compileProvider.imgSrcSanitizationWhitelist('images/');
+
       $routeProvider
         .when('/Calculators/:id', {
           templateUrl: 'partials/calculators.html',
