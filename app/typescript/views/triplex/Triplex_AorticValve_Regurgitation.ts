@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class Triplex_AorticValve_Regurgitation_VC extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_AorticValve_Regurgitation_VC', 'Aortic Valve Regurgitation (Vena Contracta)', 'triplex AoV regurgitation', Triplex_AorticValve_Regurgitation_VC)))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_AorticValve_Regurgitation_VC', 'Aortic Valve Regurgitation (Vena Contracta)', 'Υπερηχοκαρδιογράφημα', 'Υπερηχοκαρδιογράφημα AoV regurgitation', Triplex_AorticValve_Regurgitation_VC)))();
 
     id: string = 'Triplex_AorticValve_Regurgitation_VC';
     name: string = 'Aortic Valve Regurgitation (Vena Contracta)';
-    category: string = 'triplex AoV regurgitation';
+    category: string = 'Υπερηχοκαρδιογράφημα';
+    tags: string = 'Υπερηχοκαρδιογράφημα AoV regurgitation';
     template: string = 'calculator.basic';
     defaultValues = {
       Triplex_AorticValve_Regurgitation_VenaContracta_Width: 0.0,
@@ -44,11 +45,12 @@ module CalculatorViews {
 
 
   class Triplex_AorticValve_Regurgitation_PHT extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_AorticValve_Regurgitation_PHT', 'Aortic Valve Regurgitation (PHT)', 'triplex AoV regurgitation', Triplex_AorticValve_Regurgitation_PHT)))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_AorticValve_Regurgitation_PHT', 'Aortic Valve Regurgitation (PHT)', 'Υπερηχοκαρδιογράφημα', 'Υπερηχοκαρδιογράφημα AoV regurgitation', Triplex_AorticValve_Regurgitation_PHT)))();
 
     id: string = 'Triplex_AorticValve_Regurgitation_PHT';
     name: string = 'Aortic Valve Regurgitation (PHT)';
-    category: string = 'triplex AoV regurgitation';
+    category: string = 'Υπερηχοκαρδιογράφημα';
+    tags: string = 'Υπερηχοκαρδιογράφημα AoV regurgitation';
     template: string = 'calculator.basic';
     defaultValues = {
       Triplex_AorticValve_Regurgitation_PHT: 550

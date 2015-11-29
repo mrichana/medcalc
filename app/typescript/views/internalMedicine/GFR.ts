@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class GFR extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('GFR', 'GFR', 'generic', GFR)))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('GFR', 'GFR', 'Παθολογία', 'Παθολογία', GFR)))();
 
     id: string = 'GFR';
     name: string = 'GFR';
-    category: string = 'generic';
+    category: string = 'Παθολογία';
+    tags: string = 'Παθολογία renal';
     template: string = 'calculator.basic';
     defaultValues = {
       Plasma_Creatinine: 1.0,

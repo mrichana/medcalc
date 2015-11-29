@@ -1,7 +1,7 @@
 <div class="app">
     <div class="navbar navbar-app navbar-absolute-top" role="navigation" ng-controller="generalCtrl">
         <div class="navbar-brand navbar-brand-center">
-            <select ng-model="location" ng-options="value.content as value.name group by value.category for value in filters">
+            <select ng-model="location" ng-options="value.content as value.name group by value.tags for value in filters">
             </select>
         </div>
         <div class="btn-group btn-group-lg pull-left">

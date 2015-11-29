@@ -38,30 +38,30 @@ module app {
       $compileProvider.imgSrcSanitizationWhitelist('images/');
 
       $routeProvider
-        .when('/Calculators/:id', {
+        .when('/Calculators', {
           templateUrl: 'partials/calculators.html',
           controller: 'calculatorCtrl'
         })
-        .when('/Patient/:id', {
-          templateUrl: 'partials/patient.html',
-          controller: 'patientCtrl',
-          resolve: {
-            patient: ['$route', 'patientHybridStorage', function($route, patientStorage) {
-              return patientStorage.patient($route.current.params.id);
-            }]
-          }
-        })
-        .when('/Patients', {
-          templateUrl: 'partials/patients.html',
-            controller: 'patientsCtrl',
-            resolve: {
-              patients: ['patientHybridStorage', function(patientStorage) {
-                return patientStorage.patients();
-              }]
-            }
-          })
+        // .when('/Patient/:id', {
+        //   templateUrl: 'partials/patient.html',
+        //   controller: 'patientCtrl',
+        //   resolve: {
+        //     patient: ['$route', 'patientHybridStorage', function($route, patientStorage) {
+        //       return patientStorage.patient($route.current.params.id);
+        //     }]
+        //   }
+        // })
+        // .when('/Patients', {
+        //   templateUrl: 'partials/patients.html',
+        //     controller: 'patientsCtrl',
+        //     resolve: {
+        //       patients: ['patientHybridStorage', function(patientStorage) {
+        //         return patientStorage.patients();
+        //       }]
+        //     }
+        //   })
           .otherwise({
-            redirectTo: '/Calculators/Generic'
+            redirectTo: '/Calculators'
           });
           // configure html5 to get links working on jsfiddle
           $locationProvider.html5Mode(false);

@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class WellsScore extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('WellsScore', 'Κριτήρια του Wells', 'pulmonology pe', WellsScore)))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('WellsScore', 'Κριτήρια του Wells', 'Πνευμονολογία', 'Πνευμονολογία pe', WellsScore)))();
 
     id: string = 'WellsScore';
     name: string = 'Κριτήρια του Wells';
-    category: string = 'pulmonology pe';
+    category: string = 'Πνευμονολογία';
+    tags: string = 'Πνευμονολογία pe';
     template: string = 'calculator.basic';
     defaultValues = {
     'HistoryOf_DVT': false,

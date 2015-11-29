@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class Triplex_LeftAtrium_Volume_Index extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_LeftAtrium_Volume_Index', 'Left Atrial Volume Index', 'triplex', Triplex_LeftAtrium_Volume_Index)))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_LeftAtrium_Volume_Index', 'Left Atrial Volume Index', 'Υπερηχοκαρδιογράφημα', 'Υπερηχοκαρδιογράφημα', Triplex_LeftAtrium_Volume_Index)))();
 
     id: string = 'Triplex_LeftAtrium_Volume_Index';
     name: string = 'Left Atrial Volume Index';
-    category: string = 'triplex af';
+    category: string = 'Υπερηχοκαρδιογράφημα';
+    tags: string = 'Υπερηχοκαρδιογράφημα af';
     template: string = 'calculator.basic';
     defaultValues = {
       Triplex_LeftAtrium_Area4Ch: 15,

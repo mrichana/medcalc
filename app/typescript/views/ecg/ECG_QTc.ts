@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class ECG_QTc extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('ECG_QTc', 'Διορθωμένο QT', 'ecg', ECG_QTc)))();
+      static Ctor = (() => viewsCollection.add(new ViewDescription('ECG_QTc', 'Διορθωμένο QT', 'ΗΚΓ', 'ΗΚΓ', ECG_QTc)))();
 
     id: string = 'ECG_QTc';
     name: string = 'Διορθωμένο QT';
-    category: string = 'ecg';
+    category: string = 'ΗΚΓ';
+    tags: string = 'ΗΚΓ';
     template: string = 'calculator.basic';
     defaultValues = {
     HeartRate: 70,

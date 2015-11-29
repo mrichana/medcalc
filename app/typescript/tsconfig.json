@@ -6,7 +6,7 @@
         "noImplicitAny": false,
         "removeComments": true,
         "noLib": false,
-        "watch": true,
+        "watch": false,
         "sourceMap": true,
         "outDir": "../scripts/"
     },

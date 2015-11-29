@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class Triplex_AorticValve_VelocityRatio_VTI extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_AorticValve_VelocityRatio_VTI', 'Aortic Valve Velocity Ratio (VTI)', 'triplex AoV Stenosis', Triplex_AorticValve_VelocityRatio_VTI)))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_AorticValve_VelocityRatio_VTI', 'Aortic Valve Velocity Ratio (VTI)', 'Υπερηχοκαρδιογράφημα', 'Υπερηχοκαρδιογράφημα AoV Stenosis', Triplex_AorticValve_VelocityRatio_VTI)))();
 
     id: string = 'Triplex_AorticValve_VelocityRatio_VTI';
     name: string = 'Aortic Valve Velocity Ratio (VTI)';
-    category: string = 'triplex AoV Stenosis';
+    category: string = 'Υπερηχοκαρδιογράφημα';
+    tags: string = 'Υπερηχοκαρδιογράφημα AoV Stenosis';
     template: string = 'calculator.basic';
     defaultValues = {
       Triplex_LVOT_VTI: 25,

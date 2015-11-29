@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class BMI extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('BMI', 'Δείκτης Μάζας Σώματος', 'generic', BMI)))();
-    
+      static Ctor = (() => viewsCollection.add(new ViewDescription('BMI', 'Δείκτης Μάζας Σώματος', 'Παθολογία', 'Παθολογία', BMI)))();
+
     id: string = 'BMI';
     name: string = 'Δείκτης Μάζας Σώματος';
-    category: string = 'generic';
+    category: string = 'Παθολογία';
+    tags: string = 'Παθολογία';
     template: string = 'calculator.basic';
     defaultValues = {
       Height: 170,

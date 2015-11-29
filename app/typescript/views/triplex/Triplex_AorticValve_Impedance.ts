@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class Triplex_AorticValve_Impedance extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_AorticValve_Impedance', 'Aorto-Valvular Impedance (Zva)', 'triplex AoV Stenosis', Triplex_AorticValve_Impedance)))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_AorticValve_Impedance', 'Aorto-Valvular Impedance (Zva)', 'Υπερηχοκαρδιογράφημα', 'Υπερηχοκαρδιογράφημα AoV Stenosis', Triplex_AorticValve_Impedance)))();
 
     id: string = 'Triplex_AorticValve_Impedance';
     name: string = 'Aorto-Valvular Impedance (Zva)';
-    category: string = 'triplex AoV Stenosis';
+    category: string = 'Υπερηχοκαρδιογράφημα';
+    tags: string = 'Υπερηχοκαρδιογράφημα AoV Stenosis';
     template: string = 'calculator.basic';
     defaultValues = {
       Triplex_LVOT_Diameter: 20,

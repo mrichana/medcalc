@@ -15,7 +15,8 @@
         <div scroll-monitor class="content scrollable-content scroll-spy-target">
             <div id="{{view.id}}" class="panel panel-info scroll-item" view='view' ng-repeat="view in panelsList track by view.id">
                 <div class="panel-heading">
-                    <button class="btn btn-default pull-right" ng-show="view.reset" verified-click="clearPanel(view.id)"><i class="fa fa-refresh"></i>
+                    <button class="btn btn-default pull-right" ng-show="view.reset" verified-click="clearPanel(view.id)">
+                        <i class="fa fa-refresh"></i>
                     </button>
                     <h4>{{view.name}}</h4>
                 </div>
@@ -28,10 +29,22 @@
             <div class="scrollable">
                 <div class="scrollable-content">
                     <div class="form-group">
+                        <input type="text" class="form-control" ng-model="filterText" ng-change="onFilterTextChange()" placeholder="search..."/>
+                    </div>
+                    <!--<div class="form-group">
                         <select class="form-control" ng-model="location" ng-options="value.address as value.name group by value.category for value in filters" />
                     </div>
                     <div class="list-group" toggle="off" bubble target="mainSidebar">
                         <nav-view view='view' ng-repeat="view in panelsList track by view.id"></nav-view>
+                    </div>-->
+
+                    <div class="panel-group" role="tablist" aria-multiselectable="true" ng-model="panels.activePanel">
+                        <div class="list-group" toggle="off" bubble target="mainSidebar">
+                            <div class="list-group-item list-group-item-info" ng-repeat-start="category in categories track by category[0]">
+                                {{category[0]}}
+                            </div>
+                            <nav-view view='view' ng-repeat="view in category[1] track by view.id" ng-repeat-end></nav-view>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class EuroSCOREII extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('EuroSCOREII', 'EuroSCORE II', 'cardiology', EuroSCOREII)))();
+      static Ctor = (() => viewsCollection.add(new ViewDescription('EuroSCOREII', 'EuroSCORE II', 'Καρδιολογία', 'Καρδιολογία', EuroSCOREII)))();
 
     id: string = 'EuroSCOREII';
     name: string = 'EuroSCORE II';
-    category: string = 'cardiology';
+    category: string = 'Καρδιολογία';
+    tags: string = 'Καρδιολογία';
     template: string = 'calculator.basic';
     defaultValues = {
       Age: 65,

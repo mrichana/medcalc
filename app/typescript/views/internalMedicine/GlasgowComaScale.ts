@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class GlasgowComaScale extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('GlasgowComaScale', 'Κλίμακα Γλασκόβης', 'generic', GlasgowComaScale)))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('GlasgowComaScale', 'Κλίμακα Γλασκόβης', 'Παθολογία', 'Παθολογία', GlasgowComaScale)))();
 
     id: string = 'GlasgowComaScale';
     name: string = 'Κλίμακα Γλασκόβης';
-    category: string = 'generic';
+    category: string = 'Παθολογία';
+    tags: string = 'Παθολογία';
     template: string = 'calculator.basic';
     defaultValues = {
       GlasgowComaScale_Eyes: 4,

@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class BSA extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('BSA', 'Επιφάνεια Σώματος (BSA)', 'generic', BSA)))();
+      static Ctor = (() => viewsCollection.add(new ViewDescription('BSA', 'Επιφάνεια Σώματος (BSA)', 'Παθολογία', 'Παθολογία', BSA)))();
 
     id: string = 'BSA';
     name: string = 'Επιφάνεια Σώματος (BSA)';
-    category: string = 'generic';
+    category: string = 'Παθολογία';
+    tags: string = 'Παθολογία';
     template: string = 'calculator.basic';
     defaultValues = {
       Height: 170,

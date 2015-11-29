@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class Triplex_Continuity_Equation extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_Continuity_Equation', 'Εξίσωση Συνεχείας', 'triplex', Triplex_Continuity_Equation)))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_Continuity_Equation', 'Εξίσωση Συνεχείας', 'Υπερηχοκαρδιογράφημα', 'Υπερηχοκαρδιογράφημα', Triplex_Continuity_Equation)))();
 
     id: string = 'Triplex_Continuity_Equation';
     name: string = 'Εξίσωση Συνεχείας';
-    category: string = 'triplex';
+    category: string = 'Υπερηχοκαρδιογράφημα';
+    tags: string = 'Υπερηχοκαρδιογράφημα';
     template: string = 'calculator.basic';
     defaultValues = {
       Triplex_Continuity_Equation_A1_Diameter: 20,

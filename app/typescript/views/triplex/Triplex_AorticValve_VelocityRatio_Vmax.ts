@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class Triplex_AorticValve_VelocityRatio_Vmax extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_AorticValve_VelocityRatio_Vmax', 'Aortic Valve Velocity Ratio (Vmax)', 'triplex AoV Stenosis', Triplex_AorticValve_VelocityRatio_Vmax)))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_AorticValve_VelocityRatio_Vmax', 'Aortic Valve Velocity Ratio (Vmax)', 'Υπερηχοκαρδιογράφημα', 'Υπερηχοκαρδιογράφημα AoV Stenosis', Triplex_AorticValve_VelocityRatio_Vmax)))();
 
     id: string = 'Triplex_AorticValve_VelocityRatio_Vmax';
     name: string = 'Aortic Valve Velocity Ratio (Vmax)';
-    category: string = 'triplex AoV Stenosis';
+    category: string = 'Υπερηχοκαρδιογράφημα';
+    tags: string = 'Υπερηχοκαρδιογράφημα AoV Stenosis';
     template: string = 'calculator.basic';
     defaultValues = {
       Triplex_LVOT_Vmax: 1,

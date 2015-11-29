@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class KillipClassEval extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('KillipClassEval', 'Killip Class', 'cardiology stemi nstemi', KillipClassEval)))();
+      static Ctor = (() => viewsCollection.add(new ViewDescription('KillipClassEval', 'Killip Class', 'Καρδιολογία', 'Καρδιολογία stemi nstemi', KillipClassEval)))();
 
     id: string = 'KillipClassEval';
     name: string = 'Killip Class';
-    category: string = 'cardiology stemi nstemi';
+    category: string = 'Καρδιολογία';
+    tags: string = 'Καρδιολογία stemi nstemi';
     template: string = 'calculator.basic';
     defaultValues = {
       KillipClass: 'I'

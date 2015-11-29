@@ -4,16 +4,21 @@ module CalculatorViews {
   export class viewsCollection {
     private static _allList: IViewDescription[] = [];
     private static _categories: any = {};
+    private static _tags: any = {};
     private static _all: any = {};
 
     static add(viewDescription: IViewDescription): void {
       viewsCollection._allList.push(viewDescription);
       viewsCollection._all[viewDescription.id] = viewDescription;
 
-      var categories = viewDescription.category ? viewDescription.category.split(/\W+/g) : ['generic'];
-      _.each(categories, function(category) {
+      var category = viewDescription.category;
         viewsCollection._categories[category] = viewsCollection._categories[category] || {};
         viewsCollection._categories[category][viewDescription.id] = viewDescription;
+
+      var tags = viewDescription.tags.split(/\W+/g);
+      _.each(tags, function(tag) {
+        viewsCollection._tags[tag] = viewsCollection._tags[tag] || {};
+        viewsCollection._tags[tag][viewDescription.id] = viewDescription;
       });
     };
 
@@ -21,42 +26,84 @@ module CalculatorViews {
       return viewsCollection._all;
     };
 
-    static allList() {
+    static allList() : IViewDescription[] {
       return viewsCollection._allList;
     };
 
     static categories() {
-      return viewsCollection._categories;
+        return viewsCollection._categories;
     }
+
+    static tags() {
+        return viewsCollection._tags;
+    }
+
+    static filter(filterString: string, collection: IViewDescription[] = viewsCollection._allList): IViewDescriptionList {
+        var ft = filterString.toLowerCase();
+        var list = _.filter(collection, function (view) {
+            if (!view.category) return false;
+
+            if (view.name.toLowerCase().indexOf(ft) > -1) return true;
+            if (view.category.toLowerCase().indexOf(ft) > -1) return true;
+            if (view.tags.toLowerCase().indexOf(ft) > -1) return true;
+
+            return false;
+        });
+        var categories = _.groupBy(list, function (view) {
+            return view.category;
+        });
+        var tags = [];
+        _.forEach(list, function (view) {
+            tags = _.union(tags, view.tags.split(' '));
+        });
+
+        return {
+            list: list,
+            categories: categories,
+            tags: tags
+        };
+    }
+  }
+
+  export interface IViewDescriptionList {
+      list: IViewDescription[];
+      categories: { [category: string]: IViewDescription[] };
+      tags: string[];
   }
 
   export interface IViewDescription{
     id: string;
     name: string;
     category: string;
+    tags: string;
     factory(values?: any): IView;
   }
 
   export class ViewDescription implements IViewDescription {
-    constructor(id: string, name: string, category: string, type: typeof View) {
+    constructor(id: string, name: string, category: string, tags: string, type: typeof View) {
       this.id = id;
       this.name = name;
       this.category = category;
+      this.tags = tags;
+
       this.type = type;
     }
     id: string;
     name: string;
     category: string;
+    tags: string;
     private type: typeof View;
     factory(values?: any): IView {
       var ret = new this.type(values);
       _.each(ret.fields, function(field) {
         if (field.calculator) {
-          if (viewsCollection._all[field.calculator]) {
+          if (viewsCollection.all()[field.calculator]) {
             field.calculatorView = viewsCollection._all[field.calculator].factory(values);
           }
         }
       });
+      ret.init();
+      ret.result=ret.update();
 
       return ret;
     }
@@ -67,6 +114,7 @@ module CalculatorViews {
     id: string;
     name: string;
     category: string;
+    tags: string;
     template: string;
     defaultValues: any;
     fields: IField[];
@@ -75,10 +123,11 @@ module CalculatorViews {
 
     init(): void;
     reset(): void;
-    update(newValue: any, oldValue: any, scope: ng.IScope, field: IField): any;
+    update(): Result;
     validate(newValue: any, oldValue: any, scope: ng.IScope, field: IField): void;
 
     calculator(values: any): Result;
+    result: Result;
   }
 
   export class Result {
@@ -96,6 +145,7 @@ module CalculatorViews {
     id;
     name;
     category;
+    tags;
     template;
     defaultValues;
     fields;
@@ -119,8 +169,7 @@ module CalculatorViews {
       _.extend(this.values, this.defaultValues);
     }
 
-    update(newValue: any, oldValue: any, scope: ng.IScope, field: IField) {
-      this.validate(newValue, oldValue, scope, field);
+    update() {
       var result = this.calculator(this.values);
       this.values[this.id] = result.result;
       return result;
@@ -148,6 +197,10 @@ module CalculatorViews {
 
   interface IFieldInput {
     type: string;
+    max ?: number;
+    min ?: number;
+    step ?: number;
+    options ?: any[];
   }
 
   export interface IField {

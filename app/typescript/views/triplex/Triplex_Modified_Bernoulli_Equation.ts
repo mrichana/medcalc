@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class Triplex_Modified_Bernoulli_Equation extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_Modified_Bernoulli_Equation', 'Τροποποιημένη Εξίσωση Bernoulli', 'triplex', Triplex_Modified_Bernoulli_Equation)))();
+    static Ctor = (() => viewsCollection.add(new ViewDescription('Triplex_Modified_Bernoulli_Equation', 'Τροποποιημένη Εξίσωση Bernoulli', 'Υπερηχοκαρδιογράφημα', 'Υπερηχοκαρδιογράφημα', Triplex_Modified_Bernoulli_Equation)))();
 
     id: string = 'Triplex_Modified_Bernoulli_Equation';
     name: string = 'Τροποποιημένη Εξίσωση Bernoulli';
-    category: string = 'triplex';
+    category: string = 'Υπερηχοκαρδιογράφημα';
+    tags: string = 'Υπερηχοκαρδιογράφημα';
     template: string = 'calculator.basic';
     defaultValues = {
       Triplex_Modified_Bernoulli_Equation_V1: 0,

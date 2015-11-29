@@ -191,24 +191,18 @@ module directives {
         view: '='
       },
       link: ($scope: ng.IScope, element: ng.IAugmentedJQuery, attributes: IViewAttributes) => {
-        if ($scope.view.update) {
-          if ($scope.view.init) {
-            $scope.view.init();
-          }
-          _.each($scope.view.fields, function(field) {
+            _.each($scope.view.fields, function(field) {
             if (field.id != 'result') {
               $scope.$watch('view.values.' + field.id, function(newValue, oldValue, $scope) {
-                if ($scope.view.update) {
-                  $scope.view.result = $scope.view.update(newValue, oldValue, $scope, field);
-                }
+                $scope.view.validate(newValue, oldValue, $scope, field);
+                $scope.view.result = $scope.view.update();
               });
             };
           });
           _.each($scope.view.external, function(field) {
             $scope.$watch('view.values.' + field, function(newValue, oldValue, $scope) {
-              if ($scope.view.update) {
-                $scope.view.result = $scope.view.update(newValue, oldValue, $scope, null);
-              }
+              $scope.view.validate(newValue, oldValue, $scope, null);
+              $scope.view.result = $scope.view.update();
             });
           });
 //          $scope.$watchCollection('view.values.calculatorsActive', function() {
@@ -216,8 +210,7 @@ module directives {
 //              field.input.disabled = _.contains(_.keys($scope.view.values.calculatorsActive), field.id);
 //            });
 //          });
-        }
-
+  
         var templateName = $scope.view.template || 'calculator';
 
         var loader;
@@ -316,17 +309,20 @@ module directives {
       link: ($scope: ng.IScope, element: ng.IAugmentedJQuery, attributes: IVerifiedClickAttributes) => {
         element.on('tap click', function() {
           $scope.$apply(function() {
-            var waitTime = attributes.verifyWait || 1500;
+            var waitTime = attributes.verifyWait || 3000;
             if (!$scope.timer) {
-              $animate.addClass(element, 'verify');
+                $animate.addClass(element, 'verify');
+                $animate.addClass(element.children(), 'fa-spin');
               $scope.timer = $timeout(function() {
                 $scope.timer = false;
                 $animate.removeClass(element, 'verify');
+                $animate.removeClass(element.children(), 'fa-spin');
               }, waitTime);
             } else {
               $timeout.cancel($scope.timer);
               $scope.timer = false;
               $animate.removeClass(element, 'verify');
+              $animate.removeClass(element.children(), 'fa-spin');
               $scope.verifiedClick(element, attributes);
             }
           });

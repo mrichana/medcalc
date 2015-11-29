@@ -28,13 +28,22 @@ module.exports = function (grunt) {
 
         ts: {
             default: {
-                src: ["<%= yeoman.app %>/typescript/**/*.ts"],
-                watch: "<%= yeoman.app %>/typescript/"  //will re-run this task if any .ts or .html file is changed.
+              options: {
+                failOnTypeErrors: false
+              },
+              tsconfig: {
+                tsconfig: '<%= yeoman.app %>/typescript/',
+                passThrough: true
+              }
             }
         },
 
        // Watches files for changes and runs tasks based on the changed files
         watch: {
+            ts: {
+                files: ['<%= yeoman.app %>/typescript/{,*/}{,*/}{,*/}*.ts'],
+                tasks: ['ts']
+            },
             js: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
                 //tasks: ['newer:jshint:all'],
@@ -391,6 +400,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
+            'ts',
             'concurrent:server',
             'autoprefixer',
             'connect:livereload',
@@ -404,12 +414,13 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('build', [
+        'ts',
         'clean:dist',
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
         'concat',
-        //'ngmin',
+        'ngmin',
         'copy:dist',
         'cdnify',
         'cssmin',
@@ -427,12 +438,13 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('deploy', [
+        'ts',
         'clean:dist',
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
         'concat',
-        //'ngmin',
+        'ngmin',
         'copy:dist',
         'cdnify',
         'cssmin',

@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class ECG_QT extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('ECG_QT', 'mm σε msec', 'hidden', ECG_QT)))();
+      static Ctor = (() => viewsCollection.add(new ViewDescription('ECG_QT', 'mm σε msec', '', '', ECG_QT)))();
 
     id: string = 'ECG_QT';
     name: string = 'mm σε msec';
-    category: string = 'hidden';
+    category: string = '';
+    tag: string = '';
     template: string = 'calculator.basic';
     defaultValues = {
     ECG_QTmm: 10,

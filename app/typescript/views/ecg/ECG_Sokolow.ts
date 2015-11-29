@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class ECG_Sokolow extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('ECG_Sokolow', 'Δείκτης Sokolow-Lyon', 'ecg', ECG_Sokolow)))();
+      static Ctor = (() => viewsCollection.add(new ViewDescription('ECG_Sokolow', 'Δείκτης Sokolow-Lyon', 'ΗΚΓ', 'ΗΚΓ hypertrophic cardiomyopathy', ECG_Sokolow)))();
 
     id: string = 'ECG_Sokolow';
     name: string = 'Δείκτης Sokolow-Lyon';
-    category: string = 'ecg';
+    category: string = 'ΗΚΓ';
+    tags: string = 'ΗΚΓ υπερτροφική μυοκαρδιοπάθεια';
     template: string = 'calculator.basic';
     defaultValues = {
     ECG_V1S: 10,

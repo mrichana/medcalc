@@ -2,11 +2,12 @@ module CalculatorViews {
   'use strict';
 
   class ECG_Heart_Rate extends View {
-    static Ctor = (() => viewsCollection.add(new ViewDescription('ECG_Heart_Rate', 'Καρδιακή Συχνότητα', 'ecg af', ECG_Heart_Rate)))();
+      static Ctor = (() => viewsCollection.add(new ViewDescription('ECG_Heart_Rate', 'Καρδιακή Συχνότητα', 'ΗΚΓ', 'ΗΚΓ af', ECG_Heart_Rate)))();
 
     id: string = 'ECG_Heart_Rate';
     name: string = 'Καρδιακή Συχνότητα';
-    category: string = 'ecg af';
+    category: string = 'ΗΚΓ';
+    tags: string = 'ΗΚΓ af';
     template: string = 'calculator.basic';
     defaultValues = {
     ECG_HRQRS2QRSmm: 21,
