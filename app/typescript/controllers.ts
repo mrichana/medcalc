@@ -8,8 +8,13 @@
         location: string;
         views: CalculatorViews.IViewDescriptionList;
         panelsList: CalculatorViews.IView[];
-        categories: any[][];
+        categories: any;
         values: any;
+
+        CreateHeader(string):boolean;
+
+        currentCategory: string;
+
         clearPanel(id: string): void;
     }
 
@@ -21,30 +26,25 @@
             $scope.filterText = '';
             $scope.values = {};
 
-            $scope.onFilterTextChange = function () {
-                $scope.setFilter($scope.filterText);
+            $scope.$watch("filterText", function(newValue, olValue) {
+              $scope.setFilter(newValue);
+            });
+
+            $scope.currentCategory = '';
+            $scope.CreateHeader = function(category:string):boolean {
+              var showHeader = (category!=$scope.currentCategory);
+              $scope.currentCategory = category;
+              return showHeader;
             };
 
-            // $scope.setFilter = _.debounce(function (filterText: string ="") {
-            //     $scope.views = views.filter(filterText);
-            //     $scope.panelsList = _.map($scope.views.list, function (viewDesc: CalculatorViews.IViewDescription) {
-            //         return viewDesc.factory($scope.values);
-            //     });
-            //     $scope.categories = _.pairs($scope.views.categories);
-            // }, 200);
-            $scope.setFilter = function (filterText: string ="") {
+            ($scope.setFilter = function (filterText: string ="") {
                 $scope.views = views.filter(filterText);
                 $scope.panelsList = _.map($scope.views.list, function (viewDesc: CalculatorViews.IViewDescription) {
                     return viewDesc.factory($scope.values);
                 });
-                $scope.categories = _.pairs($scope.views.categories);
-            };
-            $scope.setFilter('');
-
-            //$scope.$on('$routeChangeSuccess', function (event, route) {
-            //    //$scope.setFilter(route.params.id);
-            //    $scope.location = $location.path();
-            //});
+                //$scope.categories = _.groupBy($scope.views.list, "category");
+                //$scope.categories = _.pairs($scope.views.categories);
+            })();
 
             $scope.clearPanel = function (id) {
                 var panel = _.find($scope.panelsList, function (panel) {

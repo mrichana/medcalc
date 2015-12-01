@@ -59,18 +59,3 @@ button[name=addPatient].ng-hide {
     font-size: 100%;
     margin: 20px 0;
 }
-
-.collapse.am-collapse {
-    animation-duration: .3s;
-    animation-timing-function: ease;
-    animation-fill-mode: backwards;
-    overflow: hidden;
-}
-.collapse.am-collapse .in-remove {
-    animation-name: collapse;
-    display: block;
-}
-.collapse.am-collapse .in-add {
-    animation-name: expand;
-}
-

@@ -94,11 +94,11 @@ module CalculatorViews {
     tags: string;
     private type: typeof View;
     factory(values?: any): IView {
-      var ret = new this.type(values);
+      var ret: View = new this.type(values);
       _.each(ret.fields, function(field) {
         if (field.calculator) {
           if (viewsCollection.all()[field.calculator]) {
-            field.calculatorView = viewsCollection._all[field.calculator].factory(values);
+            field.calculatorView = viewsCollection.all()[field.calculator].factory(values);
           }
         }
       });
@@ -142,15 +142,17 @@ module CalculatorViews {
   }
 
   export class View implements IView {
-    id;
-    name;
-    category;
-    tags;
-    template;
-    defaultValues;
-    fields;
+    id: string;
+    name: string;
+    category: string;
+    tags: string;
+    template: string;
+    defaultValues: any;
+    fields: IField[];
 
-    values;
+    values: any;
+
+    result: Result;
 
     constructor(values?: any) {
       this.values = values || {};
@@ -207,6 +209,8 @@ module CalculatorViews {
     id: string;
     name?: string;
     input: IFieldInput;
+    calculator ?: string;
+    calculatorView ?: IView;
   }
 
   export class GeneralField implements IField {
